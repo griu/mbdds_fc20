@@ -52,6 +52,14 @@ webshot::install_phantomjs()
 
 # configurar GIT des de R
 
+En el prompt de anaconda 3.
+
+```
+git config --global user.email "ferran.carrascosa@gmail.com"
+git config --global user.name "ferran.carrascosa"
+```
+
+
 # publicar kernel:
 
 ```
