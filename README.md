@@ -1,6 +1,6 @@
-# mbdds_fc20
+#### Requisitos de entorno Anaconda-Python
 
-aprendizaje de R y Python
+Para preprar el entornod de R y Anaconda hay que seguie los siguiente pasos. Se genera un nuevo Envornment de Anaconda llamado `mbdds_fc20_env`. 
 
 ```
 conda deactivate
@@ -8,35 +8,39 @@ conda create -n mbdds_fc20_env python=3.7.3
 conda activate mbdds_fc20_env
 ```
 
-Abrimos la linea de comandos de Anaconda 3.0:
+Abrimos la linea de comandos de Anaconda 3.0. Según el sistema operativo: 
 
-- Escrivimos Anaconda en Inicio de Windows y aparecera la consola MS-DOS de Anaconda.
+- En windows: Escrivimos Anaconda en Inicio de Windows y aparecera la consola MS-DOS de Anaconda.
+- En Linux: abrimos la consola bash
+
+A continuación se clona el repositorio
 
 ```
-cd Documents
+# En Windows: cd Documents  
+# En Linux: cd ~
 mkdir git
 cd git
-git clone https://github.com/griu/mbdds_fc20.git
+git clone https://github.com/griu/mbdds_fc20.git  # para clonar de cero
+git pull                                  # si ya esta clonado
 cd mbdds_fc20
-#python -m pip freeze > requirements.txt
-python -m pip install -r requirements.txt
+python -m pip install -r requirements.txt # instala requerimientos python
 ```
 
-# Des de RStudio
+#### Des de RStudio
 
 - Creamos nuevo proyecto
   - Existing Directory
   - git\mbdds_fc20
   - OK
 
-# info de conda
+#### info de conda
 
 ```
-(mbdds_fc20_env) C:\Users\alumno-02\Documents\git\mbdds_fc20>conda info --envs
-# conda environments:
-#
-base                     C:\ProgramData\Anaconda3
-mbdds_fc20_env        *  C:\Users\alumno-02\.conda\envs\mbdds_fc20_env
+conda info --envs
+## conda environments:
+##
+#base                     C:\ProgramData\Anaconda3
+#mbdds_fc20_env        *  C:\Users\alumno-02\.conda\envs\mbdds_fc20_env
 ```
 
 #  instalar packages des de R
@@ -46,21 +50,20 @@ install.packages("pander")
 install.packages("kableExtra")
 install.packages("tidyverse")
 install.packages("reticulate")
-install.packages("magick")
 webshot::install_phantomjs()
+install.packages("magick")
 ```
 
-# configurar GIT des de R
+#### configurar GIT des de R (sólo Windows)
 
 En el prompt de anaconda 3.
 
 ```
-git config --global user.email "ferran.carrascosa@gmail.com"
-git config --global user.name "ferran.carrascosa"
+git config --global user.email "usuario@dominio.com"
+git config --global user.name "usuario"
 ```
 
-
-# publicar kernel:
+#### Publicar kernel
 
 ```
 python -m ipykernel install --user --name mbdds_fc20_env --display-name "mbdds_fc20_env"
@@ -68,13 +71,11 @@ python -m ipykernel install --user --name mbdds_fc20_env --display-name "mbdds_f
 
 Puede tardar unos minutos en publicarse.
 
-# lanzar jupyter notebook
+#### Lanzar jupyter notebook
 
 ```
 jupyter notebook
 ```
 
 Ahora ya se pueden abrir notebooks con el environment.
-
-
 
