@@ -1,6 +1,11 @@
+# python
+.ipynb_checkpoints
+
+
 # History files
 .Rhistory
 .Rapp.history
+*.Rproj
 
 # Session Data files
 .RData
@@ -34,6 +39,8 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
+www/lib*
+
 
 # R Environment Variables
 .Renviron

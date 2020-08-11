@@ -13,9 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 library(pander)
 library(kableExtra)
-library(reticulate)
-use_python("/home/griu/anaconda3/envs/bds_griu_env/bin/python")
 suppressPackageStartupMessages(library(tidyverse))
+library(reticulate)
+use_python("C:/Users/alumno-02/.conda/envs/mbdds_fc20_env")
 panderOptions('table.split.table', Inf)
 panderOptions('decimal.mark', ",")
 panderOptions('big.mark', ".")
@@ -46,3 +46,20 @@ plot(density(rnorm(1000)))
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point()
 ```
+
+test kable - html
+
+```{r,echo =FALSE, results='hide',warning=FALSE}
+kable(mtcars %>% head(), "html" , booktabs=TRUE ) %>%
+  kable_styling(c("striped", "hover","condensed", "responsive")
+                ,font_size = 12,full_width = F) %>%
+  row_spec(1, color = "red",bold = TRUE)  %>%
+  column_spec(c(1,3),monospace=TRUE) %>%
+  save_kable("www/test.png")
+```
+
+![](www/test.png){width=500px}
+
+
+
+
