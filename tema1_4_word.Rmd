@@ -1,0 +1,48 @@
+---
+title: "MÓDULO: HERRAMIENTAS BIG DATA"
+subtitle: "1.4 HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN R Y PROGRAMACIÓN EN PYTHON"
+author: "Ferran Carrascosa Mallafrè"
+date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
+output:
+  word_document:
+    reference_docx: "www/template2.docx"
+---
+
+```{r setup, include=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(pander)
+library(kableExtra)
+library(reticulate)
+use_python("/home/griu/anaconda3/envs/bds_griu_env/bin/python")
+suppressPackageStartupMessages(library(tidyverse))
+panderOptions('table.split.table', Inf)
+panderOptions('decimal.mark', ",")
+panderOptions('big.mark', ".")
+panderOptions('missing', "")
+```
+
+# Ejecuta Python
+
+```{python, warning=FALSE}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df = pd.DataFrame({'X1':np.random.randn(100)})
+df[['X1']].plot(kind='hist')
+
+```
+
+# plot R
+
+```{r}
+plot(density(rnorm(1000)))
+```
+
+# plot ggplot2
+
+```{r}
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
+```

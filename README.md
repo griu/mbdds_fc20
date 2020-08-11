@@ -3,6 +3,7 @@
 aprendizaje de R y Python
 
 ```
+conda deactivate
 conda create -n mbdds_fc20_env python=3.7.3
 conda activate mbdds_fc20_env
 ```
@@ -20,3 +21,12 @@ cd mbdds_fc20
 #python -m pip freeze > requirements.txt
 python -m pip install -r requirements.txt
 ```
+
+# Des de RStudio
+
+- Creamos nuevo proyecto
+  - Existing Directory
+  - git\mbdds_fc20
+  - OK
+
+
