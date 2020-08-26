@@ -40,6 +40,7 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 www/lib*
+*.docx
 
 
 # R Environment Variables
