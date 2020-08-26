@@ -1,0 +1,124 @@
+
+## CONTROL DE FLUJO
+
+Existen distintos mecanismos para controlar el flujo de un programa. 
+
+### FUNCIONES
+
+Las funciones ayudan a automatizar piezas de nuestro código. 
+
+Para avanzar en el uso de R es importante entender un caso particular de funciones, las **funciones vectorizadas**. Éstas se aplican tantas veces como elementos tengamos en la entrada de la función. 
+
+Veamos unos ejemplos simples.
+
+```{r}
+a <- seq(2,8,2)
+a
+a + a
+sqrt(a)
+```
+
+Estas funciones se aplican a cada uno de los elementos del objeto `a`.
+
+Otro ejemplo, sería una función para reemplazar los valores faltantes con el valor cero.
+
+```{r}
+a <- c(3, NA, -8, NA)
+remplazar_na_cero <- function(x) {
+  x[is.na(x)] <- 0
+  return(x)
+}
+remplazar_na_cero(a)
+```
+
+En los siguientes puntos se presenta como vectorizar funciones sobre objetos R (vectores, listas, dataframes...).  
+
+### CONDICIONALES
+
+Una forma de modificar el flujo de un programa, es mediante el uso de expresiones `if-then-else`. Su forma más general sería la sigueinte.
+
+```{r}
+a <- 1
+b <- 1
+
+if (a > b){
+  print("a mayor que b")
+} else if (a < b) {
+  print("a menor que b")
+} else {
+  print("a igual a b")
+}
+```
+
+La expresión `if()` evalua un único valor lógico. Es habitual el uso de `any()` y `all()` para tratar condiciones sobre vectores.
+
+```{r}
+a <- c(4, NA, 5) 
+
+if (all(is.na(a))) {
+  print("todos son NA")
+} else if(any(is.na(a))) {
+  print("hay algun NA")
+} else {
+  print("no hay NA")
+}
+```
+
+La función `ifelse()` se peude utilizar sobre vectores y devuelve un vector.
+
+```{r}
+a <- c(2:-2)
+a
+sqrt(a)
+sqrt(ifelse(a>=0, a, NA))
+```
+
+`sqrt()` al aplicarse sobre valores negativos, devuelve un nuevo valor `NaN` (acrónimo de *Not a Number*). La expresión `ifelse()` evita el NaN devolviendo un `NA`.
+
+En R, habitualmente se utiliza la siguiente alternativa basada en filtros.
+
+```{r}
+raiz <- rep(NA, length(a))
+raiz[a>=0] <- sqrt(a[a>=0])
+raiz
+```
+
+### BUCLES
+
+Si bien existen bucles de tipo `while()` y `repeat`, el más habitual es `for()`. 
+El siguiente ejemplo muestra como calcular el cuadrado de un vector de números con `for()`.
+
+```{r}
+a <- seq(2,8,2)
+a
+cuadrados <- NULL
+
+for (x in a){
+  cuadrados <- c(cuadrados, x^2) 
+}
+cuadrados
+```
+
+La variable `x` recorre los elementos del objeto `a`. El resultado se va acumulando en forma de vector en el objeto `cuadrados`. 
+Esta forma de acumular el resultado, es poco eficiente, ya que obliga a ir ampliando la memoria en cada iteración. La forma correcta es, primero reservar el espacio y posteriormente rellenar el objeto:
+
+```{r}
+cuadrados <- rep(NA,length(a))
+
+for (i in 1:length(a)){
+  cuadrados[i] <- a[i]^2
+}
+cuadrados
+```
+
+Observa como ahora el bucle recorre los índices de posiciones del objeto `a`, no directamente sus elementos, esto permite que se pueda utilizar el mismo índice para rellenar el objeto `cuadrados`.
+
+En muchas ocasiones, se puede reemplazar el uso de un bucle mediante funciones de R vectorizadas. En este caso, la forma más simple de calcular los cuadrados de un vector es la siguiente.
+
+```{r}
+cuadrados <- a^2
+cuadrados
+```
+
+En el apartado de [RESUMENES DE AGREGADOS](#resumenes-de-agregados), se presenta las funciones de la familia `apply()`. Éstas representan una alternativa a los bucles for(), para aplicar una misma función de resumen (vectorizar) sobre agrupaciones de objetos de entrada (filas de una matriz, columnas de un data frame...).
+

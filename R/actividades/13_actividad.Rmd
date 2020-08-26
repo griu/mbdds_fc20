@@ -1,0 +1,42 @@
+---
+title: "<PON UN TITULO>"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(datos)
+suppressPackageStartupMessages(library(tidyverse))
+knitr::opts_chunk$set(echo = TRUE)
+
+# funcion describir
+describir <- function(data) {
+  p1 <- ggplot(data, aes(x=pib_per_capita, y=esperanza_de_vida
+      , color=continente, size=poblacion)) +
+    geom_point() +
+    scale_x_log10() +
+    labs(title="< TITULO DEL GRAFICO >"
+      , x = "TITULO DEL EJE X"
+      , y = "TITULO DEL EJE Y") +
+    facet_wrap(~anio)
+  print(p1)
+  return(summary(data))
+}
+```
+
+## 1.1. GRÁFICO DE DISPERSIÓN DE PAÍSES
+
+```{r, fig.width=11,fig.height=8, fig.cap="Panel países (Fuente: Elaboración propia con datos de Gapminder)", fig.align="center", message=FALSE}
+resumen <- describir(paises)
+```
+
+< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
+
+## 1.2. TABLA DESCRIPTIVA DE PAÍSES 
+
+```{r}
+kable(resumen, caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
+```
+
+< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
+

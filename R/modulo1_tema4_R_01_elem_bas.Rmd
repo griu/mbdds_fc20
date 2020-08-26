@@ -1,0 +1,240 @@
+
+## ELEMENTOS BÁSICOS DE R
+
+Aunque se presuponen unos conocimientos iniciales de R, a continuación se hace un repaso de R y RStudio.
+
+#### INTERFAZ DE USUARIO
+
+Si bien R funciona perfectamente des de consola de texto (R-GUI en windows o bien, ejecutando comando R desde xterm en Linux) en el curso se utilizará la interfaz gráfica de RStudio.  Ejecuta la siguiente línea.
+
+```{r}
+6 / (4 - 1)
+```
+
+> \<sabías que\>Puedes recuperar las líneas ejecutadas previamente apretando la tecla Arriba del cursor.\</sabías que\>
+
+##### RSTUDIO Y FICHEROS *.R
+
+El lenguaje R se puede escribir mediante editor de texto en ficheros con extensión `*.R`. El entorno RStudio (ver imagen), incorpora, además de un editor y de la consola de R, un conjunto de utilidades que facilitan las tareas de programación y análisis de datos: navegador de ficheros, ayuda, objetos en memoria, visor de gráficos...
+
+####### ![](www/rstudio.png){width=450px}
+######## Imagen: Entorno RStudio (Fuente: Elaboración propia).
+
+##### RSTUDIO Y DOCUMENTOS RMARKDOWN (*.Rmd)
+
+Puedes generar de forma dinámica documentos PDF, Word (como éste que estás leyendo) o HTML mediante ficheros de tipo Rmarkdown (*.Rmd). Este formato, permite combinar texto con formato, código R y resultados (tablas y gráfcos) ejecutados por R.
+
+> \<sabías que>Puedes acceder a versión RMarkdown de este documento en [Github.](https://github.com/griu/mbdds_fc20/blob/master/modulo1_tema4_R.Rmd)\</sabías que>
+
+##### ACTIVIDAD GUIADA 1.1.
+
+Genera tu primer documento RMarkdown. En RStudio, accede al menú `File > New File > R Markdown > Documentos > html` y edita `Title`y `Author` del formulario de la imagen y el formato de salida HTML > aprieta `OK`.
+
+####### ![](www/rmarkdown1.png){width=200px}
+######## Imagen: Menú de nuevo RMarkdown (Fuente: Elaboración propia).
+
+Guarda el documento generado automaticamente con el nombre `11_actividad.Rmd`. Ahora genera el documento apretando el botón **Knit**.
+
+Comparte con tus compañeros/as, en el foro del curso, tu experiencia, dudas, dificultades con algún otro formato de salida... 
+
+#### OBJETOS EN R
+
+##### ASIGNAR OBJETOS
+
+Puedes asignar datos a objetos R. Estos objetos se guardan en memoria.
+
+```{r}
+a <- 0
+a
+b <- a + 1
+b
+```
+
+> \<recuerda\>Se puede utilizar `=` , pero, en R se usa `<-` para diferenciarlo de los valores de los parámetros de las funciones.\</recuerda\>
+
+Consulta la [guía de estilo de Tydiverse](https://style.tidyverse.org/syntax.html#object-names) para crear nombres.
+
+##### LISTAR OBJETOS
+
+Los objetos aparecen en la pestaña de *environment* (ventana superior derecha). 
+
+También puedes acceder al listado con la función `ls()`.
+
+```{r}
+ls()
+```
+
+> \<piensa un minuto\>¿Por qué `cars` y `pressure` no aparecen en el environment? El motivo es porque no están en el environment global, están dentro de la librería (o package) `datasets`.\</ piensa un minuto\>
+
+##### GUARDAR OBJETOS
+
+Los objetos R, se pueden guardar en ficheros .RData con `save()`.
+
+```{r}
+save(a, b, file="www/ejemploSave.RData")
+# save.image(file="www/ejemploSave.RData")   # guarda todos lo objetos en memoria
+```
+
+##### BORRAR OBJETOS
+
+Se pueden borrar de la memoria con `rm()`:
+
+```{r}
+rm(a,b)
+rm(list=ls()) # borra todo el environment.
+ls()
+```
+
+##### CARGAR OBJETOS
+
+Para cargar en memoria de nuevo los objetos, se utiliza `load()`:
+
+```{r}
+load("www/ejemploSave.RData")
+ls()
+```
+
+#### FUNCIONES
+
+Las funciones se pueden separar en los siguientes componentes.
+
+##### NOMBRE DE LA FUNCIÓN
+
+Crea una función llamando a `function()` seguido de llaves, `{}`:
+
+```{r}
+describir <- function() {
+  plot(pressure)
+}
+```
+
+> \<recuerda\>El código (o **cuerpo**) de una función se escribe en formato *indented* (o sangría), añadiendo dos espacios a inicio de la fila dentro de las llaves.\</recuerda\>
+
+Llama la función seguido de paréntesis.
+
+```{r, fig.width=3,fig.asp=4/5, fig.cap='Resultado función `describir`'}
+describir()
+```
+
+Visualiza su código llamando la función sin paréntesis.
+
+```{r}
+describir
+```
+
+> \<importante\>Sigue las mismas pautas de estilo que en los nombres de los objetos. Además, se recomienda utilizar verbos:> \</importante\>
+
+```{r eval=FALSE}
+# Bien
+resumir()
+
+# Mal
+resumen()
+```
+
+##### PARÁMETROS DE ENTRADA 
+
+Se definen, entre paréntesis, después del nombre de la función. 
+
+```{r eval=FALSE}
+mi_funcion <- function(parametro1, paremtro2) {}
+```
+
+Antes, en la función `describir`, se ha utilizado `pressure` sin ser un parámetro de entrada. La forma correcta sería:
+
+```{r}
+describir <- function(data, type,  col = 'red', ...) {
+  plot(data, type = type, col = col, ...)
+}
+```
+
+Se han añadido tres parámetros utilizados por la función `plot`:
+
+- `type`: 'p' indica puntos, 'l' lineas. Ver `?plot`. 
+- `col`: 'red' cambia la linea a rojo. Ver `?colors`
+- `...`: Permite al usuario de  la función añadir parámetros nuevos. 
+
+Para llamar a la función:
+
+```{r, fig.width=3,fig.asp=4/5, fig.cap='Describir con Parámetros explícitos'}
+describir(pressure, type='l', main = "Presión de vapor del mercurio"
+  , xlab = "Temperatura (ºC)", ylab = "Presión (mm de Hg)", cex.main=1)
+```
+
+Internamente `plot` toma los nuevos parámetros:
+
+- `main`: Define el título **principal** del plot.
+- `xlab`: Define el título del **eje x**.
+- `ylab`:  Define el título del **eje y**.
+- `cex.main`:  modifica el tamaño de letra del título principal.
+
+##### Salida de la función: 
+
+La función devuelve objetos R cuando se llama a `return()`
+
+```{r}
+describir <- function(data, type,  col = 'red', ...) {
+  plot(data, type = type, col = col, ...)
+  return(summary(data))
+}
+```
+
+En el siguiente ejemplo se asigna la salida de `describir()` al objeto resumen:
+
+```{r, fig.show='hide'}
+resumen <- describir(pressure, type='l', main = "Presión de vapor del mercurio"
+  , xlab = "Temperatura (ºC)", ylab = "Presión (mm de Hg)", cex.main=1)
+```
+
+Posteriormente se puede visualizar el resumen:
+
+```{r, eval=FALSE}
+resumen
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(resumen, "html", booktabs=TRUE,align="r") %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1:2,monospace=TRUE ) %>%
+  save_kable("www/resumen.png")
+```
+
+![](www/resumen.png){width=200px}
+
+##### ACTIVIDAD GUIADA 1.2.
+
+Crea un resumen HTML de la `esperanza_de_vida` y el `pib_per_capita` en 2007 con datos de `países` del package `datos`.
+
+Para ello abre el fichero `12_actividad.Rmd y completa los apartados solicitados entre \< ... \> .
+
+Genera el informe HTML con el botón **Knit**.
+
+#### SCRIPTS
+
+Para crear un nuevo script de R puedes ir al menú: `File > New File > R Script`. Por ejemplo, escribe:
+
+```{r, eval=FALSE}
+print("Hello World!")
+```
+
+Ejecuta la línea situando el cursor encima y clica el botón **Run** (o `Ctrl + Enter`). 
+
+Guardar tu código: `File > Save as >` nombre del fichero.R (`holaMundo.R`).
+
+Ejecuta tu código con `source()`. 
+
+```{r}
+source("holaMundo.R")
+```
+> \<recuerda\>Si no utilizas `print()`, al realizar `source()`, no va a devolver ningún valor por pantalla.\</recuerda\>
+
+#### PAQUETES
+
+Se publican en [CRAN](https://cran.r-project.org/), un repositorio centralizado. Actualmente contiene más de 16 mil paquetes. 
+
+Los más importantes, como `stats`, `graphics`, `methods`, `base...` están ya disponibles en la consola. 
+
+Otros, por ejemplo `foreign` (leer datos de fuentes externas), vienen instalados, pero es necesario cargarlos con `library(foreign)` al abrir la sesión. 
+
+Otros, la mayoría, es necesario instalarlos antes con `install.packages("nombre_paquete")`.

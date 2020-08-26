@@ -1,0 +1,94 @@
+---
+title: "<PON UN TITULO>"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(datos)
+suppressPackageStartupMessages(library(tidyverse))
+library(ggrepel)
+
+knitr::opts_chunk$set(echo = TRUE)
+
+paises_informe <- paises
+ # Recodifica Oceanía por Asia
+paises_informe$continente[paises_informe$continente=="Oceanía"] <- "Asia"
+ # Elimina Oceanía de los levels
+paises_informe$continente <- factor(paises_informe$continente)
+
+# Paleta de colores
+colores_continente <- c("blue","green", "red", "yellow") 
+names(colores_continente) <- c("África", "Américas", "Asia", "Europa")
+
+# Etiquetas
+etiquetas_paises <- c("España","China","Etiopía","Canadá")
+
+
+# funcion describir
+describir <- function(data, colores, etiquetas) {
+  
+  # filtra paises con etiqueta
+  data_etiquetas <- data[data$pais %in% etiquetas, ]
+  
+  resultados <- list()
+
+  resultados[["pib_per_capita"]] <- 
+    ggplot(data, aes(y=pib_per_capita, group=anio)) +
+    geom_boxplot()+
+    scale_y_log10()
+
+  resultados[["esperanza_de_vida"]] <- 
+    ggplot(data, aes(x=anio, y=esperanza_de_vida, group=anio)) +
+    geom_boxplot()
+
+  resultados[["dispersion"]] <- ggplot(data, aes(x=pib_per_capita, y=esperanza_de_vida
+      , color=continente, size=poblacion)) +
+    geom_point() +
+    scale_x_log10() +
+    scale_colour_manual(values = colores) +
+    geom_label(data=data_etiquetas
+      , mapping=aes(x=pib_per_capita, y=esperanza_de_vida, label=pais)
+      , size=3, color="black") +
+    labs(title="< TITULO DEL GRAFICO >"
+      , x = "TITULO DEL EJE X"
+      , y = "TITULO DEL EJE Y") +
+    facet_wrap(~anio)
+
+  resultados[["summary"]] <- summary(data[,c("anio","continente","esperanza_de_vida","pib_per_capita")])
+  
+  return(resultados)
+}
+
+resumen <- describir(paises_informe, colores_continente, etiquetas_paises)
+```
+
+## 1.4.1. DESCRIPTIVO BOXPLOT
+
+```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot PIB per càpita (Continente y año) - Escala Log10", fig.align="center",message=FALSE}
+resumen[["pib_per_capita"]]
+```
+
+```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot Esperanza de vida (Continente y año)", fig.align="center",message=FALSE}
+resumen[["esperanza_de_vida"]]
+```
+
+< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
+
+## 1.4.2. GRÁFICO DE DISPERSIÓN DE PAÍSES
+
+```{r, echo=FALSE, fig.width=11,fig.height=8, fig.cap="Panel países (Fuente: Elaboración propia con datos de Gapminder)", fig.align="center",message=FALSE, dpi=150}
+resumen[["dispersion"]]
+```
+
+< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
+
+
+## 1.4.3. TABLA DESCRIPTIVA DE PAÍSES 
+
+```{r, echo=FALSE}
+kable(resumen[["summary"]], caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
+```
+
+< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
+

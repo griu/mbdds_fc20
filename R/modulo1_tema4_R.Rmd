@@ -1,0 +1,69 @@
+---
+title: "MÓDULO: HERRAMIENTAS BIG DATA"
+subtitle: "TEMA 4.1. HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN R"
+author: "Ferran Carrascosa Mallafrè"
+date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
+output:
+  word_document:
+    reference_docx: "www/template2.docx"
+    toc: true
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(pander)
+library(kableExtra)
+suppressPackageStartupMessages(library(tidyverse))
+panderOptions('table.split.table', Inf)
+panderOptions('decimal.mark', ",")
+panderOptions('big.mark', ".")
+panderOptions('missing', "")
+options(knitr.kable.NA = '')
+
+#En libreoffice para eliminar las lineas con resultados: 
+#  Reemplazar > expresiones regulares > ##.*
+```
+
+# PROGRAMACIÓN EN R
+
+## INTRODUCCIÓN
+
+El *Data science* permite transformar datos en conocimiento. El objetivo es aprender a utilizar las mejores herramientas disponibles en R para el *data science*.
+
+## ACTIVIDAD GUIADA
+
+La actividad guiada, que resolveremos a lo largo de este temario consiste en comprender la evolución de la riqueza y la esperanza de vida de las personas a nivel de país y continente.
+
+Para ello, contamos con los datos de [países](https://www.rdocumentation.org/packages/datos/versions/0.3.0/topics/paises) coleccionados por [Gapminder](https://www.gapminder.org/) y traducidos al Castellano en el package [datos](https://cran.r-project.org/web/packages/datos/index.html).  
+
+```{r}
+library(datos)
+paises07 <- as.data.frame(paises %>% filter(anio==2007))
+```
+
+```{r, eval=FALSE}
+paises07 %>% head(10)
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(paises07%>%head(10), "html", booktabs=TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  save_kable("www/pasies07.png")
+```
+
+![Fuente: http://www.gapminder.org/data/](www/pasies07.png){width=400px}
+
+Los datos muestran la esperanza de vida media en 142 países, población total y su nivel de riqueza medido con el [Producto Interior Bruto (PIB)](https://es.wikipedia.org/wiki/Producto_interno_bruto) per cápita.
+
+> \<recuerda\>El PIB per cápita se puede interpretar como el Salario medio que recibe cada persona del país.\</recuerda\>
+
+Para el análisis, el continente se recodificará incorporando Oceanía con Asia. 
+
+Para realizar el informe, nos apoyaremos en el package Rmarkdown.
+
+```{r,child=c('modulo1_tema4_R_01_elem_bas.Rmd','modulo1_tema4_R_02_ggplot2.Rmd','modulo1_tema4_R_03_colec_obj.Rmd','modulo1_tema4_R_04_contr_flujo.Rmd','modulo1_tema4_R_05_gest_dat.Rmd')}
+```
+

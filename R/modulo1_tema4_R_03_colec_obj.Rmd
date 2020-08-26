@@ -1,0 +1,722 @@
+
+## COLECCIONES DE OBJETOS
+
+### DEFINCIÓN DE LOS OBJETOS
+
+#### TIPO BÁSICOS
+
+##### NUMERIC
+
+Los números, en R, en general se guardan en coma flotante y doble precisión (`"double"`). 
+
+```{r}
+a <- 3.7
+class(a)
+typeof(a)
+```
+
+> \<recuerda\>Todo objeto tiene una clase que se puede consultar con la función `class()`. Adicionalmente se puede saber el tipo de datos interno con `typeof()`.\</recuerda\>
+
+La precisión doble es exacta hasta los 16 dígitos. La siguiente expresión debería dar 0, pero no es así.
+
+```{r}
+sqrt(2)^2 - 2
+```
+
+##### INTEGER
+
+Para indicar que es un entero, hay que finalizar el número con L mayúscula. Ahorran memoria pero pierden precisión. No es muy habitual su uso en Data Science.
+
+```{r}
+a <- 4L
+class(a)
+typeof(a)
+```
+
+##### LOGICAL
+
+Los tipos lógicos `TRUE` (o `T`) y `FALSE` (o `F`), son de uso común para filtrar vectores. 
+
+```{r}
+a <- 3 > 4
+a
+class(a)
+typeof(a)
+```
+
+Se pueden convertir a 1 y 0 (respectivamente) con `as.numeric()`.
+
+```{r}
+b <- as.numeric(a)
+b
+```
+
+#####  CHARACTER
+
+Texto entre comas simple o dobles.
+
+```{r}
+a <- "hola"  # o con comas simples: 'hola' 
+class(a)
+typeof(a)
+```
+
+#####  FACTOR
+
+Información categórica, por ejemplo, el color de los ojos. Por su naturaleza de conjunto, se explican dentro de la sección de vectores.
+
+#####  FECHAS Y HORARIOS
+
+Las fechas y horarios, son una clase compleja. Internamente son de tipo `"double"` con dos clases:  `"POSIXct"` `"POSIXt"`.
+
+```{r}
+a <- Sys.time()
+a
+class(a)
+typeof(a)
+```
+
+La clase `"POSIXct"` internamente almacena el número de **segundos** transcurridos entre la fecha y las 12:00 AM del 1 de enero de 1970 (en la zona del Tiempo Universal Coordinado (UTC)). Se puede obtener este valor con `unclass()`.
+
+```{r}
+unclass(a)  # muestra el valor interno de a
+```
+
+La clase `Date`, almacena sólo la fecha.
+
+```{r}
+b <- as.Date(a)
+b
+class(a)
+typeof(a)
+```
+
+La clase `Date` contiene el número de **días** transcurridos des de 1 de enero de 1970.
+
+```{r}
+unclass(b)
+```
+
+Se ampliará esta clase en el capítulo dedicado al package `lubridate`.
+
+#### VECTORES
+
+Se define mediante la función `c()`. Adopta el mismo tipo básico que los datos que lo componen.
+
+```{r}
+class(c(3.1,9.7))
+class(c(4L, 8L))
+class(c(TRUE, FALSE))
+class(c("es", "un", "vector"))
+class(c(Sys.Date(), Sys.Date() + 1, Sys.Date()+2))
+```
+
+##### LONGITUD
+
+Con `length()` se obtiene el número de elementos.
+
+```{r}
+a <- c(2,4,6)
+length(a)
+```
+
+##### NOMBRES
+
+Los vectores pueden tener atributos. Es de uso común el atributo `names`.
+
+```{r}
+names(a) <- c("dos","cuatro", "seis")
+a
+```
+
+##### OPERACIONES ARITMÉTICAS
+
+Operaciones aritméticas con vectores.
+
+```{r}
+c(1,2,3) * 2  # multiplicación por escalar
+c(1,2,3) + c(4,5,6) # suma vectores
+c(1,2,3) * c(4,5,6) # producto elemento a elemento
+```
+
+##### OPERACIONES CON TEXTO
+
+```{r}
+paste(1:3,c("uno","dos", "tres"), sep="-") # junta vectores
+paste(c("Hola,","Mundo!"), collapse = " ") # junta elementos de un vector
+substr("abcdefgh", 3, 4)   # subcadenas
+```
+
+##### SECUENCIAS
+
+```{r}
+3:5
+seq(from = 2, to = 6, by = 2)
+rep(0, times = 3)
+rep(1:3, each = 2)
+```
+
+##### FACTOR
+
+Son vectores de enteros, donde cada entero tiene asignado una etiqueta.  
+
+```{r}
+color_ojos <- factor(c("marron", "azul",  "azul", "verde"))
+color_ojos
+```
+
+El atributo `levels` contiene las etiquetas. Se puede consultar con `levels()`. Por defecto, los levels se crean en orden alfanumérico a  partir de los valores del vector. También se pueden definir por parámetro. 
+
+```{r}
+color_ojos <- factor(c("marron", "azul",  "azul", "verde"),
+                     levels = c("marron", "azul", "verde"))
+levels(color_ojos)
+```
+
+Los factores, se codifican internamente como 'integer'. Cada entero, contiene la posición en el vector de `levels`. Esta forma de codificar, ahorra memoria y acelera los cálculos. Se puede recuperar los valores `integer` con `unclass()`.
+
+```{r}
+class(color_ojos)
+typeof(color_ojos)
+unclass(color_ojos)
+```
+
+También se pueden transformar a `character` con `as.character()`.
+
+```{r}
+as.character(color_ojos)
+```
+
+#### MATRICES
+
+Las matrices añaden otra dimensión (fila) a los vectores (columna). 
+
+```{r}
+a <- matrix(1:6, ncol = 2)
+a
+```
+
+Por defecto se rellenan por columna, pero se puede modificar a rellenado por filas.
+
+```{r}
+a <- matrix(1:6, ncol = 2, byrow = TRUE)
+a
+```
+
+##### Dimensión
+
+Se puede consultar el número de filas y columnas con `dim()`, `ncol()` y `nrow()`.
+
+```{r}
+dim(a)
+nrow(a)
+ncol(a)
+```
+
+##### Nombres
+
+Se puede asignar nombres a las filas y a las columnas.
+
+```{r}
+colnames(a) <- paste0("V",1:ncol(a))
+rownames(a) <- LETTERS[1:(nrow(a))]
+a
+```
+
+##### Arrays
+
+Se puede generalizar las matrices a mas de 2 dimensiones con `array()`.
+
+```{r}
+a <- array(11:18, dim=c(2,2,2))
+a
+```
+
+#### LISTAS
+
+Las listas permiten agrupar objetos R con distintos tipos de datos.
+
+```{r}
+a <- list(11:13, "R", matrix(1:4,2,2))
+a
+```
+
+##### Nombres
+
+Se les puede asignar un nombre a cada elemento.
+
+```{r}
+names(a) <- c("es_num", "es_char", "es_matriz")
+```
+
+#### DATA FRAMES
+
+Formalmente son una lista de vectores de la misma longitud. Tienen forma de matriz.
+
+```{r}
+a <- data.frame(V1=c(1,2,3), V2=c("R","S","T"), V3=c(TRUE, FALSE,TRUE))
+class(a)
+typeof(a)
+```
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1:ncol(a),monospace=TRUE ) %>%
+  save_kable("www/dataframe.png")
+```
+
+![](www/dataframe.png){width=125px}
+
+Para conocer la estructura del objeto es útil la función `str()`.
+
+```{r}
+str(a)
+```
+
+Se utiizan las mismas reglas que en las matrices para saber la dimensión, nombres de filas y columnas.
+
+### FILTROS
+
+Para filtrar matrices y data frames se utiliza corchetes separados por coma `[,]`. En el caso de vectores, corchetes simples `[]`.
+
+Los datos de `paises07` servirán de ejemplo.
+
+```{r}
+class(paises07)
+dim(paises07)
+colnames(paises07)
+```
+
+Con `head()` (respec. `tail()`), se obtiene las primeras (resp. últimas) 6 filas.
+
+```{r, eval=FALSE}
+head(países)
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(head(paises07), "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1:ncol(head(paises07)),monospace=TRUE ) %>%
+  save_kable("www/headpaises07.png")
+```
+
+![](www/headpaises07.png){width=450px}
+
+#### ENTEROS POSITIVOS
+
+Se puede indicar las posiciones fila y columna a seleccionar. Por ejemplo, la esperanza de vida de Angola y Australia. 
+
+```{r}
+paises07[c(4,6),4]
+```
+
+Para evitar que el resultado pase de data frame a vector, se utiliza el parámetro `drop`.
+
+```{r, eval=FALSE}
+paises07[c(4,6), 4, drop=FALSE]
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(paises07[c(4,6), 4, drop=FALSE], "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1:ncol(paises07[c(4,6), 4, drop=FALSE]),monospace=TRUE ) %>%
+  save_kable("www/headpaises070.png")
+```
+
+![](www/headpaises070.png){width=125px}
+
+Si no se informa la columna (alternativamente fila), se seleccionan todos sus valores.
+
+```{r, eval=FALSE}
+paises07[c(4,6),]
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(head(paises07[c(4,6),]), "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1:ncol(head(paises07[c(4,6),])),monospace=TRUE ) %>%
+  save_kable("www/headpaises071.png")
+```
+
+![](www/headpaises071.png){width=450px}
+
+En el caso de vectores, se utiliza un solo corchete.
+
+```{r}
+a <- c(5,2,4,7,9)
+a[c(2,2,1,5)]
+```
+
+Observa que se pueden repetir posiciones o índices. Tampoco es necesario mantener un orden monótono en los índices.
+
+> \<sabías que\>R, a diferencia de otros lenguajes (C, Python...), empieza la posiciones en 1. Esto es habitual en lenguajes con un enfoque de programación matemática.\</sabías que\>
+
+#### ENTEROS NEGATIVOS
+
+Selecciona todas las columnas (alternativamente las filas) excepto las posiciones indicadas con valor negativo.
+
+```{r, eval=FALSE}
+head(paises07[,-c(3,5)])
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(head(paises07[,-c(3,5)]), "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1:ncol(head(paises07[,-c(3,5)])),monospace=TRUE ) %>%
+  save_kable("www/headpaises072.png")
+```
+
+![](www/headpaises072.png){width=350px}
+
+#### NOMBRES
+
+Se utiliza habitualmente para seleccionar las columnas por su nombre.
+
+```{r, eval=FALSE}
+head(paises07[, c("pais","esperanza_de_vida")])
+```
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(head(paises07[, c("pais","esperanza_de_vida")]), "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1:ncol(head(paises07[, c("pais","esperanza_de_vida")])),monospace=TRUE ) %>%
+  save_kable("www/headpaises073.png")
+```
+
+![](www/headpaises073.png){width=200px}
+
+#### DOLARES Y DOBLES CORCHETES
+
+En listas y data frames se puede obtener un elemento con `$nombre` , o bién, con corchetes dobles
+
+```{r}
+head(paises07$pib_per_capita)
+head(paises07[["esperanza_de_vida"]])
+```
+
+> \<sabías que\>Una fuente habitual de error es intentar seleccionar las columnas de un objeto `matrix` con `$nombre` o dobles corchetes. Esto produce un error.\</sabías que\>
+
+#### VALORES LÓGICOS
+
+Se seleccionan las posiciones con valores `TRUE` o `T` y se decartan las posiciones `FALSE` o `F`.
+
+```{r, eval=FALSE}
+head(paises07[,c(F, F, F, T, F, T)])
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(head(paises07[,c(FALSE, FALSE, FALSE, TRUE, FALSE, TRUE)]), "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1:ncol(head(paises07[,c(FALSE, FALSE, FALSE, TRUE, FALSE, TRUE)])),monospace=TRUE ) %>%
+  save_kable("www/headpaises074.png")
+```
+
+![](www/headpaises074.png){width=200px}
+
+La forma habitual de seleccionar elementos de una matriz es mediante expresiones lógicas.
+
+```{r, eval=FALSE}
+paises07[paises07$continente=="Oceanía",]
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(paises07[paises07$continente=="Oceanía",], "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1:ncol(paises07[paises07$continente=="Oceanía",]),monospace=TRUE ) %>%
+  save_kable("www/headpaises075.png")
+```
+
+![](www/headpaises075.png){width=450px}
+
+Para construir estas expresiones, puedes utilizar los siguientes operadores.
+
+```{r, include=FALSE}
+a <- data.frame(
+ Operador=c('a > b'
+    ,'a >= b'
+    ,'a < b'
+    ,'a <= b'
+    ,'a == b'
+    ,'a != b'
+    ,'a %in% c(b,c,d)')
+,Ejemplo=c('¿a mayor que b?'
+    ,'¿a mayor o igual que b?'
+    ,'¿a menor que b?'
+    ,'¿a menor o igual que b?'
+    ,'¿a igual a b?'
+    ,'¿a distinto b?'
+    ,'¿a esta en el vector b, c o d?'))
+kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1,monospace=TRUE ) %>%
+  save_kable("www/logicos1.png")
+```
+
+![Operadores lógicos: (fuente: elaboración propia)](www/logicos1.png){width=350px}
+
+Estos operadores resultan extremadamente útiles en vectores.
+
+```{r}
+1 > c(0, 1, 2)
+c(1, 2, 3) != c(3, 2, 1)
+```
+
+El operador `%in%` tiene un funcionamiento un poco distinto. Evalua cada elemento del objeto situado a su izquierda respecto a todos los  elementos del objeto situado a su derecha.
+
+```{r}
+c(1, 2, 3, 4) %in% c(3, 4, 5)
+```
+
+> \<recuerda\>En operadores booleanos utiliza `==` en vez del operador '='. Este último, hace la misma operación que `<-` de asignación de valores a objetos. \</recuerda\>
+
+#### OPERACIONES BOOLEANAS
+
+Puedes construir expresiones lógicas complejas utilizando los operadores booleanos habituales:
+
+```{r, include=FALSE}
+a <- data.frame(Operador=c('cond1 & cond2'
+    ,'cond1 | cond1','cond1 xor cond1'
+    ,'!cond1','any(cond1,cond2,...)','all(cond1,cond2,...)')
+  , Significado=c('¿Son las dos condiciones ciertas?'
+    ,'¿Es cierta alguna de las dos condiciones?'
+    , '¿Es cierta sólo una de las condiciones?'
+    , '¿Es falsa la condición?' 
+    , '¿Es cierta alguna de las condiciones?' 
+    , '¿Son ciertas todas las condiciones?'))
+kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1,monospace=TRUE ) %>%
+  save_kable("www/logicos2.png")
+```
+
+![Operaciones booleanas (fuente: elaboración propia)](www/logicos2.png){width=450px}
+
+Para seleccionar los países Asiáticos con esperanza de vida media en 2007 superior o igual a 80 años.
+
+```{r}
+consulta <- paises07[paises07$continente=="Asia" & paises07$esperanza_de_vida >= 80 ,]
+```
+
+```{r, eval=FALSE}
+consulta
+```
+
+```{r, include=FALSE}
+kable(consulta, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1:ncol(consulta),monospace=TRUE ) %>%
+  save_kable("www/logicos3.png")
+```
+
+![](www/logicos3.png){width=450px}
+
+### MODIFICACION DE VALORES
+
+R ofrece algunas facilidades para modificar los valores de sus objetos.
+
+#### FILTRO Y ASIGNACIÓN "`]<-`"
+
+Para modificar uno elemento de un vector, R te ofrece la posibilidad de aplicar un filtro con corchetes seguido de una asignación.
+
+```{r}
+a <- 1:6
+a[1] <- 10
+a
+```
+
+También puedes modificar varios elementos a la vez asignando un vector de la misma longitud.
+
+```{r}
+a[c(3,5)] <- c(300,500)
+a
+a[4:6] <- a[4:6] + 1
+a
+```
+
+Puedes añadir elementos nuevos a un vector.
+
+```{r}
+a[7] <- 7
+a
+```
+
+También puedes modificar varios elementos asignando un único valor.
+
+```{r}
+a[c(3,5,7)] <- 0
+a
+```
+
+En data frames (y listas) se pueden añadir columnas (resp. elementos).
+
+```{r}
+paises07$id <- 1:nrow(paises07)
+```
+
+```{r, eval=FALSE}
+head(paises07)
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(head(paises07), "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  column_spec(1:ncol(head(paises07)),monospace=TRUE ) %>%
+  save_kable("www/headpaises076.png")
+```
+
+![](www/headpaises076.png){width=500px}
+
+Modificar el nombre de una columna.
+
+```{r}
+colnames(paises07)[colnames(paises07)=="id"] <- "identificador"
+colnames(paises07)
+```
+
+Eliminar las columnas (resp. elmentos) con el objeto `NULL`.
+
+```{r}
+paises07$identificador <- NULL
+colnames(paises07)
+```
+
+#### INFORMACIÓN FALTANTE
+
+Para marcar los valores faltantes en R se utiliza la combinación `NA` (acrónimo de *Not Available*). Este valor especial tiene su propia aritmética.
+
+```{r}
+a <- 3 + c(NA, 4)
+a
+```
+
+Es decir, cuando un valor es desconocido, la mejor opción es no evaluar la suma con otros valores. Las expresiones lógicas se comportan de un modo similar.
+
+```{r}
+c(8, NA) > 0
+```
+
+##### SELECCION DE FILAS CON VALORES FALTANTES
+
+Para seleccionar las filas con valores faltantes, entre otros usos, puedes utilizar la  función `is.na()`. 
+
+```{r}
+# Introducimos algunos NA para el ejemplo
+paises07NA <- paises07
+paises07NA$pib_per_capita[c(34,70,108)] <- NA
+```
+
+```{r, eval=FALSE}
+summary(paises07NA)
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+kable(summary(paises07NA), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F,) %>%
+  column_spec(1:ncol(summary(paises07NA)),monospace=TRUE) %>%
+  save_kable("www/paisesNA1.png")
+```
+
+![](www/paisesNA1.png){width=550px}
+
+Para seleccionar los registos con missing en una columna.
+
+```{r, eval=FALSE}
+paises07NA[is.na(paises07NA$pib_per_capita),]
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+options(knitr.kable.NA = NA)
+kable(paises07NA[is.na(paises07NA$pib_per_capita),], "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F,) %>%
+  column_spec(1:ncol(paises07NA[is.na(paises07NA$pib_per_capita),]),monospace=TRUE) %>%
+  save_kable("www/paisesNA2.png")
+options(knitr.kable.NA = '')
+```
+
+![](www/paisesNA2.png){width=450px}
+
+##### FILTROS EN VARIABLES CON VALORES FALTANTES
+
+La pesencia de NA en una variable dificulta la definición de condiciones lógicas.  Por ejemplo, si seleccionamos países con PIB per cápita inferior a 500 dólares se obtiene el siguiente resultado incorrecto:
+
+```{r, eval=FALSE}
+paises07NA[paises07NA$pib_per_capita<500,]
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+options(knitr.kable.NA = NA)
+kable(paises07NA[paises07NA$pib_per_capita<500,], "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F,) %>%
+  column_spec(1:ncol(paises07NA[paises07NA$pib_per_capita<500,]),monospace=TRUE) %>%
+  save_kable("www/paisesNA2.png")
+options(knitr.kable.NA = '')
+```
+
+![](www/paisesNA2.png){width=450px}
+
+Esta problemática se puede resolver mediante la función `which()`.
+
+
+```{r, eval=FALSE}
+paises07NA[which(paises07NA$pib_per_capita<500),]
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+options(knitr.kable.NA = NA)
+kable(paises07NA[which(paises07NA$pib_per_capita<500),], "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F,) %>%
+  column_spec(1:ncol(paises07NA[which(paises07NA$pib_per_capita<500),]),monospace=TRUE) %>%
+  save_kable("www/paisesNA3.png")
+options(knitr.kable.NA = '')
+```
+
+![](www/paisesNA3.png){width=450px}
+
+La función `which()` devuelve la posición de los valores TRUE dentro de un vector.
+
+```{r}
+a <- c(NA, FALSE, NA, TRUE, FALSE, TRUE, NA )
+which(a)
+```
+
+> \<recuerda\>Utiliza which para "protejerte" de la presencia de valores faltantes en la definición de filtros.\</recuerda\>
+
+##### ACTIVIDAD GUIADA 1.4.
+
+Vamos a mejorar de nuevo el informe de los países introduciendo:
+
+- Haz un panel de boxplot por año del PIB per cápita (escala log10) y la esperanza de vida.
+- Mejora el gráfico de dispersión de países:
+   - Recodifica Oceanía como Asia y Modifica los colores de los continentes.
+   - Utiliza los siguiente paleta de colores:
+     - "blue": "África"
+     - "green": "Américas"
+     - "red": "Asia"
+     - "yellow": "Europa"
+   - Inserta Etiquetas para España, China, Etiopía y Canadá.
+
+Adapta los comentarios solicitados en `14_actividad.R`, ejecuta y observa:
+
+- Se ha recodificado una variable factor.
+- Se ha parametrizado los colores de los continentes y las etiquetas de los países.
+- La función `describir()` devuelve una lista de resultados (plots y tablas).
+- Se han introducido boxplots.
+- Se ha construido un data frame con los países con etiqueta.
+- Se ha seleccionado las variables a presentar en el summary.
+
+

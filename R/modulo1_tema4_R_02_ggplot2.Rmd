@@ -1,0 +1,132 @@
+
+## GRÁFICOS CON GGPLOT2
+
+> \<cita\>Un simple gráfico ha brindado más información a la mente del analista de datos que cualquier otro dispositivo. - John Tukey\</cita\>
+
+#### ESTRUCTURA BÁSICA DE GGPLOT2
+
+ggplot2 es un sistema coherente para hacer gráficos.
+
+```{r, fig.width=3.2,fig.asp=4/5, fig.cap='grafico de puntos'}
+library(ggplot2)
+ggplot(data = pressure) +  
+  geom_point(mapping = aes(x = temperature, y = pressure))
+```
+
+Los componentes mínimos son:
+
+- `ggplot` define el conjunto de datos en el parámetro `data` que debería contener todas las variables del gráfico.
+- `geom_<función>`: Define el tipo de gráfico. Por ejemplo, *geom_point* es un gráfico de puntos.
+- `mapping`: define mapeo de parámetros estéticos (`x`, `y`...) a través de la función `aes()`.
+
+A diferencia de `plot`, `ggplot` permite asignar el gráfico a un objeto R.
+
+```{r}
+p1 <- ggplot(data = pressure, mapping = aes(x = temperature, y = pressure)) +
+  geom_point()
+```
+
+Posteriormente, puedes añadirle otros elementos gráficos.
+
+```{r}
+p1 <- p1 + geom_line()
+```
+
+> \<importante\>Si defines el mapeo de estéticos en `ggplot` ya no es necesario definirlos en los geoms\</importante\>
+
+Para añadir títulos a los ejes utiliza `labs()`.
+
+```{r}
+p1 <- p1 +   labs(title = "Presión de vapor del mercurio"
+                  , x = "Temperatura (ºC)", y = "Presión (mm de Hg)")
+```
+
+Para obtener el plot, ejecuta el objeto.
+
+```{r, fig.width=3.2,fig.asp=4/5, fig.cap='grafico de líneas y puntos'}
+p1
+```
+
+Para añadir graduación continua del color por temperatura. 
+
+```{r, fig.width=4.7,fig.asp=4/7, fig.cap='Escala de color contínua'}
+p1 <- ggplot(data = pressure, mapping = aes(x = temperature, y = pressure
+    , color = temperature)) +
+  geom_point() +
+  geom_line() +
+  labs(title = "Presión de vapor del mercurio"
+    , x = "Temperatura (ºC)", y = "Presión (mm de Hg)"
+    , color = "Temperatura (ºC)")
+p1
+```
+
+
+#### OTROS GEOMS
+
+Otros ejemplos de geoms con los datos de países en 2007.
+
+```{r, warnings=FALSE, message=FALSE}
+library(ggrepel)
+
+paises07 <- as.data.frame(paises %>% filter(anio==2007))  # paises en 2007
+
+p1 <- ggplot(paises07, aes(x=esperanza_de_vida)) +
+  geom_histogram()
+
+p2 <- ggplot(paises07, aes(x=continente, fill=continente)) +
+  geom_bar()
+
+p3 <- ggplot(paises07, aes(y=esperanza_de_vida, fill=continente)) +
+  geom_boxplot()
+
+p4 <- ggplot(paises07 %>% arrange(desc(esperanza_de_vida)) %>% head(25),
+       aes(x=pib_per_capita, y=esperanza_de_vida)) +
+  geom_point() +
+  geom_label_repel(aes(label=pais), size=3)
+```
+
+```{r, echo=FALSE, fig.width=11,fig.height=5, warning=FALSE, message=FALSE}
+suppressPackageStartupMessages(library(cowplot))
+# arrange two plots into one column
+plot_grid(p1, p2, p3, p4,
+  labels = c("histograma","barras","boxplot","Etiquetas"), ncol = 2)
+```
+
+#### OTROS ELMENTOS GRÁFICOS
+
+Otros elementos a tener en cuenta en la presentación: 
+
+- Permite crear un panel de gráficos utilizando varaibles de segmentación: `facet_wrap()`  y `facet_grid()` 
+-	Insertar etiquetas y anotaciones de texto: consulta la función `annotate()`, `geom_text()`, `geom_label()`, `geom_label_repel()`.
+-	Escalas: Permite cambiar los valores de los ejes. Por ejemplo, consulta `scale_x_continuous()` y `scale_x_log10()`.
+- Colores: Para cambiar las paletas de colores consulta `scale_colour_discrete()`, `scale_colour_brewer()`, `scale_colour_manual()`, `scale_fill_viridis()`, `scale_colour_gradient()`...
+-	Zoom: Importante, para realizar zoom utiliza xlim e ylim en: `coord_cartesian()`.
+-	Temas: Personaliza posición de la leyenda y resto de elementos gráficos, tamaños colores, fuente... Consulta: `theme()` y `theme_bw()`.
+- Interactivos: packages [gganimate](https://gganimate.com/) y [plotly](https://plotly.com/r/).
+
+Para ampliar la lectura consulta:
+
+- [R for Data Science](https://r4ds.had.co.nz/) from Garrett Grolemund and Hadley Wickham.
+- [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/) de Hadley Wickham.
+- [ggplot2 extensions guide](https://exts.ggplot2.tidyverse.org/gallery/) lista los paquetes que extienden `ggplot2`.
+- La [{ggplot2} cheat sheet](https://www.statsandr.com/blog/files/ggplot2-cheatsheet.pdf).
+
+
+##### ACTIVIDAD GUIADA 1.3.
+
+Mejora el Crea un resumen HTML de la `esperanza_de_vida` y el `pib_per_capita` en 2007 con datos de `paises` del package `datos`.
+
+Para ello abre el fichero `13_actividad.Rmd y completa los apartados solicitados entre \< ... \> .
+
+Genera el informe HTML con el botón **Knit**.
+
+Observa:
+
+- Se han añadido parámetros estéticos: `color` y `size`.
+- La escala del eje x (pib_per_capita) se ha transformado a escala logarítmica con `scale_x_log10()`.
+- Se ha definido un panel temporal con `facet_wrap()` 
+- Hay que imprimir el gráfico con `print()`
+
+Adapta los comentarios a la nueva información y regenera el informe.
+
+> \<sabías que\>Hans Rosling de Gapminder utilizó un gráfico muy parecido a éste, añadiendo un quinto eje (el tiempo) en una famosa conferencia [TED Talk](https://www.ted.com/talks/hans_rosling_the_best_stats_you_ve_ever_seen) (14,6M de visualizaciones). Dedícale 1 minuto a ver la simulación dándole al botón de play (abajo izquierda), en el [siguiente enlace](https://www.gapminder.org/tools/#$chart-type=bubbles). La herramienta utilizada Trendalyzer fue posteriormente adquirida por Google.\</sabías que\>

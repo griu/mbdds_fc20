@@ -1,0 +1,43 @@
+---
+title: "< PON UN TITULO >"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(datos)
+suppressPackageStartupMessages(library(tidyverse))
+knitr::opts_chunk$set(echo = TRUE)
+
+
+# DATOS: Esto se explica mas adelante en el temario
+paises07_2VAR <- paises %>% 
+ filter(anio==2007)  %>%
+ select(pib_per_capita, esperanza_de_vida)
+
+# función describir
+describir <- function(data, type,  col = 'red', ...) {
+  plot(data, type = type, col = col, ...)
+  return(summary(data))
+}
+```
+
+## GRÁFICO DE DISPERSIÓN DE PAÍSES
+
+```{r, fig.cap="Fuente: Elaboración propia con datos de Gapminder", fig.align="center", message=FALSE}
+resumen <- describir(paises07_2VAR
+                     , type = "< TIPO DE GRAFICO >"
+                     , main = "< TITULO DEL GRAFICO >"
+                     , xlab = "< TITULO DEL EJE X >"
+                     , ylab = "< TITULO DEL EJE Y >", cex.main=1)
+```
+
+< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
+
+## TABLA DESCRIPTIVA DE PAÍSES 
+
+```{r}
+kable(resumen, caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
+```
+
+< DESCRIBE BREVEMENTE LO QUE OBSERVAS >

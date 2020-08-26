@@ -1,0 +1,11 @@
+Ranking IEEE	Lenguaje	Puntuación
+1	Python	100.0
+2	Java	95.3
+3	C	94.6
+4	C++	87.0
+5	JavaScript	79.5
+6	R	78.6
+7	Arduino	73.2
+8	Go	73.1
+9	Swift	70.5
+10	Matlab	68.4
