@@ -1,13 +1,17 @@
 ---
-title: "MÓDULO: HERRAMIENTAS BIG DATA"
-subtitle: "TEMA 4.1. HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN R"
+title: 'MÓDULO: HERRAMIENTAS BIG DATA'
 author: "Ferran Carrascosa Mallafrè"
 date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
 output:
   word_document:
-    reference_docx: "www/template2.docx"
-    toc: true
+    reference_docx: www/template2.docx
+    toc: yes
     toc_depth: 3
+  html_document:
+    toc: yes
+    toc_depth: '6'
+    df_print: paged
+subtitle: 'TEMA 4.1. HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN R'
 ---
 
 ```{r setup, include=FALSE}
@@ -67,3 +71,5 @@ Para realizar el informe, nos apoyaremos en el package Rmarkdown.
 ```{r,child=c('modulo1_tema4_R_01_elem_bas.Rmd','modulo1_tema4_R_02_ggplot2.Rmd','modulo1_tema4_R_03_colec_obj.Rmd','modulo1_tema4_R_04_contr_flujo.Rmd','modulo1_tema4_R_05_gest_dat.Rmd')}
 ```
 
+```{r, child='README.md'}
+```

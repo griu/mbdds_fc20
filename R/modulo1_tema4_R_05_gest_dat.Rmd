@@ -25,7 +25,7 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
 
 ![](www/readmtcars0.png){width=400px}
 
-Dado que se trata de un fichero con un carcater separado, la función genérica para teste tipo de fiheros es `read.table()`.
+Dado que se trata de un fichero con un carácter separado, la función genérica para teste tipo de ficheros es `read.table()`.
 
 ```{r}
 mtcars <- read.table("www/mtcars.csv", dec=".",sep=",", header=TRUE)
@@ -34,10 +34,10 @@ mtcars <- read.table("www/mtcars.csv", dec=".",sep=",", header=TRUE)
 Los parámetros especificados son:
 
 - `dec`: El separador decimal. En Europa se acostumbra a utilizar la coma ",".
-- `sep`: El separador de columnas. Es habitual usar también ";" y "\t" cuando es un tabulador.
+- `sep`: El separador de columnas. Es habitual usar también ";" y "\\t" cuando es un tabulador.
 - `header`: Indica si la primera fila contiene el nombre de las variables o no.
 
-También es común el uso de `fileEncoding="Latin1"` cuando el fichero se ha creado en con Windows y utiliza carácteres especiales de texto (tildes, ...).
+También es común el uso de `fileEncoding="Latin1"` cuando el fichero se ha creado con Windows y utiliza carácteres especiales de texto (tildes, ...).
 
 Dada la estructura del fichero, con `read.csv()` la carga es más simple.
 
@@ -136,7 +136,7 @@ fwf_sample <- read.fwf("www/fwf-sample.txt", widths=c(20,10,12)
                      , col.names=c("name", "state", "ssn"))
 ```
 
-- `widths`: Son los ansho de cada variable.
+- `widths`: Son los anchos de cada variable.
 - `col.names`: Nombres de las variables.
 
 ```{r, eval=FALSE}
@@ -156,7 +156,7 @@ options(knitr.kable.NA = '')
 
 ### CRUCE ENTRE TABLAS
 
-Para cruzar 2 o mas tablas es necesario que estas compartan un conjunto de índices. 
+Para cruzar 2 o más tablas es necesario que éstas compartan un conjunto de índices. 
 
 #### CRUCES POR ORDENACIÓN
 
@@ -264,7 +264,7 @@ Un campo clave consiste en una variable que identifica cada registro de forma ú
 
 Por ejemplo, `pais` y `continente` son campos clave ya que identifican de forma única a sus respectivas entidades en la tabla de `paises`.
 
-Antes de realizar cualquier cruce por campos clave, es importante saber si este tiene o no duplicados. 
+Antes de realizar cualquier cruce por campos clave, es importante saber si éste tiene o no duplicados. 
 
 ##### VECTOR DE CLAVES
 
@@ -342,11 +342,11 @@ options(knitr.kable.NA = '')
 
 ![](www/a_full.png){width=115px}
 
-Observa ahora, no ha descartado ningún registro de las tablas orígen. Además, ha rellenado con `NA` los campos que no cruzan. Este comportamiento en SQL es conocido como *FULL JOIN* .
+Observa ahora, no ha descartado ningún registro de las tablas origen. Además, ha rellenado con `NA` los campos que no cruzan. Este comportamiento en SQL es conocido como *FULL JOIN* .
 
 ###### LEFT JOIN
 
-Para imponer que conserve **todos los valores orígen de la tabla izquierda** (`a1`) y que descarte los de la taba derecha que no sean compartidos utiliza `all.x=TRUE`.
+Para imponer que conserve **todos los valores origen de la tabla izquierda** (`a1`) y que descarte los de la taba derecha que no sean compartidos utiliza `all.x=TRUE`.
 
 ```{r}
 a_left <- merge(a1, a2, all.x = TRUE)
@@ -369,7 +369,7 @@ options(knitr.kable.NA = '')
 
 ![](www/a_left.png){width=115px}
 
-Vemos que ID=1 ahora esta presente y ID=4 ha quedado descartado. Tambien que ID=3 sólo aparece una vez. Este comportamiento en SQL, es conocido como LEFT JOIN .
+Vemos que ID=1 ahora esta presente y ID=4 ha quedado descartado. También que ID=3 sólo aparece una vez. Este comportamiento en SQL, es conocido como LEFT JOIN .
 
 ###### RIGHT JOIN
 
@@ -430,7 +430,7 @@ options(knitr.kable.NA = '')
 
 ![](www/a_comparte.png){width=140px}
 
-R ha añadido el sufijo `.x` y `.y` a `X1`, porqué es una variable compartida que ahora no es clave para el cruce. Observa también que ID=3 aparece 2 veces ya que esta duplicado en la tabla `a2`.
+R ha añadido el sufijo `.x` y `.y` a `X1`, porque es una variable compartida que ahora no es clave para el cruce. Observa también que ID=3 aparece 2 veces ya que está duplicado en la tabla `a2`.
 
 ### RESUMENES DE AGREGADOS 
 
@@ -678,7 +678,7 @@ ggplot(agg3, aes(x=pib_per_capita
 
 Como se ha comentado, las funciones apply permiten vectorizar las operaciones de forma eficiente, sin utilizar bucles `for()`.
 
-##### tapply
+##### TAPPLY
 
 Es una alternativa a aggregate() para aplicar una función de agregación sobre una única variable y segmentando por un único eje.
 
@@ -686,7 +686,7 @@ Es una alternativa a aggregate() para aplicar una función de agregación sobre 
 tapply(paises07$esperanza_de_vida,paises07$continente,quantile,probs=0.25)
 ```
 
-##### lapply
+##### LAPPLY
 
 Permite aplicar una función sobre cada elemento de un vector o lista. Devuelve una lista.
 
@@ -694,7 +694,7 @@ Permite aplicar una función sobre cada elemento de un vector o lista. Devuelve 
 lapply(paises07[,-1], function(x) summary(x))
 ```
 
-##### sapply
+##### SAPPLY
 
 Misma funcionalidad que lapply, pero simplificando el resultado a vector cuando es posible.
 
@@ -702,7 +702,7 @@ Misma funcionalidad que lapply, pero simplificando el resultado a vector cuando 
 sapply(paises07, function(x) class(x))
 ```
 
-##### apply()
+##### APPLY
 
 calcula agregados sobre cada una de lo vectores marginas fila (`MARGIN = 1`), alternativamente columna (`MARGIN = 2`) de una matriz.
 

@@ -7,6 +7,10 @@ output:
     reference_docx: www/template2.docx
     toc: yes
     toc_depth: 3
+  html_document:
+    toc: yes
+    toc_depth: '6'
+    df_print: paged
 subtitle: 'TEMA 4: HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN R Y PROGRAMACIÓN EN PYTHON'
 ---
 
@@ -131,9 +135,7 @@ Se recomienda aprovechar todos los recursos disponibles online:
 
 ## PROGRAMACIÓN EN R
 
-Descarga el proyecto Git y prepara el entorno RStudio según se indica en el README del [anexo](#anexo-readme). 
-
-Puedes ejecutar el temario de R de forma interactiva accediendo con RSTudio a tu directorio git local, o bien, consultar los fuentes en Github.
+Puedes ejecutar el temario de R de forma interactiva accediendo con RStudio a tu directorio git local, o bien, consultar los códigos fuente en Github.
 
 - [Introducción](https://github.com/griu/mbdds_fc20/blob/master/R/modulo1_tema4_R.Rmd).
 - [Elementos básicos de R](https://github.com/griu/mbdds_fc20/blob/master/R/modulo1_tema4_R_01_elem_bas.Rmd).
@@ -144,9 +146,9 @@ Puedes ejecutar el temario de R de forma interactiva accediendo con RSTudio a tu
 
 # PROGRAMACIÓN EN PYTHON
 
-El temario de Python se pueden ejecutar des de Colab, accediendo directamente des del enlace que encontraras en cada notebooks. Aunque no es imprescindible, también puedes usar el entorno de Jupyter local tal cual se explica en la guía del README del [anexo](#anexo-readme).
+El temario de Python se pueden ejecutar desde Colab, accediendo directamente desdel enlace que encontrarás en cada notebooks. Aunque no es imprescindible, también puedes usar el entorno de Jupyter local tal cual se explica en la guía del README del [anexo](#anexo-readme).
 
-Puedes ejecutar de forma interactiva los materiales de Python en Colab en el enalce que encontras en la cabecera de los siguientes notebooks.
+Puedes ejecutar de forma interactiva los materiales de Python en Colab en el enlace que encontrás en la cabecera de los siguientes notebooks.
 
    - [Introducción](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py.ipynb).
    - [Elementos básicos de Python](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_01_elem_bas.ipynb).

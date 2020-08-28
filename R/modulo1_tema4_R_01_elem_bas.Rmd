@@ -168,7 +168,7 @@ Internamente `plot` toma los nuevos parámetros:
 - `ylab`:  Define el título del **eje y**.
 - `cex.main`:  modifica el tamaño de letra del título principal.
 
-##### Salida de la función: 
+##### SALIDA DE LA FUNCIÓN 
 
 La función devuelve objetos R cuando se llama a `return()`
 

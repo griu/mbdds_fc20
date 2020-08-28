@@ -203,7 +203,7 @@ a <- matrix(1:6, ncol = 2, byrow = TRUE)
 a
 ```
 
-##### Dimensión
+##### DIMENSIÓN
 
 Se puede consultar el número de filas y columnas con `dim()`, `ncol()` y `nrow()`.
 
@@ -213,7 +213,7 @@ nrow(a)
 ncol(a)
 ```
 
-##### Nombres
+##### NOMBRES
 
 Se puede asignar nombres a las filas y a las columnas.
 
@@ -223,7 +223,7 @@ rownames(a) <- LETTERS[1:(nrow(a))]
 a
 ```
 
-##### Arrays
+##### ARRAYS
 
 Se puede generalizar las matrices a mas de 2 dimensiones con `array()`.
 
@@ -241,7 +241,7 @@ a <- list(11:13, "R", matrix(1:4,2,2))
 a
 ```
 
-##### Nombres
+##### NOMBRES
 
 Se les puede asignar un nombre a cada elemento.
 

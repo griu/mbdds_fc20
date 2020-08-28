@@ -26,7 +26,7 @@ describir <- function(data, type,  col = 'red', ...) {
 
 ```{r, fig.cap="Fuente: Elaboración propia con datos de Gapminder", fig.align="center", message=FALSE}
 resumen <- describir(paises07_2VAR
-                     , type = "< TIPO DE GRAFICO >"
+                     , type = "p"
                      , main = "< TITULO DEL GRAFICO >"
                      , xlab = "< TITULO DEL EJE X >"
                      , ylab = "< TITULO DEL EJE Y >", cex.main=1)
