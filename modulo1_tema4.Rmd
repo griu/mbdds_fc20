@@ -153,7 +153,7 @@ Puedes ejecutar de forma interactiva los materiales de Python en Colab en el enl
 
 - [Introducción](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py.ipynb).
 - [Elementos básicos de Python](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_10_elem_bas.ipynb).
-- [Gráficos con matplotlib](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_20_ggplot2.ipynb).
+- [Gráficos con matplotlib](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_20_matplotlib.ipynb).
 - Colecciones de objetos:
    - [Listas, tuplas y diccionarios](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_30_colec_obj.ipynb).
    - [Numpy](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_31_numpy.ipynb).
