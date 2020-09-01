@@ -143,19 +143,24 @@ Puedes ejecutar el temario de R de forma interactiva accediendo con RStudio a tu
 - [Colecciones de objetos](https://github.com/griu/mbdds_fc20/blob/master/R/modulo1_tema4_R_03_colec_obj.Rmd).
 - [Control de flujo](https://github.com/griu/mbdds_fc20/blob/master/R/modulo1_tema4_R_04_contr_flujo.Rmd).
 - [Gestión de datos](https://github.com/griu/mbdds_fc20/blob/master/R/modulo1_tema4_R_05_gest_dat.Rmd).
+- [Anexo: README de R](https://github.com/griu/mbdds_fc20/blob/master/Python/README.md).
 
 # PROGRAMACIÓN EN PYTHON
 
-El temario de Python se pueden ejecutar desde Colab, accediendo directamente desdel enlace que encontrarás en cada notebooks. Aunque no es imprescindible, también puedes usar el entorno de Jupyter local tal cual se explica en la guía del README del [anexo](#anexo-readme).
+El temario de Python se pueden ejecutar desde Colab, accediendo directamente desdel enlace que encontrarás en cada notebooks. Aunque no es imprescindible, también puedes usar el entorno de Jupyter local tal cual se explica en la guía en el [Anexo: README de Python](#anexo-readme).
 
 Puedes ejecutar de forma interactiva los materiales de Python en Colab en el enlace que encontrás en la cabecera de los siguientes notebooks.
 
-   - [Introducción](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py.ipynb).
-   - [Elementos básicos de Python](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_01_elem_bas.ipynb).
-   - [Gráficos con matplotlib](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_02_ggplot2.ipynb).
-   - [Colecciones de objetos](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_03_colec_obj.ipynb).
-   - [Control de flujo](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_04_contr_flujo.ipynb).
-   - [Gestión de datos](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_05_gest_dat.ipynb).
+- [Introducción](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py.ipynb).
+- [Elementos básicos de Python](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_10_elem_bas.ipynb).
+- [Gráficos con matplotlib](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_20_ggplot2.ipynb).
+- Colecciones de objetos:
+   - [Listas, tuplas y diccionarios](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_30_colec_obj.ipynb).
+   - [Numpy](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_31_numpy.ipynb).
+   - [Pandas](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_32_pandas.ipynb).
+- [Control de flujo](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_40_contr_flujo.ipynb).
+- [Gestión de datos](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_50_gest_dat.ipynb).
+- [Anexo: README de Python](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_60_anexo.ipynb).
 
 # IDEAS CLAVE
 

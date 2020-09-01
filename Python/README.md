@@ -3,12 +3,12 @@
 
 ## PREPARACIÓN DEL ENTORNO COLAB
 
-Des de [Colab](http://colab.research.google.com), hay que clonar el repositorio cada vez que inicias un nuevo libro. En los libros se incluyen el código necesario.
+Des de [Colab](http://colab.research.google.com), hay que clonar el repositorio y preprar el entorno, cada vez que inicias un nuevo libro. En los libros se incluye el código necesario.
 
 ```
 if 'google.colab' in str(get_ipython()):
     !git clone https://github.com/griu/mbdds_fc20.git /content/mbdds_fc20
-    !git pull
+    !git -C /content/mbdds_fc20 pull
     %cd /content/mbdds_fc20/Python
     !python -m pip install -r requirementsColab.txt
 ```
@@ -73,5 +73,5 @@ conda activate mbdds_rpy20
 jupyter notebook
 ```
 
-Debería abrirse un navegador con acceso a Jupyter desde donde podrás acceder a los notebooks.
+Debería abrirse un navegador con acceso a Jupyter desde donde podrás acceder a los notebooks.  Habitualmente el servidor Jupyter se abre en http://localhost:8888/ .
 

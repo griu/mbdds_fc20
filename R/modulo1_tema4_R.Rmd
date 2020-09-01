@@ -1,5 +1,5 @@
 ---
-title: 'MÓDULO: HERRAMIENTAS BIG DATA'
+title: 'MÓDULO 1: HERRAMIENTAS BIG DATA'
 author: "Ferran Carrascosa Mallafrè"
 date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
 output:
@@ -36,7 +36,7 @@ options(knitr.kable.NA = '')
 
 El *Data science* permite transformar datos en conocimiento. El objetivo es aprender a utilizar las mejores herramientas disponibles en R para el *data science*.
 
-## ACTIVIDAD GUIADA
+## ACTIVIDAD GUIADA 1
 
 La actividad guiada, que resolveremos a lo largo de este temario consiste en comprender la evolución de la riqueza y la esperanza de vida de las personas a nivel de país y continente.
 

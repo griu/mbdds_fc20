@@ -33,7 +33,7 @@ Genera tu primer documento RMarkdown. En RStudio, accede al menú `File > New Fi
 ####### ![](www/rmarkdown1.png){width=200px}
 ######## Imagen: Menú de nuevo RMarkdown (Fuente: Elaboración propia).
 
-Guarda el documento generado automaticamente con el nombre `11_actividad.Rmd`. Ahora genera el documento apretando el botón **Knit**.
+Guarda el documento generado automáticamente con el nombre `11_actividad.Rmd`. Ahora genera el documento apretando el botón **Knit**.
 
 Comparte con tus compañeros/as, en el foro del curso, tu experiencia, dudas, dificultades con algún otro formato de salida... 
 
@@ -150,8 +150,8 @@ describir <- function(data, type,  col = 'red', ...) {
 
 Se han añadido tres parámetros utilizados por la función `plot`:
 
-- `type`: 'p' indica puntos, 'l' lineas. Ver `?plot`. 
-- `col`: 'red' cambia la linea a rojo. Ver `?colors`
+- `type`: 'p' indica puntos, 'l' líneas. Ver `?plot`. 
+- `col`: 'red' cambia la línea a rojo. Ver `?colors`
 - `...`: Permite al usuario de  la función añadir parámetros nuevos. 
 
 Para llamar a la función:

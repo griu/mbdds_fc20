@@ -96,7 +96,7 @@ plot_grid(p1, p2, p3, p4,
 
 Otros elementos a tener en cuenta en la presentación: 
 
-- Permite crear un panel de gráficos utilizando varaibles de segmentación: `facet_wrap()`  y `facet_grid()` 
+- Permite crear un panel de gráficos utilizando variables de segmentación: `facet_wrap()`  y `facet_grid()` 
 -	Insertar etiquetas y anotaciones de texto: consulta la función `annotate()`, `geom_text()`, `geom_label()`, `geom_label_repel()`.
 -	Escalas: Permite cambiar los valores de los ejes. Por ejemplo, consulta `scale_x_continuous()` y `scale_x_log10()`.
 - Colores: Para cambiar las paletas de colores consulta `scale_colour_discrete()`, `scale_colour_brewer()`, `scale_colour_manual()`, `scale_fill_viridis()`, `scale_colour_gradient()`...

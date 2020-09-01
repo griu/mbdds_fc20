@@ -17,13 +17,13 @@ Crea un nuevo proyecto de RStudio sobre tu directorio local.
 
 `File > New Project > Existing Directory > mbdds_fc20 > OK`
 
-El nuevo proyecto ya esta conecto a Git.
+El nuevo proyecto ya está conectado a Git.
 
 #### INSTALAR PACKAGES DES DE R
 
-En el entorno de Linux, (no Windows) es necesario haber instalado des del terminal las siguientes paquetes: `libxml2-dev`, `libssl-dev`, `libcurl4-openssl-dev` y `libmagick++-dev` .
+En el entorno de Linux, (no Windows) es necesario haber instalado des del terminal los siguientes paquetes: `libxml2-dev`, `libssl-dev`, `libcurl4-openssl-dev` y `libmagick++-dev` .
 
-Instala de uno en uno los siguientes paquetes des de consola de RStudio.
+Instala de uno en uno los siguientes paquetes desde la consola de RStudio.
 
 ```
 install.packages("pander")

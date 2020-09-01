@@ -8,7 +8,7 @@ Para hacer FORK,
 - Accede a https://github.com/griu/mbdds_fc20.git
 - Introduce tu usuario y contraseña y clica el botón de FORK.
 
-A partir de este momento, siempre que tengas que clonar el repositorio, tu eliges si trabajar con el común, o bién, con tu própio repositorio:
+A partir de este momento, siempre que tengas que clonar el repositorio, tu eliges si trabajar con el común, o bien, con tu propio repositorio:
 
 - https://github.com/griu/mbdds_fc20.git
 - https://github.com/TU_USUARIO/mbdds_fc20.git

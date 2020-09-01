@@ -225,7 +225,7 @@ a
 
 ##### ARRAYS
 
-Se puede generalizar las matrices a mas de 2 dimensiones con `array()`.
+Se puede generalizar las matrices a más de 2 dimensiones con `array()`.
 
 ```{r}
 a <- array(11:18, dim=c(2,2,2))
@@ -274,7 +274,7 @@ Para conocer la estructura del objeto es útil la función `str()`.
 str(a)
 ```
 
-Se utiizan las mismas reglas que en las matrices para saber la dimensión, nombres de filas y columnas.
+Se utilizan las mismas reglas que en las matrices para saber la dimensión, nombres de filas y columnas.
 
 ### FILTROS
 
@@ -392,7 +392,7 @@ kable(head(paises07[, c("pais","esperanza_de_vida")]), "html", booktabs=TRUE,ali
 
 #### DOLARES Y DOBLES CORCHETES
 
-En listas y data frames se puede obtener un elemento con `$nombre` , o bién, con corchetes dobles
+En listas y data frames se puede obtener un elemento con `$nombre` , o bien, con corchetes dobles
 
 ```{r}
 head(paises07$pib_per_capita)
@@ -403,7 +403,7 @@ head(paises07[["esperanza_de_vida"]])
 
 #### VALORES LÓGICOS
 
-Se seleccionan las posiciones con valores `TRUE` o `T` y se decartan las posiciones `FALSE` o `F`.
+Se seleccionan las posiciones con valores `TRUE` o `T` y se descartan las posiciones `FALSE` o `F`.
 
 ```{r, eval=FALSE}
 head(paises07[,c(F, F, F, T, F, T)])
@@ -469,7 +469,7 @@ Estos operadores resultan extremadamente útiles en vectores.
 c(1, 2, 3) != c(3, 2, 1)
 ```
 
-El operador `%in%` tiene un funcionamiento un poco distinto. Evalua cada elemento del objeto situado a su izquierda respecto a todos los  elementos del objeto situado a su derecha.
+El operador `%in%` tiene un funcionamiento un poco distinto. Evalúa cada elemento del objeto situado a su izquierda respecto a todos los  elementos del objeto situado a su derecha.
 
 ```{r}
 c(1, 2, 3, 4) %in% c(3, 4, 5)
@@ -500,7 +500,7 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
 
 ![Operaciones booleanas (fuente: elaboración propia)](www/logicos2.png){width=450px}
 
-Para seleccionar los países Asiáticos con esperanza de vida media en 2007 superior o igual a 80 años.
+Para seleccionar los países asiáticos con esperanza de vida media en 2007 superior o igual a 80 años.
 
 ```{r}
 consulta <- paises07[paises07$continente=="Asia" & paises07$esperanza_de_vida >= 80 ,]
@@ -630,7 +630,7 @@ kable(summary(paises07NA), "html", booktabs=TRUE,align="r", row.names = TRUE,) %
 
 ![](www/paisesNA1.png){width=550px}
 
-Para seleccionar los registos con missing en una columna.
+Para seleccionar los registros con missing en una columna.
 
 ```{r, eval=FALSE}
 paises07NA[is.na(paises07NA$pib_per_capita),]
@@ -650,7 +650,7 @@ options(knitr.kable.NA = '')
 
 ##### FILTROS EN VARIABLES CON VALORES FALTANTES
 
-La pesencia de NA en una variable dificulta la definición de condiciones lógicas.  Por ejemplo, si seleccionamos países con PIB per cápita inferior a 500 dólares se obtiene el siguiente resultado incorrecto:
+La presencia de NA en una variable dificulta la definición de condiciones lógicas.  Por ejemplo, si seleccionamos países con PIB per cápita inferior a 500 dólares se obtiene el siguiente resultado incorrecto:
 
 ```{r, eval=FALSE}
 paises07NA[paises07NA$pib_per_capita<500,]
@@ -694,7 +694,7 @@ a <- c(NA, FALSE, NA, TRUE, FALSE, TRUE, NA )
 which(a)
 ```
 
-> \<recuerda\>Utiliza which para "protejerte" de la presencia de valores faltantes en la definición de filtros.\</recuerda\>
+> \<recuerda\>Utiliza which para "protegerte" de la presencia de valores faltantes en la definición de filtros.\</recuerda\>
 
 ##### ACTIVIDAD GUIADA 1.4.
 

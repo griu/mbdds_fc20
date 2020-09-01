@@ -31,11 +31,11 @@ remplazar_na_cero <- function(x) {
 remplazar_na_cero(a)
 ```
 
-En los siguientes puntos se presenta como vectorizar funciones sobre objetos R (vectores, listas, dataframes...).  
+En los siguientes puntos se presenta como vectorizar funciones sobre objetos R (vectores, listas, data frames...).  
 
 ### CONDICIONALES
 
-Una forma de modificar el flujo de un programa, es mediante el uso de expresiones `if-then-else`. Su forma más general sería la sigueinte.
+Una forma de modificar el flujo de un programa, es mediante el uso de expresiones `if-then-else`. Su forma más general sería la siguiente.
 
 ```{r}
 a <- 1
@@ -50,7 +50,7 @@ if (a > b){
 }
 ```
 
-La expresión `if()` evalua un único valor lógico. Es habitual el uso de `any()` y `all()` para tratar condiciones sobre vectores.
+La expresión `if()` evalúa un único valor lógico. Es habitual el uso de `any()` y `all()` para tratar condiciones sobre vectores.
 
 ```{r}
 a <- c(4, NA, 5) 
@@ -64,7 +64,7 @@ if (all(is.na(a))) {
 }
 ```
 
-La función `ifelse()` se peude utilizar sobre vectores y devuelve un vector.
+La función `ifelse()` se puede utilizar sobre vectores y devuelve un vector.
 
 ```{r}
 a <- c(2:-2)
