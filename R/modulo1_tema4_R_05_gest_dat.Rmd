@@ -235,12 +235,12 @@ options(knitr.kable.NA = '')
 
 ##### UNIÓN POR FILAS
 
-Unir las filas de dos tablas con la misma ordenación de sus columnas `cbind()`.
+Unir las filas de dos tablas con la misma ordenación de sus columnas `rbind()`.
 
 ```{r}
-a1 <- paises07[,1:2]
-a2 <- paises07[,4:5]
-a <- cbind(a1, a2)
+a1 <- paises07[1:2,]
+a2 <- paises07[4:5,]
+a <- rbind(a1, a2)
 ```
 
 ```{r, eval=FALSE}
