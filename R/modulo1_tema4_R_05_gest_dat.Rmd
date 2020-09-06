@@ -623,7 +623,7 @@ levels(paises07$nivel_de_riqueza) <- c("Pobres","Medios","Ricos")
 
 #### AGREGADOS POR SUBGRUPOS
 
-Además de frecuencias, es necesario saber calcular otros estadísticos básicos para subgrupo de un data frame. Por ejemplo, la media de esperanza de vida y del pib per cápita, así como, el total de población por continente.
+Además de frecuencias, es necesario saber calcular otros estadísticos básicos para subgrupo de un data frame. Por ejemplo, la media de esperanza de vida y del pib per cápita, así como, el total de población por continente y nivel de riqueza.
 
 ```{r}
 agg1 <- aggregate(paises07[,c("esperanza_de_vida","pib_per_capita")],
