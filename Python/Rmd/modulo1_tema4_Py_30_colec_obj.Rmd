@@ -1,0 +1,350 @@
+
+# COLECCIONES DE OBJETOS
+
+__[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_30_colec_obj.ipynb)__ *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
+
+## DEFINCIÓN DE LOS OBJETOS
+
+### TIPO BÁSICOS
+
+En Python, el tipo de dato se fija en la creación del objeto.
+
+Los principales tipo básicos son:
+
+ | Ejemplo | Constructores | Tipo de dato |
+ | ------- | ------------- | ------- | 
+ | x = "Hola Mundo" | x = str("Hello World") | str |
+ | x = 20 | x = int(20) | int |
+ | x = 20.5 | x = float(20.5) | float |
+ | x = True | x = bool(5) | bool |
+ 
+Para saber el tipo de un objeto, utiliza `type()`.
+
+> **Recuerda**: Para saber el tipo del objeto utiliza `type()`.
+
+```{python}
+a = 3 > 4
+print("El tipo de 'a' es:",type(a),"y vale",a)
+```
+
+####  OPERACIONES CON BOOLEANOS
+
+Se utiliza `and`, `or` and `not` para operar con `True` y `False`.
+
+```{python}
+True or not True
+```
+
+####  COMPARADORES BOOLEANOS
+
+Los típicos: `<`, `<=`, `>`,`>=`
+
+Y además.
+
+```{python}
+3 == 4.  # igualdad
+```
+
+```{python}
+5 != 5  # desigualdad
+```
+
+Comparación de objetos con `is` y `is not`
+
+```{python}
+a = "Soy string"
+type(a) is str
+```
+
+```{python}
+a = 45.
+type(a) is not int
+```
+
+> **Recuerda**: Para negar expresiones lógicas, se utiliza `not`. 
+
+```{python}
+not (True or not False)
+```
+
+####  *CASTINGS*
+
+Utiliza los constructores de cada tipo para realizar *casting*.
+
+```{python}
+print('True es',int(True),'y False es',int(False))
+```
+
+### LISTAS
+
+Sus elementos van entre corchetes y separados por comas: `[ele1, elem2, ...]`. 
+
+Sus elementos pueden ser objetos de distinto tipo.
+
+```{python}
+a = True
+b = "Texto"
+c = 3.1416
+d = [a, b, c]
+d
+```
+
+#### LONGITUD
+
+Con `len()` se obtiene el número de elementos.
+
+```{python}
+len(d)
+```
+
+#### OPERACIONES CON LISTAS
+
+Se puede concatenar listas con `+`.
+
+```{python}
+[1,2,3] + [4,5,6] # suma listas
+```
+
+Incluso repetirlas con `*` 
+
+```{python}
+[1,2,3] * 2  # multiplicación por escalar
+```
+
+Buscar si la lista contiene (o no contiene) un elemento con `in` (resp. `not in`).
+
+```{python}
+a = 'estoy'
+b = ['aquí','estoy']
+a in b
+```
+
+```{python}
+c = ['aquí','no estoy']
+a not in c
+```
+
+Mínimos y máximos.
+
+```{python}
+a = [3,1,5]
+min(a)
+```
+
+#### OPERACIONES CON TEXTO
+
+En Python el tipo de texto `str` se comporta como una lista.
+
+```{python}
+a = 'tengo longitud 17'
+len(a)
+```
+
+Concatenar *strings* con `+`.
+
+```{python}
+a = "El símbolo suma" + " concatena" + " el texto"
+a
+```
+
+El texto también se multiplica
+
+```{python}
+a = "abc" * 3
+a
+```
+
+Hay que tener cuidado con sumar texto y otros tipos (int, float, bool).
+
+```
+a = "Texto más " + 24
+a
+```
+
+```
+## ---------------------------------------------------------------------------
+## TypeError                                 Traceback (most recent call last)
+## <ipython-input-20-478e9ae4b08d> in <module>()
+## ----> 1 a = "Texto más " + 24
+##       2 a
+
+## TypeError: must be str, not int
+```
+
+Para evitar el error, antes hay que hacer casting con el constructor `str()`.
+
+```{python}
+a = "Texto más " + str(24)
+a
+```
+
+Un alternativa para concatenar texto contenido en una lista es `''.join()`.
+
+```{python}
+a = ["Soy","texto","en","lista"]
+' '.join(a)
+```
+
+De esta forma es fácil cambiar el carácter de separación.
+
+```{python}
+'-'.join(a)
+```
+
+### TUPLAS
+
+Sus elementos van entre paréntesis y separados por comas: `(ele1, elem2, ...)`. 
+
+```{python}
+a = (1,2,3)
+a
+```
+
+Permiten realizar varias asignaciones de objetos en una misma expresión.
+
+```{python}
+a, b = 2, 6
+print(a,b)
+```
+
+Es habitual utilizar tuplas para devolver varios objetos en una misma función.
+
+```{python}
+def desayuno(bacon, huevos):
+    return bacon, huevos
+
+bacon, huevos = desayuno(bacon = "muy hecho", huevos = 2)
+
+print("Quiero el bacon {} y {} huevos".format(bacon,huevos))
+```
+
+> **Recuerda**: Son inmutables. Una vez fijado su valor, ya no tiene sentido modificarlo!
+
+### RANGOS
+
+Son un caso especial de tuplas, definidas como secuencias.
+
+```{python}
+a = range(3,6)
+a
+```
+
+Para convertirlos a lista.
+
+```{python}
+list(a)
+```
+
+### DICCIONARIOS
+
+Sus elementos van entre llaves, separados por comas con una clave:  `{'clave1': val1, 'clave2': val1,...}`
+
+Hay distintas formas de declararlos, todas equivalentes.
+
+```{python}
+a = dict(uno=1, dos=2, tres=3)
+b = {'uno': 1, 'dos': 2, 'tres': 3}
+c = dict(zip(['uno', 'dos', 'tres'], [1, 2, 3]))
+d = dict([('dos', 2), ('uno', 1), ('tres', 3)])
+e = dict({'tres': 3, 'uno': 1, 'dos': 2})
+a == b == c == d == e
+```
+
+> **Sabías que**: Dentro de los elementos de un diccionario no hay una ordenación prefijada. 
+
+Se accede a sus elementos por la clave.
+
+```{python}
+a["uno"]
+```
+
+Para consultar las claves.
+
+```{python}
+a.keys()
+```
+
+Obtener la lista de pares (clave,valor) con `items()`.
+
+```{python}
+a.items()
+```
+
+#### FILTROS EN LISTAS
+
+Utiliza índices enteros positivos (cero incluido).
+
+```{python}
+a = [3,7,2,9,2,8,6]
+a[0]
+```
+
+> **Recuerda**: Python empieza sus índices en 0, no 1. 
+
+Los negativos seleccionan empezando por la cola.
+
+```{python}
+a[-2]
+```
+
+También se utilizan secuencias o *slices* definidos con `:`.
+
+```{python}
+a[1:5]
+```
+
+Secuencias con paso distinto a 1 añadiendo un tercer elemento: `ini:fin:paso`.
+
+```{python}
+a[1:5:2]
+```
+
+Puedes omitir el inicio o el fin para extender la secuencia. 
+
+```{python}
+a[:4]
+```
+
+O, los dos.
+
+```{python}
+a[:]
+```
+
+Los strings siguen comportándose como listas en este aspecto, ya que permiten aplicar filtros dentro del texto.
+
+```{python}
+a = "no soy una lista"
+a[3:]
+```
+
+#### *LIST COMPREHENSION*
+
+La comprensión de listas o *list comprehension* es una forma elegante de automatizar cálculos con listas.
+
+Por ejemplo, si se quiere invertir la secuencia del 1 al 4.
+
+```{python}
+a = range(1,5)
+b = [1 / x for x in a]
+b
+```
+
+También admite condicionales.
+
+```{python}
+a = [0,1,0,2,0,3,4,0]
+b = [1 / x for x in a if x != 0]
+b
+```
+
+Los diccionarios, a su manera, admiten también este recurso.
+
+```{python}
+a = {'uno': 1, 'dos': 2, 'tres': 3}
+b = {k: v*v for k,v in a.items()}
+b
+```
+
+Continúa ahora con los objetos de tipo **numpy**.
+

@@ -1,0 +1,29 @@
+---
+title: An R Markdown document converted from "Python/modulo1_tema4_Py_00_indice.ipynb"
+output: html_document
+---
+
+# TEMA 1.4.2 HERRAMIENTAS DE ANÁLISIS: PROGRAMACIÓN EN PYTHON
+
+*Ferran Carrascosa Mallafrè*
+
+*Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist*
+
+<img align="center" style="padding-right:10px;" src="www/320px-Star_Wars_Logo.svg.png">
+
+*Este notebook forma parte del Máster en Big Data & Data Science de la Universitat de Barcelona - IL3 - FORYMAT.*
+
+# ÍNDICE
+
+### [Introducción](modulo1_tema4_Py.ipynb)
+### [Elementos básicos de Python](modulo1_tema4_Py_10_elem_bas.ipynb)
+### [Gráficos con matplotlib](modulo1_tema4_Py_20_matplotlib.ipynb)
+### [Colecciones de objetos](modulo1_tema4_Py_30_colec_obj.ipynb)
+- [Listas, tuplas y diccionarios](modulo1_tema4_Py_30_colec_obj.ipynb)
+- [Numpy](modulo1_tema4_Py_31_numpy.ipynb)
+- [Pandas](modulo1_tema4_Py_32_pandas.ipynb)
+
+### [Control de flujo](modulo1_tema4_Py_40_contr_flujo.ipynb)
+### [Gestión de datos](modulo1_tema4_Py_50_gest_dat.ipynb)
+### [Anexo: README de Python](modulo1_tema4_Py_60_anexo.ipynb)
+

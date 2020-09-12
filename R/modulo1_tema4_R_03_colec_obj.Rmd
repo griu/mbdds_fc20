@@ -1,3 +1,20 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(pander)
+library(kableExtra)
+library(datos)
+suppressPackageStartupMessages(library(tidyverse))
+panderOptions('table.split.table', Inf)
+panderOptions('decimal.mark', ",")
+panderOptions('big.mark', ".")
+panderOptions('missing', "")
+options(knitr.kable.NA = '')
+
+#En libreoffice para eliminar las lineas con resultados: 
+#  Reemplazar > expresiones regulares > ##.*
+paises07 <- as.data.frame(paises %>% filter(anio==2007))
+```
 
 ## COLECCIONES DE OBJETOS
 

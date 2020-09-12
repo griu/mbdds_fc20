@@ -1,0 +1,186 @@
+
+# ANEXO: README DE PYTHON
+
+__[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_60_anexo.ipynb)__ *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
+
+## PREPARACIÓN DEL ENTORNO COLAB
+
+Des de [Colab](http://colab.research.google.com), hay que clonar el repositorio cada vez que inicias un nuevo libro. En los libros se incluye el código necesario para ello.
+
+## PREPARACIÓN ENTORNO LOCAL-JUPYTER (OPCIONAL)
+
+### CLONAR REPOSITORIO
+
+En local puedes utilizar el mismo proyecto que has clonado en el [README DE R](../R/README.md). 
+
+Para actualizarlo de nuevo, des de consola.
+
+```
+cd mbdds_fc20
+git pull
+cd Python
+```
+
+### CREAR EN LOCAL UN NUEVO ENVIRONMENT DE ANACONDA
+
+Abrimos una línea de comandos (con *Anaconda 3.0* ya disponible).
+
+- Windows: Escribimos `Anaconda` en el menú Inicio y aparecerá la consola MS-DOS de Anaconda.
+- Linux: Abrimos Terminal
+
+```
+conda deactivate
+conda create -n mbdds_rpy20 python=3.6.9
+conda activate mbdds_rpy20
+```
+
+Verifica que se ha creado y está activo.
+
+```
+conda info --envs
+```
+
+### INSTALA LAS LIBRERIAS DE PYTHON
+
+```
+cd mbdds_fc20/Python
+conda activate mbdds_rpy20
+python -m pip install -r requirementsColab.txt
+```
+
+### PUBLICAR EL KERNEL
+
+Para acceder al nuevo environment desde Jupyter necesitas publicar el kernel.
+
+```
+python -m ipykernel install --user --name mbdds_rpy20 --display-name "mbdds_rpy20"
+```
+
+Puede tardar unos minutos en publicarse.
+
+### LANZAR ENTORNO JUPYTER NOTEBOOK
+
+Para acceder al servidor Jupyter. 
+
+```
+conda activate mbdds_rpy20
+jupyter notebook
+```
+
+Debería abrirse un navegador con acceso a Jupyter desde donde podrás acceder a los notebooks. Habitualmente el servidor Jupyter se abre en http://localhost:8888/ .
+
+## IMPORTAR DATOS DE STARWARS SWAPI
+
+Datos procesados a partir de https://swapi.dev/documentation#root.
+
+```{python}
+import requests
+import pandas as pd
+import numpy as np
+```
+
+```
+# exec(open('get_entity.py').read())
+def get_entity(entity = None, url_base = 'http://swapi.dev/api/'):
+# https://swapi.dev/documentation#root
+    
+    page_num = 1
+    results_acum = []
+    entity_list = ["films","people","planets","species","starships","vehicles"]
+    
+    if(entity not in entity_list):
+        page_num = None
+        print('Call a valid entity: ' + ','.join(entity_list))
+    
+    while(page_num is not None):
+        url = "".join([url_base, entity, '/?page=', str(page_num)])
+        rjson = requests.get(url).json()
+        results_acum = results_acum + rjson['results']
+        if(rjson['next'] is not None):
+            page_num = page_num + 1
+        else:
+            page_num = None
+            
+    if (len(results_acum) > 0):
+        results_df = pd.DataFrame(results_acum)
+    else:
+        results_df = entity_list
+    
+    return(results_df)
+
+def str2num(df,num_list):
+    num_list = [lab for lab in num_list if lab in df.columns]
+    num_list = [lab for lab in num_list if  df[lab].dtype==object]
+    for x in num_list:
+        if (x=="crew"):
+            df.loc[df[x] == "30-165",x] = "165"
+        df[x] = pd.to_numeric(df[x].replace('[^0-9\.-]', '', regex=True), errors='coerce')
+    return(df)
+```
+
+```
+res = get_entity()
+```
+
+```
+res
+```
+
+```
+films_df = get_entity("films")
+people_df = get_entity("people")
+planets_df = get_entity("planets")
+species_df = get_entity("species")
+starships_df = get_entity("starships")
+vehicles_df = get_entity("vehicles")
+
+people_df.index = people_df.name
+planets_df.index = planets_df.name
+species_df.index = species_df.name
+starships_df.index = starships_df.name
+vehicles_df.index = vehicles_df.name
+
+people_df.drop("name",inplace=True, axis=1)
+planets_df.drop("name",inplace=True, axis=1)
+species_df.drop("name",inplace=True, axis=1)
+starships_df.drop("name",inplace=True, axis=1)
+vehicles_df.drop("name",inplace=True, axis=1)
+```
+
+```
+people_num = ["height","mass","birth_year"]
+planets_num = ["diameter","rotation_period","orbital_period","population","surface_water", "gravity"]
+species_num = ["average_height","average_lifespan"]
+starships_num = ["passengers","length","crew","cost_in_credits","cargo_capacity"
+                 ,"hyperdrive_rating","MGLT","max_atmosphering_speed"]
+vehicles_num = ["cargo_capacity","cost_in_credits","crew","length","max_atmosphering_speed","passengers"]
+```
+
+```
+people_df.loc[(people_df["gender"].isin(['n/a', 'none'])) | people_df["gender"].isna(),"gender"] = 'none'
+planets_df["temperate_tropical"] = planets_df.climate.apply(lambda x: ("temperate" in x) or ("tropical" in x)).astype(int)
+```
+
+```
+people_df2 = str2num(people_df,people_num)
+planets_df2 = str2num(planets_df,planets_num)
+species_df2 = str2num(species_df,species_num)
+starships_df2 = str2num(starships_df,starships_num)
+vehicles_df2 = str2num(vehicles_df,vehicles_num)
+```
+
+```
+planets_df2.loc["Bespin","gravity"] = 1.5
+```
+
+```
+people_df2.to_pickle("www/people_df.pkl")
+planets_df2.to_pickle("www/planets_df.pkl")
+species_df2.to_pickle("www/species_df.pkl")
+starships_df2.to_pickle("www/starships_df.pkl")
+vehicles_df2.to_pickle("www/vehicles_df.pkl")
+```
+
+```
+vehicles_df2.describe()
+```

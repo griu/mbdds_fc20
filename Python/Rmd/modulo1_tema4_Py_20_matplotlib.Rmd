@@ -1,0 +1,381 @@
+
+# GRÁFICOS CON MATPLOTLIB
+
+__[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_20_matplotlib.ipynb)__ *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
+
+La librería gráfica [Matplotlib](https://matplotlib.org/), concebida por John Hunter en 2002, fué construida sobre objetos numpy (arrays N-dimensionales) y posteriormente adaptada a objetos Pandas (matrices con vectores datos de distintos tipos).
+
+Actualmente, se apoya en otras librerías, más simples y de aspecto gráfico modernizado com Seaborn y los mismos Pandas.
+
+Los objetos numpy y pandas se expondrán ampliamente en el siguiente apartado, no obstante, dado que el curso presupone ciertos conocimientos de Python, se muestran ahora los gráficos para poder utilizarlos en los siguientes apartados como herramienta.
+
+Para importar la librería, habitualmente se importa el submódulo pyplot.
+
+```{python}
+import matplotlib.pyplot as plt
+```
+
+##### ACTIVIDAD GUIADA 2.2
+
+Consiste en conocer mejor a las especies mediante gráficos. En concreto se puede analizar su altura, años de vida, clase de especie (mamífero, reptil,...) y en cuantas películas ha salido esa especie.
+
+>     «¡No puedes llevar a Su Alteza Real allí! Los Hutts son gangsters ...» 
+    ―Quarsh Panaka. 
+
+El primer paso consiste en cargar los datos de las especies y extraer las variables.
+
+```{python}
+import numpy as np
+import pandas as pd
+
+entidades = ['planets','starships','vehicles','people','species']
+entidades_df = {x: pd.read_pickle('www/' + x + '_df.pkl') for x in entidades}
+entidades_df['species']["num_peliculas"] = entidades_df['species'].films.apply(lambda x: len(x))   # numero de peliculas en las que aparece
+species_df = entidades_df['species'][["classification","average_height","average_lifespan","num_peliculas"]].dropna()
+
+
+nombre = species_df.index.values
+clasificacion = species_df.classification.values
+altura_media = species_df.average_height.values
+vida_media = species_df.average_lifespan.values
+num_peliculas = species_df.num_peliculas.values
+
+species_df.head()
+```
+
+Observa como cada fila representa una especie que viene caracterizada por 5 vectores numpy. Para saber más de los numpy ve al capítulo [Colecciones de objetos: numpy](modulo1_tema4_Py_31_numpy.ipynb):
+
+- **nombre**: Nombre de la especie.
+- **clasificacion**: Clasificación de la especie.
+- **altura_media**: Altura media (en cm).
+- **vida_media**: Vida media en años.
+- **num_peliculas**: Número de películas en las que aparece esa especie.
+
+## CONCEPTOS BASICOS EN MATPLOTLIB
+
+Se ajusta el estilo que regula el aspecto general del gráfico al seaborn-whitegrid.
+
+```{python}
+plt.style.use('seaborn-whitegrid');
+```
+
+Para definir un gráfico librería pyplot cuenta con muchos métodos.
+
+Por ejemplo, para construir un gráfico de dispersión se utiliza la función `plt.scatter()`.
+
+Veamos la dispersión entre la altura media de cada especie.
+
+```{python}
+altura_media # vector x
+```
+
+Y el tiempo de vida medio de cada especie.
+
+```{python}
+vida_media # vector y
+```
+
+Se especifica tanto el vector `x` como el `y`.
+
+```{python}
+plt.scatter(x=altura_media,y=vida_media)
+plt.show();
+```
+
+Observa que matplotlib ha añadido un conjunto de elementos como son los ejes con sus marcas o `ticks`. Estos elemntos se configuran en el estilo.
+
+Observa también que se ha llamado a la función `plt.show()`. Esta función ordena la salda del gráfico por pantalla. Es habitual su uso en scripts de python con extensión `.py`.
+
+En notebooks se acostumbra obviar la llamda a `plt.show()`, configurando su salida en pantalla, de forma automática, en cada celda. Para ello, se incluye el comando mágico `%matplotlib inline`, al inicio del notebook.
+
+```
+%matplotlib inline
+```
+
+Se puede guardar el gráfico con. 
+
+```{python}
+plt.scatter(x=altura_media,y=vida_media)
+plt.savefig('www/especies.png');
+```
+
+> **Recuerda**: Puedes abrir un fichero .png local con la función `image()`.
+
+```{python}
+from IPython.display import Image
+Image('www/especies.png')
+```
+
+## DOS INTERFACES DE GRÁFICOS
+
+La definición de un gráfico se puede hacer mediante dos interfaces.
+
+### EL ESTILO DE MATLAB
+
+Pytplot, en un inicio, se diseñó a imagen y semejanza de la librería gráfica de MATLAB.
+
+```{python}
+plt.figure();  # crea la figura del plot
+
+# crea el primer panel y lo configura lo ejes.
+plt.subplot(2, 1, 1) # (filas, columnas, número de panel)
+plt.hist(altura_media, color="blue", label="Altura media")
+plt.xlabel("cm",labelpad=-6)  # labelpad desplaça el titulo arriba
+plt.ylabel("N")
+plt.legend();
+
+# crea el segundo panel y lo configura lo ejes
+plt.subplot(2, 1, 2)
+plt.hist(vida_media, color="green", label="Vida media");
+plt.xlabel("años")
+plt.ylabel("N")
+plt.legend();
+plt.show();
+```
+
+Observa que `plt` va añadiendo elementos al gráfico actual. Una vez se pasa al segundo panel, volver al primer panel se vuelve un trabajo complejo. Para esto se definió la siguiente interfaz.  
+
+### INTERFAZ ORIENTADA A OBJETOS
+
+Se separa en figura y ejes. Lo que permite hacer referencia a cualquier gráfico del panel.
+
+```{python}
+# Se crea la parrilla de plots
+# ax será un vector de 2 objetos Axes
+fig, ax = plt.subplots(2);
+
+
+# Llama el método plot() sobre el objeto apropiado
+ax[0].boxplot(altura_media, vert=False);
+ax[1].boxplot(vida_media, vert=False);
+
+ax[0].set(xlim=(150, 250),
+       ylabel='Altura media (cm)',
+       title='Boxplot');
+ax[1].set(xlim=(0, 300),
+       ylabel='Vida media (años)');
+plt.show();
+```
+
+Para modificar cada gráfico del panel con títulos y leyendas.
+
+## MARCAS, COLORES Y TAMAÑOS
+
+En Matplotlib se pueden personalizar estos elementos, no obstante, resulta algo tedioso. El package Seaborn aporta aquí algunas facilidades, como se verá.
+
+Veamos un ejemplo de esto.
+
+```{python}
+marcas = ['o', '.', ',', 'x', '+', 'v']
+for i in range(6):
+    plt.plot(altura_media[num_peliculas==i+1], np.log(vida_media[num_peliculas==i+1])
+             , marcas[i]
+             , label= str(i+1) + " pelíc.='{0}'".format(marcas[i]))
+plt.legend(numpoints=1, loc="lower right")
+plt.title("Nº películas aparece cada especies de Star Wars")
+plt.xlabel("Altura media (cm)")
+plt.ylabel("log(años de vida media)")
+plt.xlim(50, 350);
+plt.show();
+```
+
+Observa como en cada iteración, se etiqueta el plot con un `label`. De esta forma se van generando elementos que posteriormente se incluirán en la leyenda. El color, en este caso va cambiando en cada iteración por defecto.
+
+Ahora un ejemplo donde se modifica la paleta de colores `viridis` y también el tamaño de los tamaños de los puntos.
+Se incluye una leyenda con la escala continua de colores.
+
+```{python}
+plt.scatter(altura_media, np.log(vida_media)
+            , c=num_peliculas, s=100*num_peliculas, alpha=0.3,
+            cmap='viridis');
+
+# leyenda del color
+cbar = plt.colorbar();  # Muestra la paleta
+cbar.ax.get_yaxis().labelpad = 15   # da espacio al título
+cbar.ax.set_ylabel('# de películas', rotation=270) # añade título
+
+plt.gcf().subplots_adjust(bottom=0.15)
+plt.title("Nº películas aparece cada especies de Star Wars")
+plt.xlabel("Altura media (cm)")
+plt.ylabel("log(años de vida media)");
+plt.show();
+```
+
+Otras paletas interesantes son: `'jet'`, `'RdBu'` y `'cubehelix'`.
+
+## TEXTOS
+
+Para añadir textos a los gráficos, hay dos métodos. 
+
+El primero es `plt.text()` y está orientado simplemente a añadir texto.
+
+```{python}
+# Recuperamos el gráfico de especies
+plt.scatter(altura_media, np.log(vida_media)
+            , c=num_peliculas, s=100*num_peliculas, alpha=0.3,
+            cmap='viridis')
+
+# leyenda del color
+cbar = plt.colorbar();  # Muestra la paleta
+cbar.ax.get_yaxis().labelpad = 15   # da espacio al título
+cbar.ax.set_ylabel('# de películas', rotation=270) # añade título
+
+plt.title("Nº películas aparece cada especies de Star Wars")
+plt.xlabel("Altura media (cm)")
+plt.ylabel("log(años de vida media)");
+
+# Add labels to the plot
+style = dict(size=10, color='grey')
+
+
+plt.text(300, np.log(1000), "Hutt", **style, ha='right')
+plt.text(66, np.log(900), "Yoda's species", **style, ha='left')
+plt.text(190, np.log(700), "Pau'an", **style, ha='center')
+plt.text(210, np.log(400), "Wookie", **style, ha='center')
+plt.text(180, np.log(120), "Human", **style, ha='center');
+plt.show();
+```
+
+Es relevante observar que hay que añadir los textos de uno en uno, o bien, usando un loop
+
+El siguiente método `.annotate()` permite personalizar la ubicación y flechas.
+
+```{python}
+# Recuperamos el gráfico de especies
+plt.scatter(altura_media, np.log(vida_media)
+            , c=num_peliculas, s=100*num_peliculas, alpha=0.3,
+            cmap='viridis')
+            
+# leyenda del color
+cbar = plt.colorbar();  # Muestra la paleta
+cbar.ax.get_yaxis().labelpad = 15   # da espacio al título
+cbar.ax.set_ylabel('# de películas', rotation=270) # añade título
+
+plt.title("Nº películas aparece cada especies de Star Wars")
+plt.xlabel("Altura media (cm)")
+plt.ylabel("log(años de vida media)");
+
+# Add labels to the plot
+style = dict(size=10, color='green')
+
+for x1,y1,n1 in zip(altura_media, np.log(vida_media),nombre):
+    plt.annotate(n1,(x1, y1)
+             , arrowprops=dict(arrowstyle="->")
+             , textcoords="offset points" # desplaza el punto
+             , xytext=(-40,0)  # distancia desplazamiento
+             , ha='center')   # centrado
+plt.show();
+```
+
+No es muy estético, pero puede ser útil en determinados casos.
+
+## LIBRERÍA SEABORN
+
+Automatiza la generación de gráficos con data frames aprovechando la asignación de nombres a sus filas y columnas.
+
+Se carga la librería y configura el estilo por defecto.
+
+```{python}
+import seaborn as sns
+sns.set()
+```
+
+Vemos qué gráfico anterior cambia de estilo.
+
+```{python}
+# Recuperamos el gráfico de especies
+plt.scatter(altura_media, np.log(vida_media)
+            , c=num_peliculas, s=100*num_peliculas, alpha=0.3,
+            cmap='viridis')
+
+# leyenda del color
+cbar = plt.colorbar();  # Muestra la paleta
+cbar.ax.get_yaxis().labelpad = 15   # da espacio al título
+cbar.ax.set_ylabel('# de películas', rotation=270) # añade título
+
+plt.title("Nº películas aparece cada especies de Star Wars")
+plt.xlabel("Altura media (cm)")
+plt.ylabel("log(años de vida media)");
+
+# Add labels to the plot
+style = dict(size=10, color="grey")
+
+
+plt.text(300, np.log(1000), "Hutt", **style, ha='right')
+plt.text(66, np.log(900), "Yoda's species", **style, ha='left')
+plt.text(190, np.log(700), "Pau'an", **style, ha='center')
+plt.text(210, np.log(400), "Wookie", **style, ha='center')
+plt.text(180, np.log(120), "Human", **style, ha='center');
+plt.show();
+```
+
+Una primera muestra de las posibilidades de Seaborn, para el análsis exploratorio, es el gráfico de dispersión 2 a 2.
+
+```{python}
+import warnings
+warnings.filterwarnings('ignore')   # filtramos warnings para evitar problemas con especies de un individuo.
+
+# Especies de mas de un individuo
+sns.pairplot(species_df, hue="classification", height=2.5);
+
+plt.gcf().subplots_adjust(top=0.95)
+plt.suptitle('Matriz de graficos de dispersión 2 a 2')
+
+plt.show();
+```
+
+En diagonal se muestra un gráfico de densidad (parecido a un histograma).
+
+En el resto del cuadrante, se muestra el gráfico de dispersión entre dos variables. También se añaden los colores con las especies.  
+
+Impresionante!
+
+Veamos ahora la facilidad para analizar boxplots.
+
+```{python}
+warnings.filterwarnings('default')   # filtramos warnings para evitar problemas con especies de un individuo.
+
+with sns.axes_style(style='ticks'):
+    g = sns.catplot("classification", "average_height", data=species_df, kind="box")
+
+plt.gcf().subplots_adjust(top=0.95)
+plt.title("Boxplot Altura por Clase")
+plt.xlabel("Altura media (cm)")
+plt.ylabel("Clase");
+
+plt.show();
+```
+
+Finalmente vemos el gráfico de dispersión, donde se ha personalizado el color y marca para cada especie. También el tamaño en función del número de películas.
+
+Para hacer el gráfico más visual, sólo se muestran las especies con menos de 200 años de vida media esperada. 
+
+```{python}
+# Recuperamos el gráfico de especies
+sns.set(rc={'figure.figsize':(9,7)});
+cmap = sns.cubehelix_palette(dark=.3, light=.8, as_cmap=True);
+
+ax = sns.scatterplot(x='average_height', y='average_lifespan'
+            , hue='classification', size="num_peliculas" 
+            , style="classification", palette="Set2"
+            , data=species_df[species_df.average_lifespan<200]);
+ax.set(xlim=(25, None));
+
+plt.gcf().subplots_adjust(top=0.95)
+plt.title("Nº películas aparece cada especies de Star Wars")
+plt.xlabel("Altura media (cm)")
+plt.ylabel("Años de vida media");
+
+# Añadimos etiquetas
+for x1,y1,n1 in zip(altura_media[species_df.average_lifespan<200]
+                    ,vida_media[species_df.average_lifespan<200]
+                    ,nombre[species_df.average_lifespan<200]):
+    plt.annotate(n1,(x1, y1)
+             , size=8
+             , textcoords="offset points" # desplaza el punto
+             , xytext=(-25,0)  # distancia desplazamiento
+             , ha='center')   # centrado
+plt.show();
+```
+
+Entremos ahora a profundizar en la forma en que Python trata las colecciones de objetos.

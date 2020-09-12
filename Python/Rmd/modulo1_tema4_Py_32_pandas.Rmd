@@ -1,0 +1,479 @@
+# PANDAS
+
+__[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_32_pandas.ipynb)__ *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
+
+Abreviación de Panel Data, los objetos pandas dan soporte al análisi de datos con variables de distinta tipología: categóricas, binarias, numéricas...
+
+Respecto a los numpy, permiten indexar las filas y columnas. Este tipo de indexación, facilita, por ejemplo, realizar análisis de series temporales, no necesariamente con una frecuencia fija.
+
+Como siempre el primer paso es cargar la librería con *namespace* `pd`
+
+```{python}
+import pandas as pd
+```
+
+##### ACTIVIDAD GUIADA 2.4
+
+Esta vez, se trata de seleccionar el mejor plantea posible para ubicar la academia Jedi. Los parámetros de la búsqueda son:
+
+- Días largos para entrenar mucho
+- Mucha agua para poder refrescarse
+- Poca densidad de población para no ser molestado
+- Buen clima (temperado o tropical)
+
+>     «Si existe un auténtico centro del universo, ahora estás en el planeta más alejado de él» 
+    ―Luke Skywalker sobre Tatooine el planeta desértico dónde nacieron Anakin y Luke Skywalker. 
+
+El primer paso consiste en cargar los datos de los planetas.
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()  # para el estilo de graficos
+
+entidades = ['planets','starships','vehicles','people','species']
+entidades_df = {x: pd.read_pickle('www/' + x + '_df.pkl') for x in entidades}
+planets_df = entidades_df['planets'][["rotation_period","diameter","climate"
+                                      ,"temperate_tropical","gravity"
+                                     ,"surface_water","population"]].dropna()
+planets_df = planets_df[planets_df.diameter>0]
+
+
+planets_df.head()
+```
+
+## PANDAS SERIES
+
+Se definen como un array uni-dimensional indexado.
+
+Se puede crear desde una lista.
+
+```{python}
+a = pd.Series([1.2, 0.4, 2.3])
+a
+```
+
+Como se ve, une valores e índice. Se accede a los valores en formato numpy con `.values`
+
+```{python}
+a.values
+```
+
+Los índices tienen su propio tipo y se accede con `.index`
+
+```{python}
+a.index
+```
+
+Mismas funcionalidades *slicing*, funciones, *fancy indexing* que los arrays numpy.
+
+```{python}
+a[1:3] * 2
+```
+
+Se puede declarar el índice de forma explícita.
+
+```{python}
+a = pd.Series([1.2, 0.4, 2.3], index=['a','b','c'])
+a
+```
+
+O bien, a partir de un diccionario.
+
+```{python}
+a = pd.Series({'a': 1.2, 'b': 0.4, 'c': 2.3})
+a
+```
+
+El índice añade la capacidad de filtrar a partir de sus valores.
+
+```{python}
+a[['b','c']]
+```
+
+Incluso tiene los métodos de un diccionario.
+
+```{python}
+a.keys()
+```
+
+```{python}
+list(a.items())
+```
+
+### ÍNDEXADORES: LOC, ILOC
+
+Se utilizan para modificar el comportamiento de los filtros.
+
+Su función es evitar colisiones entre índices y posiciones. Por ejemplo, la siguiente serie tiene índices enteros.
+
+```{python}
+a = pd.Series(['a', 'b', 'c'], index=[1, 3, 5])
+a
+```
+
+Si se accede al valor del índice 1.
+
+```{python}
+a[1]
+```
+
+En cambio, si se pide los valores de las posiciones 1 a 3 con slicing.
+
+```{python}
+a[1:3]
+```
+
+Para evitar estas confusiones se introduce `.loc` que permite realizar un acceso a los valores siempre basados en el índice.
+
+```{python}
+a.loc[1]
+```
+
+```{python}
+a.loc[1:3]
+```
+
+Por contra `.iloc` tiene la finalidad contraria, realizar el acceso por posición.
+
+```{python}
+a.iloc[1]
+```
+
+```{python}
+a.iloc[1:3]
+```
+
+## OBJETOS PANDAS DATAFRAME
+
+Se pueden ver como una generalización de los numpy o incluso de los diccionarios. 
+
+Para poderlo visualizar, partimos de dos series, una serie del diámetro y otra de la población de los planetas.
+
+```{python}
+diameter_dict = {'Tatooine': 10465.0,'Alderaan': 12500.0
+                 ,'Bespin': 118000.0,'Endor': 4900.0,'Naboo': 12120.0}
+population_dict = {'Tatooine': 2.000000e+05,'Alderaan': 2.000000e+09
+                   ,'Bespin': 6.000000e+06,'Endor': 3.000000e+07,'Naboo': 4.500000e+09}
+```
+
+```{python}
+population = pd.Series(population_dict)
+population
+```
+
+```{python}
+diameter = pd.Series(diameter_dict)
+diameter
+```
+
+Ahora construimos un `DataFrame` con el método `pd.DataFrame()`.
+
+```{python}
+planetas = pd.DataFrame({'population': population,
+                       'diameter': diameter})
+planetas
+```
+
+Al igual que las series, se accede a su índice fila con `.index`.
+
+```{python}
+planetas.index
+```
+
+También se accede al índice de las columnas con `.columns`.
+
+```{python}
+planetas.columns
+```
+
+Se pueden construir a partir de numpy, especificando el nombre de las columnas.
+
+```{python}
+a = np.ones((3,2))
+a
+```
+
+```{python}
+b = pd.DataFrame(a, columns=["col1","col2"])
+b
+```
+
+Se puede recuperar el numpy con `.values`.
+
+```{python}
+b.values
+```
+
+Se accede a los tipos internos con `.dtypes`.
+
+```{python}
+planets_df.dtypes
+```
+
+### GESTIÓN DE COLUMNAS EN DATAFRAMES
+
+Se accede a las series que forman un DataFrame utilizando la anotación de diccionario.
+
+```{python}
+planets_df["population"]
+```
+
+También, como si fuera un atributo.
+
+```{python}
+planets_df.diameter
+```
+
+Se pueden crear nuevas columnas o series. Por ejemplo, calculamos:
+
+- El área en Km²  del planeta (suponiendo que son esféricos): $4*\pi*Radio²$.
+- La densidad poblacional en: habitantes / Km².
+
+```{python}
+import math
+planets_df["area"] = 4 * math.pi * (planets_df["diameter"]/2)**2
+planets_df["density"] = planets_df["population"] / planets_df["area"]
+```
+
+Para seleccionar varias columnas se utilizan listas. Observa que ahora, se mantiene la clase DataFrame.  
+
+```{python}
+planets_df[["population","diameter","area","density"]].head()
+```
+
+Modificar el nombre de una columna con `.rename()`.
+
+```{python}
+planets_df.rename(columns={"area": "Area", "density": "Densidad"}, inplace=True)
+planets_df.head()
+```
+
+Eliminar las columnas con `.drop()`.
+
+```{python}
+planets_df.drop(columns="Area", inplace=True, errors="ignore")
+planets_df.head()
+```
+
+### FILTROS EN DATAFRAMES
+
+Funciona la misma lógica de selección que numpys y series pandas, pero ahora con dos dimensiones.
+
+```{python}
+planets_df.loc[planets_df.Densidad > 50, ['population', 'Densidad']]
+```
+
+Como curiosidad, el slicing y filtros lógicos, se realiza por filas.
+
+```{python}
+planets_df[planets_df.Densidad > 50]
+```
+
+Otra curiosidad. Ahora los filtros por posición, se comportan como en R, a diferencia de numpy.
+
+```{python}
+a = planets_df.iloc[[1,7,14],[1,2,4]]
+a
+```
+
+En cambio, en numpy, se apareaban las coordenadas 2 a 2.
+
+```{python}
+planets_df.values[[1,4,5],[1,2,4]]
+```
+
+Continúa realizándose la asignación de vistas sin copia.
+
+```{python}
+a = pd.DataFrame(np.ones((3,2)), columns=["col1","col2"])
+b = a.iloc[0:2,0:1]
+b
+```
+
+```{python}
+b.iloc[1,0] = 20
+a
+```
+
+> **Recuerda**: Cuando sea necesario realiza la copia del objeto con `.copy()`, de esta forma eviatarás que se modifiquen todas las copias.
+
+```{python}
+a = pd.DataFrame(np.ones((3,2)), columns=["col1","col2"])
+b = a.iloc[0:2,0:1].copy()
+b.iloc[1,0] = 20
+a
+```
+
+Ya
+hemos visto como ver las primeras 5 filas con `.head()`. También es posible ver las últimas filas con `.tail()`.
+
+```{python}
+planets_df.tail(2)
+```
+
+### FUNCIONES UNIVERSALES SOBRE PANDAS
+
+Las funciones universales (ufunc) que se han visto en el capítulo anterior, se pueden aplicar de igual modo sobre objetos pandas.
+
+```{python}
+a =  np.sqrt(planets_df[["rotation_period","diameter"]].tail(2))
+a
+```
+
+Vemos como en este caso se ha aplicado la función de numpy, raiz cuadrada, sobre un DataFrame y esta se ha aplicado sobre cada elmento respetando los índices fila y columna de la tabla.
+
+### ALINEAMIENTO DE LOS ÍNDICES
+
+Cuando se realizan operaciones aritméticas,  entre dos pandas, los índices fila y columna se alinean automáticamente.
+
+```{python}
+a = planets_df.iloc[[1,3,4],[4,7]]
+a
+```
+
+```{python}
+b = planets_df.iloc[[1,4,7],[4,7]]
+b
+```
+
+```{python}
+a + b
+```
+
+Cuando se resta un vector fila a un Data Frame, siguiendo las reglas del Broadcasting, esta operación se aplica a todas las filas.
+
+```{python}
+a
+```
+
+```{python}
+c = a.iloc[0]
+c
+```
+
+```{python}
+a - c 
+```
+
+### VALORES FALTANTES
+
+`None` y `np.nan` en Pandas tienen mucha similitud.
+
+```{python}
+print(planets_df.columns)
+planetsNA = planets_df[["gravity", "climate", "temperate_tropical"]].head().copy()
+planetsNA.head()
+```
+
+```{python}
+print("planetsNA tiene shape: ", planetsNA.shape)
+planetsNA.dtypes # vemos los tipos internos
+```
+
+Ahora inyectamos None y NaN.
+
+```{python}
+planetsNA.loc[1:4,"gravity"] = None
+planetsNA.loc[0:2,"temperate_tropical"] = np.nan
+planetsNA.loc[0:2,"climate"] = np.nan
+planetsNA.loc[2:4,"climate"] = None
+planetsNA
+```
+
+```{python}
+planetsNA.dtypes
+```
+
+Observa que:
+
+- `gravity` que era de tipo `float`, al insertar `None`, éste se ha convertido en `np.nan`.
+- `climate` con tipo object, diferencia `NaN` y `None`.
+- `rotation_period` que inicialmente era de tipo entero (`int`), al asignar `np.nan`, hace el casting automáticamente a `float`
+
+
+Cuatro métodos interesantes:
+
+- isnull() / notnull(): Marca con `True/False` los valores faltantes.
+- dropna(): Elimina filas y columnas con algún valor faltante.
+- fillna(): Devuelve una copia de los datos con valores faltantes rellenados.
+
+```{python}
+planetsNA.isnull() # np.nan y None se comportan igual.
+```
+
+```{python}
+planetsNA.dropna() # np.nan y None se comportan igual.
+```
+
+```{python}
+planetsNA.fillna(0)  # una forma de rellenar missings.
+```
+
+### ACTIVIDAD GUIADA 2.3
+
+Ahora tenemos todas las herramientas para resolver la actividad.
+
+- Días largos para entrenar mucho
+- Mucha agua para poder refrescarse
+- Poca densidad de población para no ser molestado
+- Buen clima (temperado o tropical)
+
+Veamos su distribución con Boxplot.
+
+```{python}
+sns.set(rc={'figure.figsize':(14,4)})
+fig, axs = plt.subplots(ncols=3)
+plt.gcf().subplots_adjust(bottom=0.15)
+sns.boxplot(x='temperate_tropical', y='rotation_period', data=planets_df, ax=axs[0])
+sns.boxplot(x='temperate_tropical', y='surface_water', data=planets_df, ax=axs[1])
+sns.boxplot(x='temperate_tropical', y='Densidad',data=planets_df, ax=axs[2]);
+plt.show();
+```
+
+- Rotaciones por encima de 24, están por encima de la mediana (eje central boxplot).
+- % de superficie del agua por encima de 10%, evita planetas no idóneos..
+- Densidad  por debajo de 50 personas por Km² es más que suficiente parar filtrar planetas demasiado poblados. 
+
+```{python}
+planets_df_sel = planets_df[(planets_df.Densidad<50) 
+                            & (planets_df.rotation_period>24) 
+                            & (planets_df.surface_water>10)]
+print(planets_df_sel.shape)
+planets_df_sel
+```
+
+Quedan 7 planetas. Veamos ahora un gráfico de dispersión con un resumen de las principales variables.
+
+```{python}
+sns.set(rc={'figure.figsize':(10,6)});
+g = sns.scatterplot(x="rotation_period", y = "surface_water", data=planets_df_sel
+                            , alpha =0.7
+                            , hue= "climate"
+                            , size="Densidad")
+g.set_title('Planetas para la academia Jedi');
+plt.legend(loc='lower right')
+limit = g.set(ylim=(-10, None));
+
+# buscamos el planeta que hay que etiquetar
+
+planets_df_sel_final = planets_df_sel[(planets_df_sel.rotation_period>30)&(planets_df_sel.surface_water>60) ]
+
+# insertamos la etiqueta
+p = plt.annotate(planets_df_sel_final.index[0],
+             (planets_df_sel_final.rotation_period[0],planets_df_sel_final.surface_water[0])
+             , textcoords="offset points" # desplaza el punto
+             , xytext=(0,5)  # distancia desplazamiento
+             , ha='right'
+            , color="red")   # centrado)
+plt.show();
+```
+
+Parece que ya tenemos destino perfecto para la academia Jedi! Se llama **Glee Anselm!!!**
+
+Veamos sus datos.
+
+```{python}
+planets_df_sel_final
+```
+
