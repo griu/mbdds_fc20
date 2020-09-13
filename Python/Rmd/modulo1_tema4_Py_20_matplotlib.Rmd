@@ -1,7 +1,7 @@
 
 ## GRÁFICOS CON MATPLOTLIB
 
-__[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_20_matplotlib.ipynb)__ *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
+__[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_20_matplotlib.ipynb)__
 
 La librería gráfica [Matplotlib](https://matplotlib.org/), concebida por John Hunter en 2002, fué construida sobre objetos numpy (arrays N-dimensionales) y posteriormente adaptada a objetos Pandas (matrices con vectores datos de distintos tipos).
 

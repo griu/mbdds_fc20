@@ -1,7 +1,7 @@
 
 ## CONTROL DE FLUJO
 
-__[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_40_contr_flujo.ipynb)__ *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
+__[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_40_contr_flujo.ipynb)__
 
 Las herramientas de control de flujo permiten automatizar tareas. En este capítulo se trabajarán las funciones condicionales y bucles.
 
