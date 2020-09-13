@@ -1,5 +1,5 @@
 
-### NUMPY
+# NUMPY
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_31_numpy.ipynb)__ *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
 
@@ -52,7 +52,7 @@ starship_names = starships_df.index.values
 starship_names
 ```
 
-#### TIPO DE DATOS EN NUMPY
+### TIPO DE DATOS EN NUMPY
 Habitualmente se crean a partir de listas o tuplas con elementos homogéneos.
 
 ```{python}
@@ -125,11 +125,11 @@ Así se ve mejor.
 print(starship_names.dtype)
 ```
 
-#### FUNCIONES UNIVERSALES
+### FUNCIONES UNIVERSALES
 
 En numpy las funciones universales o *ufunc*, son un conjunto de funciones vectorizan, es decir, que al aplicarlas sobre un objeto numpy, esta función, se aplica sobre cada uno de los elementos que lo componen. 
 
-> **Recuerda**: Ya se comentó las funciones que vectorizan en el el capitulo de funciones de R. 
+> **Recuerda**: Ya se comentó las funciones que vectorizan en el capitulo de funciones de R. 
 
 Típicamente, las funciones de este tipo son las funciones aritméticas.
 
@@ -151,7 +151,7 @@ NumPy ofrece una extensa colección de funciones matemáticas que se aplican de 
 np.sqrt(np.array([1,2,3,4]))
 ```
 
-#### SECUENCIAS EN NUMPY
+### SECUENCIAS EN NUMPY
 
 La función propia de numpy es `np.arange(ini,fin,paso)`
 
@@ -185,7 +185,7 @@ b = np.repeat(a, 4)
 b
 ```
 
-#### DIMENSIONES EN NUMPY
+### DIMENSIONES EN NUMPY
 
 ```{python}
 np.random.seed(123)  # Semilla para poder reproducir
@@ -215,7 +215,7 @@ print("Naves cantidad de bytes:", starship_np.nbytes, "bytes")
 print("Nombres cantidad de bytes:", starship_names.nbytes, "bytes")
 ```
 
-#### FILTROS EN NUMPY
+### FILTROS EN NUMPY
 
 Siguen las mismas reglas que en las listas, pero ahora con más dimensiones
 
@@ -229,7 +229,7 @@ Elemento de la matriz.
 x2[0, 0]
 ```
 
-##### FILTROS SLICING
+#### FILTROS SLICING
 
 Vector segunda columna.
 
@@ -269,8 +269,8 @@ Para ver su nombre.
 starship_names[4]
 ```
 
-##### INDEXACIÓN ELEGANTE
-###### FILTROS POSICIONALES
+#### INDEXACIÓN ELEGANTE
+##### FILTROS POSICIONALES
 
 Otra mejora respecto a las listas es la capacidad de indexar por una lista o array.
 
@@ -308,7 +308,7 @@ En R se obtendría el siguiente resultado.
 x2[fils,:][:,cols]
 ```
 
-###### FILTROS LÓGICOS 
+##### FILTROS LÓGICOS 
 
 Otro mecanismo *fancy indexing* son los filtros lógicos. 
 
@@ -344,7 +344,7 @@ b = np.array([3, 4, 5])
 np.isin(a,b)
 ```
 
-###### OPERACIONES BOOLEANAS
+##### OPERACIONES BOOLEANAS
 
 Se utilizan los `&`, `|` y `~` en vez de los `and`, `or`, `not` (respec.) utilizados en los tipos lógicos. Es necesario cerrar las expresiones entre paréntesis. 
 

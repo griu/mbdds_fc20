@@ -220,7 +220,7 @@ print("Quiero el bacon {} y {} huevos".format(bacon,huevos))
 
 > **Recuerda**: Son inmutables. Una vez fijado su valor, ya no tiene sentido modificarlo!
 
-### RANGOS
+#### RANGOS
 
 Son un caso especial de tuplas, definidas como secuencias.
 

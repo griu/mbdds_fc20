@@ -45,7 +45,7 @@ planets_df.head()
 
 La forma más simple de importar datos estructurados (en forma de matriz de filas y columnas), es a través de los DataFrames. El motivo es simple, estos objetos permiten almacenar datos de distinto tipo en un único objeto o tabla de datos.
 
-### LECTURA TEXTO CON SEPARADOR
+#### LECTURA TEXTO CON SEPARADOR
 
 Para leer el siguiente fichero de texto:
 
@@ -89,7 +89,7 @@ mtcars.shape
 mtcars.describe()
 ```
 
-### ESCRITURA TEXTO CON SEPARADOR
+#### ESCRITURA TEXTO CON SEPARADOR
 
 Para la escritura, puedes utilizar sus equivalentes: `.to_csv()`. Cabe destacar algunas pequeñas variaciones.  
 
@@ -113,7 +113,7 @@ print(muestra_texto)
 
 Para leer texto con ancho fijo revisa la función [pd.read_fwf()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_fwf.html).
 
-### LECTURA Y ESCRITURA EN FORMATO PICKLE
+#### LECTURA Y ESCRITURA EN FORMATO PICKLE
 
 Los objetos Python se pueden hacer persistentes en disco con el formato pickle.
 
@@ -149,11 +149,11 @@ Para definir un cruce en pandas, es muy importante ser conscientes de la presenc
 
 Veamos los dos últimos, ya que el cruce por índices es la opción por defecto en todas las funciones que se van a mostrar.
 
-### CRUCES POR ORDENACIÓN SIN ÍNDICE COMPARTIDO
+#### CRUCES POR ORDENACIÓN SIN ÍNDICE COMPARTIDO
 
 Una forma de cruzar 2 DataFrames es a partir de la ordenación compartida, ya sea de las filas o las columnas.
 
-#### ORDENACIÓN DE TABLAS
+##### ORDENACIÓN DE TABLAS
 
 Para ordenar una serie, se utiliza el método `.sort.values()`.
 
@@ -175,7 +175,7 @@ Observa como `ascending` permite escoger una ordenación distinta para cada camp
 
 De esta forma sabemos que *Padmé Amidala*, con 185 cm, era la mujer más alta de la serie.
 
-#### UNIÓN POR COLUMNAS SIN ÍNDICE COMPARTIDO
+##### UNIÓN POR COLUMNAS SIN ÍNDICE COMPARTIDO
 
 Para unir las columnas de dos DataFrames que comparten ordenación utiliza `pd.concat()`.
 
@@ -202,7 +202,7 @@ a = pd.concat([people_df1, people_df2], ignore_index=True)
 a.head()
 ```
 
-##### UNIÓN POR FILAS
+###### UNIÓN POR FILAS
 
 Para unir dos DataFrames con la misma ordenación de sus columnas, se puede utilizar pd.concat, aunque es más directo con el método `.append()`.
 
@@ -223,11 +223,11 @@ a
 
 > **Importante**: en caso de no compartir los mismos nombres de columnas, se puede utilizar igualmente el parámetro `ignore_index=True`.
 
-### CRUCE POR CAMPOS CLAVE
+#### CRUCE POR CAMPOS CLAVE
 
 Antes de realizar un cruce por campos clave es importante saber si éste tiene valores duplicados. 
 
-#### VECTOR DE CLAVES
+##### VECTOR DE CLAVES
 
 Para obtener las claves únicas de una serie o DataFrame utiliza `.unique()`.
 
@@ -251,11 +251,11 @@ Para eliminar los duplicados, se utiliza `.drop_duplicates()`. Con `keep=False` 
 people_df_dup.drop_duplicates(keep=False)
 ```
 
-#### FUSIÓN CON CLAVES
+##### FUSIÓN CON CLAVES
 
 Para cruzar 2 tablas con claves, utiliza `pd.merge()`.
 
-##### INNER JOIN
+###### INNER JOIN
 
 Recordemos que inner join consiste en construir una tabla que tenga claves coincidentes en las tablas.
 
@@ -294,7 +294,7 @@ a_inner.head()
 
 El cruce se ha hecho de forma implícita con la opción `how="inner"`. 
 
-##### OUTER JOIN
+###### OUTER JOIN
 
 Para conservar **todos los registros de las tablas originales**, tanto de la tabla izquierda como derecha, coincida o no, se utiliza el parámetro `how = "outer"`.
 
@@ -305,7 +305,7 @@ a_outer
 
 Observa ahora, no ha descartado ningún registro de las tablas origen. Además, ha rellenado con `NaN` los campos que no cruzan. Este comportamiento en SQL es conocido como *FULL JOIN* o *OUTTER JOIN* .
 
-##### LEFT JOIN
+###### LEFT JOIN
 
 Para imponer que conserve **todos los valores origen de la tabla izquierda** y que descarte los de la taba derecha que no sean compartidos utiliza `how="left"`.
 
@@ -316,7 +316,7 @@ a_left
 
 Ahora ha conservado todos los personajes.
 
-##### RIGHT JOIN
+###### RIGHT JOIN
 
 Para preservar **todos los valores de la tabla derecha** utiliza `how="right"`.
 
@@ -327,7 +327,7 @@ a_right
 
 Ahora ha conservado todos los planetas con mal clima.
 
-##### DEFINCIÓN DE LAS CLAVES
+###### DEFINCIÓN DE LAS CLAVES
 
 Cuando las claves son campos comunes no es necesario definir los campos `left_on` y `right_on`. 
 
@@ -337,7 +337,7 @@ Por otro lado, si uno de los campos clave está contenido en el índice del Data
 
 Las librerías numpy y pandas implementan una extensa colección de funciones de resumen.
 
-### DESCRIBE
+#### DESCRIBE
 
 Para tener una primera impresión sobre las estadísticas de un DataFrame se utiliza `.describe()`.
 
@@ -382,7 +382,7 @@ Ahora, para las variables no numéricas, informa del `count` y además:
 - `freq`: Frecuencia observada del valor top.
 - `first` y `last`: Para las datetime se informa de la primera y última fecha.
 
-### ESTADÍSTICOS BASICOS
+#### ESTADÍSTICOS BASICOS
 
 Para calcular los estadísticos mostrados en la función `.describe()` con funciones numpy:
 
@@ -446,9 +446,9 @@ def resumen_no_numericas_pandas(x):
 resumen_no_numericas_pandas(people_dfSumm.eye_color)
 ```
 
-### TABLAS DE FRECUENCIAS
+#### TABLAS DE FRECUENCIAS
 
-#### FRECUENCIAS DE UNA VARIABLE
+##### FRECUENCIAS DE UNA VARIABLE
 
 Para obtener las frecuencias de una serie pandas se utiliza `.value_counts()`.
 
@@ -464,7 +464,7 @@ Se puede ordenarlo posteriormente por el índice con `.sort_index()`.
 people_dfSumm.eye_color.value_counts().sort_index()
 ```
 
-#### TABLAS CRUZADAS
+##### TABLAS CRUZADAS
 
 Para obtener las frecuencias de dos variables utiliza `pd.crosstab()`.
 
@@ -472,7 +472,7 @@ Para obtener las frecuencias de dos variables utiliza `pd.crosstab()`.
 pd.crosstab(people_dfSumm.eye_color,people_dfSumm.gender)
 ```
 
-#### TRAMEAR VARIABLES
+##### TRAMEAR VARIABLES
 
 En pandas series se puede tramear una variable con la función `pd.cut()`
 
@@ -516,7 +516,7 @@ people_dfSumm["Altura_Cat"].cat.categories = ["Bajo/a","Mediano/a","Alto/a"]
 people_dfSumm[["height","Altura_Cat"]].head(8)
 ```
 
-#### ACTIVIDAD GUIADA 2.5
+##### ACTIVIDAD GUIADA 2.5
 
 Veamos ahora, un resumen de la altura de los personajes por el tipo de clima de su planeta.
 
@@ -747,7 +747,7 @@ personajes_df.pivot_table(index='Altura_Cat', columns='temperate_tropical'
 
 Observa cómo se ha obtenido la misma tabla que en el ejercicio con `.agg()`, pero ahora, con otra orientación de filas y columnas.
 
-### DATETIME: GESTIÓN DE FECHAS Y HORARIOS
+## DATETIME: GESTIÓN DE FECHAS Y HORARIOS
 
 La librería para gestión de fechas y horarios en Python es `datetime`. Además, también se utiliza la librería de funcionalidades ampliadas `dateutil`. 
 

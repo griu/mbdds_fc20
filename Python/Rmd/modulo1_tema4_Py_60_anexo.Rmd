@@ -9,7 +9,7 @@ Des de [Colab](http://colab.research.google.com), hay que clonar el repositorio 
 
 ## PREPARACIÓN ENTORNO LOCAL-JUPYTER (OPCIONAL)
 
-### CLONAR REPOSITORIO
+#### CLONAR REPOSITORIO
 
 En local puedes utilizar el mismo proyecto que has clonado en el [README DE R](../R/README.md). 
 
@@ -21,7 +21,7 @@ git pull
 cd Python
 ```
 
-### CREAR EN LOCAL UN NUEVO ENVIRONMENT DE ANACONDA
+#### CREAR EN LOCAL UN NUEVO ENVIRONMENT DE ANACONDA
 
 Abrimos una línea de comandos (con *Anaconda 3.0* ya disponible).
 
@@ -40,7 +40,7 @@ Verifica que se ha creado y está activo.
 conda info --envs
 ```
 
-### INSTALA LAS LIBRERIAS DE PYTHON
+#### INSTALA LAS LIBRERIAS DE PYTHON
 
 ```
 cd mbdds_fc20/Python
@@ -48,7 +48,7 @@ conda activate mbdds_rpy20
 python -m pip install -r requirementsColab.txt
 ```
 
-### PUBLICAR EL KERNEL
+#### PUBLICAR EL KERNEL
 
 Para acceder al nuevo environment desde Jupyter necesitas publicar el kernel.
 
@@ -58,7 +58,7 @@ python -m ipykernel install --user --name mbdds_rpy20 --display-name "mbdds_rpy2
 
 Puede tardar unos minutos en publicarse.
 
-### LANZAR ENTORNO JUPYTER NOTEBOOK
+#### LANZAR ENTORNO JUPYTER NOTEBOOK
 
 Para acceder al servidor Jupyter. 
 

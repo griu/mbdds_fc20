@@ -101,7 +101,7 @@ a.keys()
 list(a.items())
 ```
 
-### ÍNDEXADORES: LOC, ILOC
+#### ÍNDEXADORES: LOC, ILOC
 
 Se utilizan para modificar el comportamiento de los filtros.
 
@@ -211,7 +211,7 @@ Se accede a los tipos internos con `.dtypes`.
 planets_df.dtypes
 ```
 
-### GESTIÓN DE COLUMNAS EN DATAFRAMES
+#### GESTIÓN DE COLUMNAS EN DATAFRAMES
 
 Se accede a las series que forman un DataFrame utilizando la anotación de diccionario.
 
@@ -410,7 +410,7 @@ planetsNA.dropna() # np.nan y None se comportan igual.
 planetsNA.fillna(0)  # una forma de rellenar missings.
 ```
 
-### ACTIVIDAD GUIADA 2.3
+##### ACTIVIDAD GUIADA 2.4
 
 Ahora tenemos todas las herramientas para resolver la actividad.
 
