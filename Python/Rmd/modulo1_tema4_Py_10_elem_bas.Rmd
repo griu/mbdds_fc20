@@ -237,7 +237,7 @@ def valor_absoluto(num):
 - Se inicia la definción con `def`, seguido del nombre de la función
 - A continuación los parámetros entre paréntesis y `:` 
   - Admite definir valores por defecto 
-- La ayuda por si se llama a ?valor_absoluto
+- El texto sirve como ayuda cuando se llama a ?valor_absoluto
 - El cuerpo del código con sangrado
 - Puede devolver un objeto añadiendo `return objecto`
 - Si se quiere devolver valores por pantalla hay que usar print

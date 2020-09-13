@@ -84,7 +84,7 @@ plt.show();
 
 Observa que matplotlib ha añadido un conjunto de elementos como son los ejes con sus marcas o `ticks`. Estos elemntos se configuran en el estilo.
 
-Observa también que se ha llamado a la función `plt.show()`. Esta función ordena la salda del gráfico por pantalla. Es habitual su uso en scripts de python con extensión `.py`.
+Observa también que se ha llamado a la función `plt.show()`. Esta función ordena la salida del gráfico por pantalla. Es habitual su uso en scripts de python con extensión `.py`.
 
 En notebooks se acostumbra obviar la llamda a `plt.show()`, configurando su salida en pantalla, de forma automática, en cada celda. Para ello, se incluye el comando mágico `%matplotlib inline`, al inicio del notebook.
 
@@ -99,11 +99,11 @@ plt.scatter(x=altura_media,y=vida_media)
 plt.savefig('www/especies.png');
 ```
 
-> **Recuerda**: Puedes abrir un fichero .png local con la función `image()`.
+> **Recuerda**: Puedes abrir un fichero .png local con la función `Image()`.
 
 ```{python}
 from IPython.display import Image
-Image('www/especies.png')
+Image('www/especies.png');
 ```
 
 #### DOS INTERFACES DE GRÁFICOS
@@ -157,8 +157,6 @@ ax[1].set(xlim=(0, 300),
 plt.show();
 ```
 
-Para modificar cada gráfico del panel con títulos y leyendas.
-
 #### MARCAS, COLORES Y TAMAÑOS
 
 En Matplotlib se pueden personalizar estos elementos, no obstante, resulta algo tedioso. El package Seaborn aporta aquí algunas facilidades, como se verá.
@@ -181,7 +179,7 @@ plt.show();
 
 Observa como en cada iteración, se etiqueta el plot con un `label`. De esta forma se van generando elementos que posteriormente se incluirán en la leyenda. El color, en este caso va cambiando en cada iteración por defecto.
 
-Ahora un ejemplo donde se modifica la paleta de colores `viridis` y también el tamaño de los tamaños de los puntos.
+Ahora un ejemplo donde se modifica la paleta de colores `viridis` y también el tamaño de los puntos.
 Se incluye una leyenda con la escala continua de colores.
 
 ```{python}
