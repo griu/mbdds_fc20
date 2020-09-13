@@ -1,11 +1,11 @@
 
-# ELEMENTOS BÁSICOS DE PYTHON
+## ELEMENTOS BÁSICOS DE PYTHON
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_10_elem_bas.ipynb)__   *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
 
 Aunque se presuponen unos conocimientos iniciales de Python, a continuación, se hace un repaso de Python, Anaconda y notebooks de Jupyter-Colab. El objetivo es reforzar aquellos elementos más orientados al análisis de datos.
 
-## INTERFAZ DE USUARIO
+#### INTERFAZ DE USUARIO
 
 Python se puede ejecutar de forma interactiva des de consola de texto. Para abrir la consola, ejecutar el comando Python desde un terminal Windows o Linux. El temario utiliza notebooks ejecutados des de Jupyter y/o Colab. 
 
@@ -17,13 +17,13 @@ Prueba a ejecutar la siguiente línea directamente en este notebook.
 
 > **Recuerda**: Para editar una celda del notebook, aprieta `Enter`. Para ejecutarla,  `Ctrl+Enter` (sólo ejecuta), o bien, `Mayús+Enter` (ejecuta y avanza celda).  
 
-### FICHEROS *.py
+#### FICHEROS *.py
 
 Una forma habitual de programar en Python es mediante ficheros de texto con extensión `.py`. Existen múltiples entornos para estos ficheros: Spyder (parecido a RStudio), PyCharm, Visual Studio Code o cualquier editor de texto como Notepad++.
 
 Este tipo de ficheros se utilizan habitualmente para generar librerías de funciones y ejecutar desarrollo productivo de aplicaciones en Python.
 
-### NOTEBOOKS JUPYTER (*.ipynb)
+#### NOTEBOOKS JUPYTER (*.ipynb)
 
 Los notebooks, como éste que estás leyendo, son la solución de la comunidad de SciPy para la programación interactiva. El proyecto nació con el nombre [IPython](https://ipython.org) (o Python interactivo) y actualmente se orquestra en el paraguas de la plataforma [Jupyter](https://jupyter.org/). Jupyter permite ejecutar de forma interactiva docenas de lenguajes como Python, R...
 
@@ -33,7 +33,7 @@ Su uso se ha extendido de la mano del proyecto [Anaconda](https://www.anaconda.c
 
 Para iniciar el entorno Jupyter sigue la guía del [Anexo: README de Python](modulo1_tema4_Py_60_anexo.ipynb) apartado "PREPARACIÓN ENTORNO LOCAL-JUPYTER (OPCIONAL)".
 
-#### COLABORATORY o COLAB
+##### COLABORATORY o COLAB
 
 Actualmente la comunidad de Python cuenta con la plataforma [Colaboratory o Colab](https://colab.research.google.com) que es un entorno libre para ejecutar notebooks Jupyter y almacenarlos en Google Drive. Este entorno sólo permite abrir ficheros .ipynb (no .py), pero facilita en gran medida su uso para desarrollar formación.
 
@@ -43,7 +43,7 @@ Puedes abrir los notebooks de este tema con Colab clicando en: [<span style="col
 
 En la parte superior de los notebooks, encontrarás un script que inicializa el entorno Colab con las versiones de los paquetes de Python correctas y descarga el repositorio Github con el material del curso.  
 
-#### ACTIVIDAD GUIADA 2.1.
+##### ACTIVIDAD GUIADA 2.1.
 
 Crea tu primer notebook. En Jupyter/Colab, accede al menú `File > New Notebook`. 
 
@@ -57,7 +57,7 @@ print("Hello Wold!")
 
 Guarda el documento con el nombre `21_actividad`.
 
-#### EDITAR NOTEBOOKS JUPYTER
+##### EDITAR NOTEBOOKS JUPYTER
 
 Un notebook está compuesto por un conjunto de casillas que pueden ser de distinto tipo:
 
@@ -74,7 +74,7 @@ Para mostrar una casilla Markdown en formato impresión (sin marcas), ejecútala
   - Ejecutar y avanzar casilla: Botón `Run`, o bien, `Mayús+Enter`.
   
 
-##### ATAJOS DE TECLADO
+###### ATAJOS DE TECLADO
 
 Puedes gestionar las celdas des del teclado en el modo de Visión (**tecla`Esc`**):
 
@@ -86,7 +86,7 @@ Puedes gestionar las celdas des del teclado en el modo de Visión (**tecla`Esc`*
   - Después: Tecla `B`, `Ctr+M+B` (Colab).
 - Copiar, pegar, desplazar arriba, abajo...
 
-##### MARKDOWN
+###### MARKDOWN
 
 - **Parágrafo de texto**: Deja  una línea en blanco (`Enter`) antes y después de un parágrafo de texto.
 - **Encabezados**: Utiliza # seguido de espacio en blanco para los títulos de las secciones:
@@ -124,7 +124,7 @@ Soy código2
 - **Línea horizontal**: Tres asteriscos al inicio de línea, `***` .
 - **Colores**: Usa `<font color=blue|red|green|pink|yellow>Texto</font>` .
 
-##### AYUDA DES DEL NOTEBOOK
+###### AYUDA DES DEL NOTEBOOK
 
 En Python se pide ayuda de un comando con:
 
@@ -140,7 +140,7 @@ En Jupyter, ejecuta `?comando` para que se abra un menú contextual de ayuda.
 
 También con el tabulador tea ayuda a autocompletar código, ver opciones, parámetros... 
 
-##### COMANDOS MÁGICOS
+###### COMANDOS MÁGICOS
 
 Los comandos mágicos, aumentan las capacidades interactivas de los notebooks. Son de uso común:
 
@@ -202,7 +202,7 @@ L3 = [n ** 2 for n in range(1000)]
 ## Wall time: 2 ms
 ```
 
-##### COMANDOS SHELL
+###### COMANDOS SHELL
 
 Los comandos de sistema se pueden ejecutar con `!comando`
 

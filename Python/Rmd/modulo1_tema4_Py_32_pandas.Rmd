@@ -1,4 +1,4 @@
-# PANDAS
+## PANDAS
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_32_pandas.ipynb)__ *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
 
@@ -42,7 +42,7 @@ planets_df = planets_df[planets_df.diameter>0]
 planets_df.head()
 ```
 
-## PANDAS SERIES
+### PANDAS SERIES
 
 Se definen como un array uni-dimensional indexado.
 
@@ -144,7 +144,7 @@ a.iloc[1]
 a.iloc[1:3]
 ```
 
-## OBJETOS PANDAS DATAFRAME
+### OBJETOS PANDAS DATAFRAME
 
 Se pueden ver como una generalización de los numpy o incluso de los diccionarios. 
 
@@ -312,7 +312,7 @@ hemos visto como ver las primeras 5 filas con `.head()`. También es posible ver
 planets_df.tail(2)
 ```
 
-### FUNCIONES UNIVERSALES SOBRE PANDAS
+#### FUNCIONES UNIVERSALES SOBRE PANDAS
 
 Las funciones universales (ufunc) que se han visto en el capítulo anterior, se pueden aplicar de igual modo sobre objetos pandas.
 
@@ -323,7 +323,7 @@ a
 
 Vemos como en este caso se ha aplicado la función de numpy, raiz cuadrada, sobre un DataFrame y esta se ha aplicado sobre cada elmento respetando los índices fila y columna de la tabla.
 
-### ALINEAMIENTO DE LOS ÍNDICES
+#### ALINEAMIENTO DE LOS ÍNDICES
 
 Cuando se realizan operaciones aritméticas,  entre dos pandas, los índices fila y columna se alinean automáticamente.
 
@@ -356,7 +356,7 @@ c
 a - c 
 ```
 
-### VALORES FALTANTES
+#### VALORES FALTANTES
 
 `None` y `np.nan` en Pandas tienen mucha similitud.
 

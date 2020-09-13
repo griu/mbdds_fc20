@@ -1,5 +1,5 @@
 
-# GRÁFICOS CON MATPLOTLIB
+## GRÁFICOS CON MATPLOTLIB
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_20_matplotlib.ipynb)__ *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
 
@@ -51,7 +51,7 @@ Observa como cada fila representa una especie que viene caracterizada por 5 vect
 - **vida_media**: Vida media en años.
 - **num_peliculas**: Número de películas en las que aparece esa especie.
 
-## CONCEPTOS BASICOS EN MATPLOTLIB
+### CONCEPTOS BASICOS EN MATPLOTLIB
 
 Se ajusta el estilo que regula el aspecto general del gráfico al seaborn-whitegrid.
 
@@ -106,11 +106,11 @@ from IPython.display import Image
 Image('www/especies.png')
 ```
 
-### DOS INTERFACES DE GRÁFICOS
+#### DOS INTERFACES DE GRÁFICOS
 
 La definición de un gráfico se puede hacer mediante dos interfaces.
 
-#### EL ESTILO DE MATLAB
+##### EL ESTILO DE MATLAB
 
 Pytplot, en un inicio, se diseñó a imagen y semejanza de la librería gráfica de MATLAB.
 
@@ -135,7 +135,7 @@ plt.show();
 
 Observa que `plt` va añadiendo elementos al gráfico actual. Una vez se pasa al segundo panel, volver al primer panel se vuelve un trabajo complejo. Para esto se definió la siguiente interfaz.  
 
-#### INTERFAZ ORIENTADA A OBJETOS
+##### INTERFAZ ORIENTADA A OBJETOS
 
 Se separa en figura y ejes. Lo que permite hacer referencia a cualquier gráfico del panel.
 
@@ -159,7 +159,7 @@ plt.show();
 
 Para modificar cada gráfico del panel con títulos y leyendas.
 
-### MARCAS, COLORES Y TAMAÑOS
+#### MARCAS, COLORES Y TAMAÑOS
 
 En Matplotlib se pueden personalizar estos elementos, no obstante, resulta algo tedioso. El package Seaborn aporta aquí algunas facilidades, como se verá.
 
@@ -203,7 +203,7 @@ plt.show();
 
 Otras paletas interesantes son: `'jet'`, `'RdBu'` y `'cubehelix'`.
 
-### TEXTOS
+#### TEXTOS
 
 Para añadir textos a los gráficos, hay dos métodos. 
 
@@ -269,7 +269,7 @@ plt.show();
 
 No es muy estético, pero puede ser útil en determinados casos.
 
-## LIBRERÍA SEABORN
+### LIBRERÍA SEABORN
 
 Automatiza la generación de gráficos con data frames aprovechando la asignación de nombres a sus filas y columnas.
 

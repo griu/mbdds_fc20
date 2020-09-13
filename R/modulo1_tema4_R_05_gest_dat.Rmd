@@ -829,7 +829,7 @@ Adapta los comentarios solicitados en `15_actividad.R`, ejecuta y observa:
 - Se ha utilizado dplyr: arrange,mutate,group_by y summarize.
 - Se ha utilizado geom_path.
 
-##### LUBRIDATE: GESTIÓN DE FECHAS Y HORARIOS
+### LUBRIDATE: GESTIÓN DE FECHAS Y HORARIOS
 
 Para obtener el día actual con *lubridate* utiliza `today()`, día y hora con now().  
 

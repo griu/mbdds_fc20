@@ -1,5 +1,5 @@
 
-# CONTROL DE FLUJO
+## CONTROL DE FLUJO
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_40_contr_flujo.ipynb)__ *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
 
@@ -23,7 +23,7 @@ vehicles_df = entidades_df['vehicles'][["cost_in_credits","length","max_atmosphe
 vehicles_df.head()
 ```
 
-## FUNCIONES
+### FUNCIONES
 
 Hagamos un breve repaso sobre lo que se ha tratado hasta el momento respecto a las funciones en Python. 
 
@@ -45,7 +45,7 @@ El segundo concepto, van a ser las funciones de agregación (suma, media, cuanti
 
 La combinación de ambos conceptos, funciones vectorizadas y funciones de agregación sobre objetos pandas, van a terminar de rellenar tu caja de herramientas para poder iniciarte en data science.
 
-## CONDICIONALES
+### CONDICIONALES
 
 Hagamos también aquí un breve repaso de los aspectos que ya se han comentado respecto a estructuras condicionales.
 
@@ -76,7 +76,7 @@ vehicles_df[['crew','crew_r']].head()
 
 > **Observa**: esta función de numpy aplica elemento a elemento. Observa también que se ha aplicado a una serie de un DataFrame, obteniendo una nueva serie.
 
-## BUCLES
+### BUCLES
 
 Los bucles for, se han tratado de forma básica en las *list comprehension* del capítulo de [Listas, tuplas y diccionarios](modulo1_tema4_Py_30_colec_obj.ipynb).
 

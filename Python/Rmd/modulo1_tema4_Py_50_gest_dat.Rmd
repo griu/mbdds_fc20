@@ -1,5 +1,5 @@
 
-# GESTIÓN DE DATOS
+## GESTIÓN DE DATOS
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_50_gest_dat.ipynb)__ *: <span style="color:rgba(255, 99, 71, 0.8)">Padawan! Cuando inicies sesión en Colab, prepara el entorno ejecutando el siguiente código.</span>*
 
@@ -41,7 +41,7 @@ people_df.head()
 planets_df.head()
 ```
 
-## IMPORTAR Y EXPORTAR DATOS
+### IMPORTAR Y EXPORTAR DATOS
 
 La forma más simple de importar datos estructurados (en forma de matriz de filas y columnas), es a través de los DataFrames. El motivo es simple, estos objetos permiten almacenar datos de distinto tipo en un único objeto o tabla de datos.
 
@@ -139,7 +139,7 @@ mtcars_pkl = pd.read_pickle("www/mtcars.pkl")
 mtcars_pkl.shape
 ```
 
-## CRUCE ENTRE TABLAS
+### CRUCE ENTRE TABLAS
 
 Para definir un cruce en pandas, es muy importante ser conscientes de la presencia de los índices fila y columna de las tablas origen. En este sentido se puede realizar el cruce por 3 sistemas distintos:
 
@@ -333,7 +333,7 @@ Cuando las claves son campos comunes no es necesario definir los campos `left_on
 
 Por otro lado, si uno de los campos clave está contenido en el índice del DataFrame, se puede utilizar el parámetro `left_index=True` o `right_index=True` o ambos.  
 
-## RESUMENES DE AGREGADOS 
+### RESUMENES DE AGREGADOS 
 
 Las librerías numpy y pandas implementan una extensa colección de funciones de resumen.
 
@@ -747,7 +747,7 @@ personajes_df.pivot_table(index='Altura_Cat', columns='temperate_tropical'
 
 Observa cómo se ha obtenido la misma tabla que en el ejercicio con `.agg()`, pero ahora, con otra orientación de filas y columnas.
 
-## DATETIME: GESTIÓN DE FECHAS Y HORARIOS
+### DATETIME: GESTIÓN DE FECHAS Y HORARIOS
 
 La librería para gestión de fechas y horarios en Python es `datetime`. Además, también se utiliza la librería de funcionalidades ampliadas `dateutil`. 
 
