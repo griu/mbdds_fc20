@@ -300,7 +300,7 @@ cols = np.array([0,3])
 x2[fils,cols]
 ```
 
-> **Recuerda**: en arrays numpy los filtro por posición, se seleccionan apareando coordenadas fila y columna. Ve a la sección de Broadcasting, para saber más!
+> **Recuerda**: en arrays numpy los filtros por posición, se seleccionan apareando coordenadas fila y columna. Ve a la sección de Broadcasting, para saber más!
 
 En R se obtendría el siguiente resultado.
 
