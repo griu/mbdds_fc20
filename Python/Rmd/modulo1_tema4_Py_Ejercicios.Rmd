@@ -1,0 +1,291 @@
+---
+title: "MÓDULO 1: HERRAMIENTAS BIG DATA"
+author: "Ferran Carrascosa Mallafrè"
+date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
+output:
+  word_document:
+    reference_docx: www/template2.docx
+    toc: yes
+    toc_depth: 3
+  html_document:
+    toc: yes
+    toc_depth: '6'
+    df_print: paged
+subtitle: 'TEMA 4.2. HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN PYTHON - EJERCICIOS'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+use_condaenv("mbdds_rpy20")
+```
+
+__[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_Ejercicio_1.ipynb)__ 
+
+# Ejercicio 1
+
+Para realizar el ejercicio cargamos los datos de *Especies* en STARWARS SWAPI y las librerías principales.
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()  # para el estilo de graficos
+
+entidades = ['planets','starships','vehicles','people','species']
+entidades_df = {x: pd.read_pickle('www/' + x + '_df.pkl') for x in entidades}
+
+# Datos principales
+people_df = entidades_df['people'][["height","mass","birth_year","gender","homeworld"]].dropna()
+
+people_df
+```
+
+## Ejercicio 1.1. 
+
+Construye un gráfico de dispersión de los personajes donde se visualice: la altura (height), el peso (mass), la edad en años BBY (birth_year) y el género (gender). Para ello utiliza la función `sns.scatterplot()` de la librería seaborn. Aprovecha los parámetros: `x`, `y`, `size`, `hue` y `style` (consulta la ayuda de la función [.scatterplot()](https://seaborn.pydata.org/generated/seaborn.scatterplot.html).
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 1.2.
+
+Sobre el gráfico del ejercicio 1.1:
+
+- Pon título al gráfico y a los ejes x e y. 
+- Modifica los límites del eje y para que aparezcan sólo personajes de menos de 150 Kg de peso.
+- Sitúa en el gráfico los nombres de "Darth Vader" y "Anakin Skywalker". ¿Cómo es posible tengan un peso y altura tan distintos si eran la misma persona?
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 1.3.
+
+Utiliza las *list comprehension* para calcular el cuadrado de los valores positivos de la siguiente lista:
+
+Muestra el resultado por pantalla.
+
+```{python}
+val = [5, 6, -1, 2, -3, -7, 9, 1]
+```
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 1.4.
+
+Construye un diccionario donde se identifique, mediante claves y valores, las siguientes características del personaje Yoda: "nombre", "altura", "peso", "edad" y "genero". Utiliza los datos de people_df.
+
+Muestra el diccionario por pantalla.
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 1.5.
+
+Calcula, a partir de los vectores numpy de altura y peso, definidos a continuación, el [índice de masa corporal (IMC)](https://es.wikipedia.org/wiki/%C3%8Dndice_de_masa_corporal) de los personajes de star wars contenidos en people_df: 
+
+$IMC = \frac{peso}{altura^{2}}$ donde altura está en metros y el peso en kg.
+
+Muestra los datos por pantalla.
+
+```{python}
+altura = people_df.height.values
+peso = people_df.mass.values
+```
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 1.6.
+
+A partir del IMC que has calculado en el ejercicio 1.5. Construye un panel con dos histogramas:
+
+- Un histograma con toda la muestra
+- Un histograma seleccionando los valores con un IMC inferior a 100.
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 1.7.
+
+A partir del vector 1 y 2 que se definen a continuación contesta las siguientes preguntas:
+
+- Calcula el shape, ndim, size del vector1 y vector2
+- Explica cual es la diferencia entre vector1 y vector2 a partir de los que hayas observado
+
+```{python}
+vector1 = np.hstack([altura,peso])
+vector2 = np.vstack([altura,peso])
+```
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 1.8.
+
+Crea una copia de people_df llamada personajes_df y renombra las columnas con su traducción al castellano. 
+
+> Truco: Puedes renombrar el índice con:
+
+```personajes_df.index = personajes_df.index.rename("nombre")```
+
+Muestra los 5 primeros registros del nuevo data frame con `.head()`.
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 1.9.
+
+Haz el mismo cálculo de IMC que has hecho en 1.5. pero directamente sobre el objeto personajes_df.
+
+Ordena el data frame de mayor a menor IMC y muestra los personajes con IMC por encima de 30.
+
+> ¿Sabias que IMC por encima de 30 se considera obeso?
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 1.10.
+
+Inserta un valor faltante en los valores de IMC que sean superiores a 100 y dibuja el histograma con `.plot.hist()`.
+
+```{python}
+# Solución:
+```
+
+# Ejercicio 2
+
+Para el ejercicio 2, añadimos los datos del ejercicio 1 los datos de planetas.
+
+```{python}
+# planetas
+planets_df = entidades_df['planets'][["orbital_period","url"]].dropna()
+planets_df.head()
+```
+
+## Ejercicio 2.1.
+
+Construye una función que diga "buenos días", "buenas tardes" o "buenas noches" en función de la hora del día.
+
+> Truco 1: Para testear la función haz que tenga un parametro de entrada que tenga como valor por defecto: `datetime.now()` (primero carga `from datetime import datetime`).
+
+> Truco 2: Puedes extraer la hora de un datetime con `.hour`.
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 2.2.
+
+Elimina del data frame personajes_df los personajes con valores faltantes en IMC y crea una nueva variable con el trameado de la variable IMC definido en la siguiente tabla:
+
+ | Categoría de nivel de peso | Intervalo del percentil |
+ | -------------------------- | ----------------------- | 
+ | Bajo peso | < 18.5 |
+ | Normal | >= 18.5 y < 25 |
+ | Sobrepeso | >= 25 y <30 |
+ | Obeso | >= 30 |
+
+> Truco: utiliza `pd.cut(..., right=False)` y modifica las etiquetas con `.cat.categories`.  
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 2.3.
+
+Muestra las frecuencias de la nueva variable definida en 2.2.
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 2.4.
+
+Calcula ahora un trameado de la edad en 5 grupos equiprobables.
+
+> Truco: Busca ayuda de la función [pd.qcut()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.qcut.html)
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 2.5.
+
+Presenta la tabla cruzada de tramos de edad (ej. 2.4) por tramos de IMC (ej. 2.2). 
+
+¿Qué tramo de edad tiene un mayor número de personajes con Bajo peso?
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 2.6.
+
+Calcula la media del IMC en cada tramo de edad del ejercicio 2.2.
+
+> Truco: En el mismo cálculo del IMC medio, calcula también, la mediana de edad de cada tramo de edad para que sea el eje x del gráfico de líneas.
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 2.7.
+
+Presenta los datos del ej. 2.6. como un gráfico de líneas donde el eje x sea la edad y el eje y el IMC medio
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 2.8.
+
+Calcula el cociente del IMC sobre la mediana del IMC de su tramo de edad (definidos en el ejercicio 2.2.) mediante la función groupby(...).apply(...).
+
+> truco: primero crea la función que devuelva:  `x / np.nanmedian(x)`.
+
+Presenta los datos mediante un boxplot de la nueva variable: [pd.boxplot()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.boxplot.html). 
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 2.9.
+
+¿Cual es planeta con menor IMC medio de sus personajes?
+¿Que personaje/s son de ese planeta?
+
+```{python}
+# Solución:
+```
+
+## Ejercicio 2.10.
+
+Convierte a datetime los siguientes strings con la función [datetime.strptime()](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior) (consulta la ayuda si es necesario) de la libreria datetime:
+
+- "1 Enero, 2020"
+- "15-feb.-2017"
+- "20190701 22:30"  # 1 de julio de 2019
+
+> Truco: Modifica la configuración regional:
+
+```
+from datetime import datetime
+import locale
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+```
+
+```{python}
+# Solución:
+```
+
