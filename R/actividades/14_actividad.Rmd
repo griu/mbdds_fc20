@@ -73,15 +73,11 @@ resumen[["pib_per_capita"]]
 resumen[["esperanza_de_vida"]]
 ```
 
-< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
-
 ## 1.4.2. GRÁFICO DE DISPERSIÓN DE PAÍSES
 
 ```{r, echo=FALSE, fig.width=11,fig.height=8, fig.cap="Panel países (Fuente: Elaboración propia con datos de Gapminder)", fig.align="center",message=FALSE, dpi=150}
 resumen[["dispersion"]]
 ```
-
-< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
 
 
 ## 1.4.3. TABLA DESCRIPTIVA DE PAÍSES 
@@ -89,6 +85,4 @@ resumen[["dispersion"]]
 ```{r, echo=FALSE}
 kable(resumen[["summary"]], caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
 ```
-
-< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
 

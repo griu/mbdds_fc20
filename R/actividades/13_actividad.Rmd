@@ -30,13 +30,9 @@ describir <- function(data) {
 resumen <- describir(paises)
 ```
 
-< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
-
 ## 1.2. TABLA DESCRIPTIVA DE PAÍSES 
 
 ```{r}
 kable(resumen, caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
 ```
-
-< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
 
