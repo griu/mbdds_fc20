@@ -1,5 +1,5 @@
 ---
-title: "Actividad 1.5"
+title: "<PON UN TITULO>"
 output: html_document
 ---
 
@@ -16,11 +16,14 @@ paises_informe <- paises
 paises_informe$continente[paises_informe$continente=="Oceanía"] <- "Asia"
  # Elimina Oceanía de los levels
 paises_informe$continente <- factor(paises_informe$continente)
+
 # Paleta de colores
 colores_continente <- c("blue","green", "red", "yellow") 
 names(colores_continente) <- c("África", "Américas", "Asia", "Europa")
+
 # Etiquetas
 etiquetas_paises <- c("España","China","Etiopía","Canadá")
+
 # funcion describir
 describir <- function(data, colores, etiquetas) {
   
@@ -39,14 +42,18 @@ describir <- function(data, colores, etiquetas) {
       , pib_per_capita = sum(pib_total) / 
         sum(poblacion)
       , poblacion = sum(poblacion))
+
   resultados <- list()
+
   resultados[["pib_per_capita"]] <- 
     ggplot(data, aes(x=anio, y=pib_per_capita, group=anio)) +
     geom_boxplot()+
     scale_y_log10()
+
   resultados[["esperanza_de_vida"]] <- 
     ggplot(data, aes(x=anio, y=esperanza_de_vida, group=anio)) +
     geom_boxplot()
+
   resultados[["paises"]] <- ggplot(data, aes(x=pib_per_capita, y=esperanza_de_vida
       , color=continente, size=poblacion)) +
     geom_point() +
@@ -55,24 +62,27 @@ describir <- function(data, colores, etiquetas) {
     geom_label_repel(data=data_etiquetas
       , mapping=aes(x=pib_per_capita, y=esperanza_de_vida, label=pais)
       , size=3, color="black") +
-    labs(title="Panel de países del 1952 al 2007"
-      , x = "Logaritmo base 10 del PIB per cápita ($ americanos, ajustados según inflación)"
-      , y = "Esperanza de vida (años)") +
+    labs(title="< TITULO DEL GRAFICO >"
+      , x = "TITULO DEL EJE X"
+      , y = "TITULO DEL EJE Y") +
     facet_wrap(~anio)
+
+
   resultados[["continentes"]] <- ggplot(data_continente, aes(x=pib_per_capita, y=esperanza_de_vida
       , color=continente)) +
     geom_path() +
     scale_x_log10() +
     scale_colour_manual(values = colores) +
     geom_text_repel(aes(label=anio), size=2, color="black") +
-    labs(title="Evolución de los Continentes de 1952 a 2007"
-      , x = "Logaritmo base 10 del PIB per cápita ($ americanos, ajustados según inflación)"
-      , y = "Esperanza de vida (años)")
+    labs(title="< TITULO DEL GRAFICO >"
+      , x = "TITULO DEL EJE X"
+      , y = "TITULO DEL EJE Y")
   
   resultados[["summary"]] <- summary(data[,c("anio","continente","esperanza_de_vida","pib_per_capita")])
   
   return(resultados)
 }
+
 resumen <- describir(paises_informe, colores_continente, etiquetas_paises)
 ```
 
@@ -82,13 +92,9 @@ resumen <- describir(paises_informe, colores_continente, etiquetas_paises)
 resumen[["pib_per_capita"]]
 ```
 
-Se observa como los valores de las cajas suben, es decir, el PIB cada vez es mayor. Aunque parece que las cajas, cada vez son mas anchas.
-
 ```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot Esperanza de vida (Continente y año)", fig.align="center",message=FALSE}
 resumen[["esperanza_de_vida"]]
 ```
-
-A su vez, la esperanza de vida también sube. El eje central de la caja cada vez se sitúa más en al parte superior de la caja.
 
 ## 1.5.2. GRÁFICO DE DISPERSIÓN DE PAÍSES
 
@@ -96,19 +102,11 @@ A su vez, la esperanza de vida también sube. El eje central de la caja cada vez
 resumen[["paises"]]
 ```
 
-Se observa una clara relación entre tener un mayor PIB per cápita (logaritmo base 10) y la esperanza de vida media de los países. 
-
-Se observa como África siempre ha estado a la cola (menor PIB y menor esperanza de vida) y Europa a la cabeza. Se observa como Asia y América en su conjunto, han ido subiendo posiciones tanto en PIB, como en esperanza de vida.
-
-Vemos como España y Canadá siempre han estado en la parte superior y Etiopía en la parte inferior en PIB per cápita y esperanza de vida. En cambio, China ha evolucionado positivamente en estos dos aspectos, pasando de la parte inferior a la parte superior de la nube de países.
-
 ## 1.5.3. EVOLUCIÓN DE LOS CONTINENTES
 
 ```{r, echo=FALSE, fig.cap="Evolución continentes (Fuente: Elaboración propia con datos de Gapminder)", fig.align="center",message=FALSE, dpi=150}
 resumen[["continentes"]]
 ```
-
-El gráfico muestra la traza que han recorrido los continentes en sus valores medios de PIB per cápita y Esperanza de vida.  Se confirma la mayor progresión de Asia. Vemos que como América y Europa, en media tienen un comportamiento bastante paralelo. Se observa como el recorrido de África, aunque partiendo de valores muy inferiores, ha sido positiva y ha incrementado de forma similar el resto de continentes.  
 
 ## 1.5.4. TABLA DESCRIPTIVA DE PAÍSES 
 

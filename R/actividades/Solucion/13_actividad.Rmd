@@ -1,0 +1,43 @@
+---
+title: "Actividad 1.3"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(datos)
+suppressPackageStartupMessages(library(tidyverse))
+knitr::opts_chunk$set(echo = TRUE)
+
+# funcion describir
+describir <- function(data) {
+  p1 <- ggplot(data, aes(x=pib_per_capita, y=esperanza_de_vida
+      , color=continente, size=poblacion)) +
+    geom_point() +
+    scale_x_log10() +
+    labs(title="Panel de países del 1952 al 2007"
+      , x = "Logaritmo base 10 del PIB per cápita ($ americanos, ajustados según inflación)"
+      , y = "Esperanza de vida (años)") +
+    facet_wrap(~anio)
+  print(p1)
+  return(summary(data))
+}
+```
+
+Se observa una clara relación entre tener un mayor PIB per cápita (logaritmo base 10) y la esperanza de vida media de los países. 
+
+Se observa como África siempre ha estado a la cola (menor PIB y menor esperanza de vida) y Europa a la cabeza. Se observa como Asia y América en su conjunto, han ido subiendo posiciones tanto en PIB, como en esperanza de vida.
+
+## 1.1. GRÁFICO DE DISPERSIÓN DE PAÍSES
+
+```{r, fig.width=11,fig.height=8, fig.cap="Panel países (Fuente: Elaboración propia con datos de Gapminder)", fig.align="center", message=FALSE}
+resumen <- describir(paises)
+```
+
+## 1.2. TABLA DESCRIPTIVA DE PAÍSES 
+
+```{r}
+kable(resumen, caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
+```
+
+Se observa como cada país aparece 12 veces en el conjunto de datos. Hay que tener en cuenta esto para entender bien el resto de descriptivos.

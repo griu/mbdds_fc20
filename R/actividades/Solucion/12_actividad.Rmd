@@ -1,0 +1,43 @@
+---
+title: "Actividad 1.2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(datos)
+suppressPackageStartupMessages(library(tidyverse))
+knitr::opts_chunk$set(echo = TRUE)
+
+
+# DATOS: Esto se explica mas adelante en el temario
+paises07_2VAR <- paises %>% 
+ filter(anio==2007)  %>%
+ select(pib_per_capita, esperanza_de_vida)
+
+# función describir
+describir <- function(data, type,  col = 'red', ...) {
+  plot(data, type = type, col = col, ...)
+  return(summary(data))
+}
+```
+
+## GRÁFICO DE DISPERSIÓN DE PAÍSES
+
+```{r, fig.cap="Fuente: Elaboración propia con datos de Gapminder", fig.align="center", message=FALSE}
+resumen <- describir(paises07_2VAR
+                     , type = "p"
+                     , main = "Países (Año: 2007)"
+                     , xlab = "PIB per cápita ($ americanos, ajustados según inflación)"
+                     , ylab = "Esperanza de vida (años)", cex.main=1)
+```
+
+Se observa cómo los países que tienen un valor de PIB per cápita inferior a 10.000$ tienen una esperanza de vida muy inferior al resto.
+
+## TABLA DESCRIPTIVA DE PAÍSES 
+
+```{r}
+kable(resumen, caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
+```
+
+Se observa los principales valores descriptivos del pib per cápita y la esperanza de vida de los países en 2007. Por ejemplo, el país con menor esperanza de vida tiene 39,61 años de esperanza de vida media. En cambio, el país mayor esperanza de vida tiene 82,60 años de esperanza de vida media. Es decir, las personas del segundo país viven, de media, el doble de años.

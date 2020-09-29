@@ -18,12 +18,10 @@ paises_informe$continente[paises_informe$continente=="Oceanía"] <- "Asia"
 paises_informe$continente <- factor(paises_informe$continente)
 
 # Paleta de colores
-colores_continente <- c("blue","green", "red", "yellow") 
-names(colores_continente) <- c("África", "Américas", "Asia", "Europa")
+< CREA UN VECTOR LLAMADO colores_continente QUE CONTENGA LOS COLORES DE LOS CONTINENTES COM VALORES Y NOMO ETIQUETAS O "names" EL NOMBRE DE LOS CONTINENTES  SEGUN SE ESPECIFICA EN LA ACTIVIDAD 1.4 >
 
 # Etiquetas
-etiquetas_paises <- c("España","China","Etiopía","Canadá")
-
+< CREA UN VECTOR LLAMADO etiquetas_paises QUE CONTENGA LOS NOMBRES DE LOS PAÍSES >
 
 # funcion describir
 describir <- function(data, colores, etiquetas) {
@@ -34,25 +32,23 @@ describir <- function(data, colores, etiquetas) {
   resultados <- list()
 
   resultados[["pib_per_capita"]] <- 
-    ggplot(data, aes(y=pib_per_capita, group=anio)) +
-    geom_boxplot()+
-    scale_y_log10()
+    ggplot(data, aes(x=anio, y=pib_per_capita, group=anio)) +
+    < INSERTA EL geom_boxplot > +
+    < TRANSFORMA LA ESCALA DEL EJE Y PARA QUE TENGA UNA ESCALA LOGARITMICA EN BASE 10 >
 
   resultados[["esperanza_de_vida"]] <- 
     ggplot(data, aes(x=anio, y=esperanza_de_vida, group=anio)) +
-    geom_boxplot()
+    < INSERTA EL geom_boxplot > +
 
   resultados[["dispersion"]] <- ggplot(data, aes(x=pib_per_capita, y=esperanza_de_vida
       , color=continente, size=poblacion)) +
-    geom_point() +
-    scale_x_log10() +
+    < INSERTA EL GEOM DE PUNTOS > +
+    < TRANSFORMA LA ESCALA DEL EJE X PARA QUE TENGA UNA ESCALA LOGARITMICA EN BASE 10 >
     scale_colour_manual(values = colores) +
     geom_label(data=data_etiquetas
       , mapping=aes(x=pib_per_capita, y=esperanza_de_vida, label=pais)
       , size=3, color="black") +
-    labs(title="< TITULO DEL GRAFICO >"
-      , x = "TITULO DEL EJE X"
-      , y = "TITULO DEL EJE Y") +
+    < PON UN TITULOS AL GRAFICO, AL EJE X Y AL EJE Y > +
     facet_wrap(~anio)
 
   resultados[["summary"]] <- summary(data[,c("anio","continente","esperanza_de_vida","pib_per_capita")])
@@ -60,7 +56,7 @@ describir <- function(data, colores, etiquetas) {
   return(resultados)
 }
 
-resumen <- describir(paises_informe, colores_continente, etiquetas_paises)
+resumen <-  < LLAMA A LA FUNCION describir SOBRE LOS DATOS DE paises_informe ESPCIFICANDO LOS COLORES DE  colores_continente Y LAS QETIQUETAS DEFINIDAS EN etiquetas_paises >
 ```
 
 ## 1.4.1. DESCRIPTIVO BOXPLOT

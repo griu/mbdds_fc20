@@ -17,8 +17,8 @@ paises07_2VAR <- paises %>%
 
 # función describir
 describir <- function(data, type,  col = 'red', ...) {
-  plot(data, type = type, col = col, ...)
-  return(summary(data))
+< UTILIZA EL MISMO EJEMPLO DE DESCRIBIR DEL MODULO PARA CREAR UN GRAFICO DE PUNTOS ROJOS A PARTIR DE data>
+< HAZ QUE LA FUNCION DEVUELVA el summary de DATA >
 }
 ```
 
@@ -32,8 +32,12 @@ resumen <- describir(paises07_2VAR
                      , ylab = "< TITULO DEL EJE Y >", cex.main=1)
 ```
 
+< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
+
 ## TABLA DESCRIPTIVA DE PAÍSES 
 
 ```{r}
 kable(resumen, caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
 ```
+
+< DESCRIBE BREVEMENTE LO QUE OBSERVAS >
