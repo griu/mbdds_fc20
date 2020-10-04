@@ -15,7 +15,7 @@ options(knitr.kable.NA = '')
 #  Reemplazar > expresiones regulares > ##.*
 ```
 
-## GRÁFICOS CON GGPLOT2
+## 1.4. Gráficos con GGPLOT2
 
 > \<cita\>Un simple gráfico ha brindado más información a la mente del analista de datos que cualquier otro dispositivo. - John Tukey\</cita\>
 
@@ -31,7 +31,7 @@ ggplot(data = pressure) +
 
 Los componentes mínimos son:
 
-- `ggplot` define el conjunto de datos en el parámetro `data` que debería contener todas las variables del gráfico.
+- `ggplot` define el conjunto de datos en el parámetro `data` que debería contener todas las columnas del gráfico.
 - `geom_<función>`: Define el tipo de gráfico. Por ejemplo, *geom_point* es un gráfico de puntos.
 - `mapping`: define mapeo de parámetros estéticos (`x`, `y`...) a través de la función `aes()`.
 

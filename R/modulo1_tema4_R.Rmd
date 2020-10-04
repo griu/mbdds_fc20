@@ -1,5 +1,5 @@
 ---
-title: 'MÓDULO 1: HERRAMIENTAS BIG DATA'
+title: 'MÓDULO: HERRAMIENTAS BIG DATA'
 author: "Ferran Carrascosa Mallafrè"
 date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
 output:
@@ -11,7 +11,7 @@ output:
     toc: yes
     toc_depth: '6'
     df_print: paged
-subtitle: 'TEMA 4.1. HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN R'
+subtitle: 'Tema: Herramientas de análisis: Programación en R'
 ---
 
 ```{r setup, include=FALSE}
@@ -30,13 +30,28 @@ options(knitr.kable.NA = '')
 #  Reemplazar > expresiones regulares > ##.*
 ```
 
-# PROGRAMACIÓN EN R
+```{=openxml}
+<w:p>
+  <w:r>
+    <w:br w:type="page"/>
+  </w:r>
+</w:p>
+```
 
-## INTRODUCCIÓN
+# Objetivos específicos
+
+- Realizar operaciones de lectura y escritura de datos con R.
+- Saber escoger la estructura de datos de R adecuada para cada problema.
+- Tener las bases para realizar análisis descriptivo mediante tablas y gráficos en R.
+- Desarrollar pequeñas piezas de código en R
+
+# 1. Programación en R
+
+## 1.1. Introducción
 
 El *Data science* permite transformar datos en conocimiento. El objetivo es aprender a utilizar las mejores herramientas disponibles en R para el *data science*.
 
-## ACTIVIDAD GUIADA 1
+## 1.2. Actividad guiada 1
 
 La actividad guiada, que resolveremos a lo largo de este temario consiste en comprender la evolución de la riqueza y la esperanza de vida de las personas a nivel de país y continente.
 

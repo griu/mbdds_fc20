@@ -1,5 +1,5 @@
 ---
-title: 'MÓDULO 1: HERRAMIENTAS BIG DATA'
+title: 'MÓDULO: HERRAMIENTAS BIG DATA'
 author: "Ferran Carrascosa Mallafrè"
 date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
 output:
@@ -11,7 +11,7 @@ output:
     toc: yes
     toc_depth: '6'
     df_print: paged
-subtitle: 'TEMA 4: HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN R Y PROGRAMACIÓN EN PYTHON'
+subtitle: 'Tema: Herramientas de análisis: Programación en R Y programación en Python'
 ---
 
 ```{r setup, include=FALSE}
@@ -35,14 +35,14 @@ options(knitr.kable.NA = '')
 </w:p>
 ```
 
-# OBJETIVOS
+# Objetivos
 
 - Realizar operaciones de lectura y escritura de datos.
 - Saber escoger la estructura de datos adecuada para cada problema.
 - Tener las bases para realizar análisis descriptivo mediante tablas y gráficos en R y Python.
 - Desarrollar pequeñas piezas de código en R y Python.
 
-# INTRODUCCIÓN
+# Introducción
 
 
 #### ![](www/R_logo.svg.png){width=30px}  [R](https://www.R-project.org/)
@@ -70,7 +70,7 @@ En el *TIOBE Índice*, Python se encuentra en tercera posición y R en octava. E
 
 Viendo ambos rankings, se puede deducir que tanto R como Python son líderes en la categoría de lenguajes con capacidades analíticas avanzadas. Los contenidos de este tema permiten comprender los motivos de esta popularidad y profundizar en el análisis de datos mediante R y Python.
 
-## MINDMAP
+# Mindmap
 
 Para poder tener una visión global del tema se presenta el siguiente Esquema global:
 
@@ -116,7 +116,7 @@ La gestión de datos consiste en:
 - Operaciones con *Data Frames* de **agrupación** a partir de una o varias variables categóricas.
 - Construcción de **tablas resumen** de datos como por ejemplo: conteos, medias, etc.
 
-## RECURSOS DISPONIBLES
+# Recursos disponibles
 
 Las actividades de evaluación del tema 1.4 se realizan mediante:
 
@@ -131,9 +131,7 @@ Se recomienda aprovechar todos los recursos disponibles online:
   - [Rmarkdown](https://rmarkdown.rstudio.com/) en el caso de R.
   - [Colab](https://colab.research.google.com/) en el caso de Python.
 
-# EJECUCIÓN INTERACTIVA
-
-## PROGRAMACIÓN EN R
+# Ejecución interactiva de la programación en R
 
 Puedes ejecutar el temario de R de forma interactiva accediendo con RStudio a tu directorio git local, o bien, consultar los códigos fuente en Github.
 
@@ -145,7 +143,7 @@ Puedes ejecutar el temario de R de forma interactiva accediendo con RStudio a tu
 - [Gestión de datos](https://github.com/griu/mbdds_fc20/blob/master/R/modulo1_tema4_R_05_gest_dat.Rmd).
 - [Anexo: README de R](https://github.com/griu/mbdds_fc20/blob/master/Python/README.md).
 
-# PROGRAMACIÓN EN PYTHON
+# Ejecución interactiva de la programación en Python
 
 El temario de Python se pueden ejecutar desde Colab, accediendo directamente desdel enlace que encontrarás en cada notebooks. Aunque no es imprescindible, también puedes usar el entorno de Jupyter local tal cual se explica en la guía en el [Anexo: README de Python](#anexo-readme).
 
@@ -162,19 +160,21 @@ Puedes ejecutar de forma interactiva los materiales de Python en Colab en el enl
 - [Gestión de datos](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_50_gest_dat.ipynb).
 - [Anexo: README de Python](https://github.com/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_60_anexo.ipynb).
 
-# IDEAS CLAVE
+# Ideas clave
 
 - R y Python cubren todo el espectro de trabajo con datos.
 - Son lenguajes rápidos de implementar y de ejecución óptima.
 - Aportan una gran facilidad para la visualización de datos.
 
-# BIBLIOGRAFÍA
+# Bibliografía
 
 - Y. Xie, J. J. Allaire, G. Grolemund. R Markdown: The Definitive Guide. Chapman & Hall/CRC; 2020. Disponible en: https://bookdown.org/yihui/rmarkdown/
 
 Guía para elaborar con Rmarkdown, documentos que combinan texto, análisis en R o Python con los resultados (tablas o gráficos).
 
 - W. Chang. R Graphics Cookbook,  O’Reilly Media, Inc. 2nd ed.; 2020. Disponible en: https://r-graphics.org/
+
+Desarrollo de gráficos con R.
 
 - W. McKinney. Python for Data Anlysis. O’Reilly Media, Inc. 2nd ed.; 2017
 
@@ -201,13 +201,12 @@ Cubre todo lo básico de Python más la interacción con bases de datos, visuali
 
 Visualización de datos con R.
 
-
-# RECURSOS EN INTERNET
+# Recursos en internet
 
 - [Cheatsheet de R](https://rstudio.com/resources/cheatsheets/)
 - [Cheatsheet de Python](https://www.pythoncheatsheet.org/)
 
-# ANEXO: README 
+# Anexo: Readme 
 
 ```{r, child='README.md'}
 ```

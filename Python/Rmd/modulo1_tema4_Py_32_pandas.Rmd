@@ -1,8 +1,8 @@
-## PANDAS
+## 2.7. Pandas
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_32_pandas.ipynb)__
 
-Abreviación de Panel Data, los objetos pandas dan soporte al análisi de datos con variables de distinta tipología: categóricas, binarias, numéricas...
+Abreviación de Panel Data, los objetos pandas dan soporte al análisi de datos con columnas de distinta tipología: categóricas, binarias, numéricas...
 
 Respecto a los numpy, permiten indexar las filas y columnas. Este tipo de indexación, facilita, por ejemplo, realizar análisis de series temporales, no necesariamente con una frecuencia fija.
 
@@ -42,7 +42,7 @@ planets_df = planets_df[planets_df.diameter>0]
 planets_df.head()
 ```
 
-### PANDAS SERIES
+### 2.7.1. Pandas series
 
 Se definen como un array uni-dimensional indexado.
 
@@ -144,7 +144,7 @@ a.iloc[1]
 a.iloc[1:3]
 ```
 
-### OBJETOS PANDAS DATAFRAME
+### 2.7.2. Objetos Pandas Dataframe
 
 Se pueden ver como una generalización de los numpy o incluso de los diccionarios. 
 
@@ -256,7 +256,7 @@ planets_df.drop(columns="Area", inplace=True, errors="ignore")
 planets_df.head()
 ```
 
-### FILTROS EN DATAFRAMES
+### 2.7.3. Filtros en Dataframes
 
 Funciona la misma lógica de selección que numpys y series pandas, pero ahora con dos dimensiones.
 
@@ -443,7 +443,7 @@ print(planets_df_sel.shape)
 planets_df_sel
 ```
 
-Quedan 7 planetas. Veamos ahora un gráfico de dispersión con un resumen de las principales variables.
+Quedan 7 planetas. Veamos ahora un gráfico de dispersión con un resumen de las principales columnas.
 
 ```{python}
 sns.set(rc={'figure.figsize':(10,6)});

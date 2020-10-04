@@ -1,5 +1,5 @@
 
-## GESTIÓN DE DATOS
+## 2.9. Gestión de datos
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_50_gest_dat.ipynb)__
 
@@ -41,7 +41,7 @@ people_df.head()
 planets_df.head()
 ```
 
-### IMPORTAR Y EXPORTAR DATOS
+### 2.9.1. Importar y exportar datos
 
 La forma más simple de importar datos estructurados (en forma de matriz de filas y columnas), es a través de los DataFrames. El motivo es simple, estos objetos permiten almacenar datos de distinto tipo en un único objeto o tabla de datos.
 
@@ -139,7 +139,7 @@ mtcars_pkl = pd.read_pickle("www/mtcars.pkl")
 mtcars_pkl.shape
 ```
 
-### CRUCE ENTRE TABLAS
+### 2.9.2. Cruce entre tablas
 
 Para definir un cruce en pandas, es muy importante ser conscientes de la presencia de los índices fila y columna de las tablas origen. En este sentido se puede realizar el cruce por 3 sistemas distintos:
 
@@ -333,7 +333,7 @@ Cuando las claves son campos comunes no es necesario definir los campos `left_on
 
 Por otro lado, si uno de los campos clave está contenido en el índice del DataFrame, se puede utilizar el parámetro `left_index=True` o `right_index=True` o ambos.  
 
-### RESUMENES DE AGREGADOS 
+### 2.9.3. Resumenes de agregados 
 
 Las librerías numpy y pandas implementan una extensa colección de funciones de resumen.
 
@@ -341,7 +341,7 @@ Las librerías numpy y pandas implementan una extensa colección de funciones de
 
 Para tener una primera impresión sobre las estadísticas de un DataFrame se utiliza `.describe()`.
 
-Antes incluyamos a people_df algunas variables nuevas de distinto tipo y además algunos missings.
+Antes incluyamos a people_df algunas columnas nuevas de distinto tipo y además algunos missings.
 
 ```{python}
 people_dfSumm = people_df.copy()
@@ -358,7 +358,7 @@ people_dfSumm.head()
 people_df.describe()
 ```
 
-Por defecto, calcula los siguientes estadísticos básicos sobre variables numéricas:
+Por defecto, calcula los siguientes estadísticos básicos sobre columnas numéricas:
 
 - `count`: Número de valores informados (distintos de NaN).
 - `mean`: Media.
@@ -375,7 +375,7 @@ Para incluirlas todas se utiliza `include='all'`.
 people_dfSumm.describe(include='all')
 ```
 
-Ahora, para las variables no numéricas, informa del `count` y además:
+Ahora, para las columnas no numéricas, informa del `count` y además:
 
 - `unique`: Número de valores únicos.
 - `top`: Valor más frecuente.
@@ -446,11 +446,11 @@ def resumen_no_numericas_pandas(x):
 resumen_no_numericas_pandas(people_dfSumm.eye_color)
 ```
 
-#### TABLAS DE FRECUENCIAS
+#### TABLAS DE FRECUENCIAS O CONTEOS
 
-##### FRECUENCIAS DE UNA VARIABLE
+##### CONTEOS DE UNA VARIABLE
 
-Para obtener las frecuencias de una serie pandas se utiliza `.value_counts()`.
+Para obtener los conteos de una serie pandas se utiliza `.value_counts()`.
 
 ```{python}
 people_dfSumm.eye_color.value_counts()
@@ -466,15 +466,15 @@ people_dfSumm.eye_color.value_counts().sort_index()
 
 ##### TABLAS CRUZADAS
 
-Para obtener las frecuencias de dos variables utiliza `pd.crosstab()`.
+Para obtener los conteos de dos columnas utiliza `pd.crosstab()`.
 
 ```{python}
 pd.crosstab(people_dfSumm.eye_color,people_dfSumm.gender)
 ```
 
-##### TRAMEAR VARIABLES
+##### TRAMEAR COLUMNAS
 
-En pandas series se puede tramear una variable con la función `pd.cut()`
+En pandas series se puede tramear una columna con la función `pd.cut()`
 
 ```{python}
 people_dfSumm["Altura_Cat"] = pd.cut(people_dfSumm.height,[-np.infty,171,189,np.infty], right=False)
@@ -482,7 +482,7 @@ people_dfSumm["Altura_Cat"] = pd.cut(people_dfSumm.height,[-np.infty,171,189,np.
 people_dfSumm[["height","Altura_Cat"]].head(8)
 ```
 
-Observa como pd.cut() ha trameado en intervalos la variable `height`. Con `right=False` se le pide que el intervalo sea cerrado a la izquierda y abierto a la derecha.
+Observa como pd.cut() ha trameado en intervalos la columna `height`. Con `right=False` se le pide que el intervalo sea cerrado a la izquierda y abierto a la derecha.
 
 Las frecuencias de cada categoría.
 
@@ -490,7 +490,7 @@ Las frecuencias de cada categoría.
 people_dfSumm["Altura_Cat"].value_counts().sort_index()
 ```
 
-> **Importante**: `pd.cut()` crea una variable de tipo `pd.Categorical`. Este tipo de datos contienen .categories() y .codes(), parecidos a los `factores` vistos en R.
+> **Importante**: `pd.cut()` crea una columna de tipo `pd.Categorical`. Este tipo de datos contienen .categories() y .codes(), parecidos a los `factores` vistos en R.
 
 ```{python}
 people_dfSumm["Altura_Cat"].dtype
@@ -523,7 +523,7 @@ Veamos ahora, un resumen de la altura de los personajes por el tipo de clima de 
 Los pasos a realizar son:
 
 1. Cruzamos las tablas de personajes y planetas
-1. Construimos la variable trameada de altura en puntos de corte 171 cm  y 189 cm. 
+1. Construimos la columna trameada de altura en puntos de corte 171 cm  y 189 cm. 
 1. Cruzamos la altura con el clima del planeta.
 
 ```{python}
@@ -573,7 +573,7 @@ plt.show();
 
 Se observa que un **70% de los personajes bajos** han nacido en climas temperado o tropicales, frente al **60% de los personajes altos**.
 
-### AGREGADOS POR SUBGRUPOS
+### 2.9.4. Agregados por subgrupos
 
 Además de frecuencias, es necesario calcular más estadísticos relevantes. Por ejemplo, la mediana de la edad (birth_year), el peso (mass) mínimo de los personajes, o la media de habitantes (population) de sus planetas por tipo de clima y tramo de altura (alto, medio bajo) de los personajes.
 
@@ -590,11 +590,11 @@ summ1_altura_clima = personajes_df.groupby(["temperate_tropical"
 summ1_altura_clima
 ```
 
-Observa cómo se ha aplicado la función mean sobre cada una de las variables para cada combinación de clima de los planetas y altura de los personas.
+Observa cómo se ha aplicado la función mean sobre cada una de las columnas para cada combinación de clima de los planetas y altura de los personas.
 
-También aparece un elmento nuevo, es la capacidad de los DataFrames de tener un índice compuesto por más de una variable, en este caso `temperate_tropical` y `Altura_Cat`.
+También aparece un elmento nuevo, es la capacidad de los DataFrames de tener un índice compuesto por más de una columna, en este caso `temperate_tropical` y `Altura_Cat`.
 
-Una forma de sortear los índices múltiples, es incorporarlos como variables con `.reset_index()`.
+Una forma de sortear los índices múltiples, es incorporarlos como columnas añadiendo `.reset_index()`.
 
 ```{python}
 summ1_altura_clima = summ1_altura_clima.reset_index()
@@ -606,9 +606,9 @@ Ahora los 2 índices se han convertido a columnas de la tabla.
 
 #### AGGREGATE
 
-Para aplicar distintas funciones de agregación a distintas variables, se utiliza `.aggregate()` o abreviadamente `.agg()` de forma combinada con `.groupby()`. 
+Para aplicar distintas funciones de agregación a distintas columnas, se utiliza `.aggregate()` o abreviadamente `.agg()` de forma combinada con `.groupby()`. 
 
-Un primer pase, es aplicar varias funciones a todas las variables seleccionadas del data frame.
+Un primer pase, es aplicar varias funciones a todas las columnas seleccionadas del data frame.
 
 ```{python}
 summ2_altura_clima = personajes_df.groupby(
@@ -632,9 +632,9 @@ summ2_altura_clima = summ2_altura_clima.reset_index() # pasamos los indices fila
 summ2_altura_clima
 ```
 
-Para resolver la cuestión planteada, se necesita poder decidir, qué estadsítico se quiere aplicar en cada variable.
+Para resolver la cuestión planteada, se necesita poder decidir, qué estadístico se quiere aplicar en cada columna.
 
-Se puede definir qué estadístico se va a aplicar sobre cada variable, mediante un diccionario.
+Se puede definir qué estadístico se va a aplicar sobre cada columna, mediante un diccionario.
 
 ```{python}
 summ3_altura_clima = personajes_df.groupby(
@@ -647,7 +647,7 @@ summ3_altura_clima
 
 Observa, por ejemplo, que hay 2 personajes de estatura baja que nacieron en un planeta de clima NO temperado o tropical, con mediana de edad 79.5 años BBY, peso mínimo 75 Kg y que viven en planetas con una media de 200.000 habitantes.
 
-Para poder identificar cada fila con una etiqueta, vamos a combinar las variables de temperado_tropical con la altura del personaje.  
+Para poder identificar cada fila con una etiqueta, vamos a combinar las columnas de temperado_tropical con la altura del personaje.  
 
 ```{python}
 summ3_altura_clima["clima_altura"] = pd.Series(
@@ -716,9 +716,9 @@ personajes_df2 = personajes_df.groupby(["temperate_tropical","Altura_Cat"]).appl
 personajes_df2.head()
 ```
 
-Observa que la nueva variable de Edad_c, permite saber que Luke está 19 años por debajo de la mediana de su grupo de clima (malo) y tramo de altura (mediano).
+Observa que la nueva columna de Edad_c, permite saber que Luke está 19 años por debajo de la mediana de su grupo de clima (malo) y tramo de altura (mediano).
 
-### TABLAS PIVOTE
+### 2.9.5. Tablas pivote
 
 Las tablas pivotantes `.pivot_table()` son una solución intermedia entre los `pd.crosstabs()` orientados obtener tablas cruzadas (filas x columnas) y las agregaciones realizadas con `.groupby()`.
 
@@ -747,7 +747,7 @@ personajes_df.pivot_table(index='Altura_Cat', columns='temperate_tropical'
 
 Observa cómo se ha obtenido la misma tabla que en el ejercicio con `.agg()`, pero ahora, con otra orientación de filas y columnas.
 
-### DATETIME: GESTIÓN DE FECHAS Y HORARIOS
+### 2.9.6. Datetime: Gestión de fechas y horarios
 
 La librería para gestión de fechas y horarios en Python es `datetime`. Además, también se utiliza la librería de funcionalidades ampliadas `dateutil`. 
 

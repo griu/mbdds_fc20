@@ -1,5 +1,5 @@
 
-## ELEMENTOS BÁSICOS DE PYTHON
+## 2.3. Elementos básicos de Python
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_10_elem_bas.ipynb)__
 

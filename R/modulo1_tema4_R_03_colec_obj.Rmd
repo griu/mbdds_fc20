@@ -16,9 +16,9 @@ options(knitr.kable.NA = '')
 paises07 <- as.data.frame(paises %>% filter(anio==2007))
 ```
 
-## COLECCIONES DE OBJETOS
+## 1.5. Colecciones de objetos
 
-### DEFINCIÓN DE LOS OBJETOS
+### 1.5.1. Definción de los objetos
 
 #### TIPO BÁSICOS
 
@@ -293,7 +293,7 @@ str(a)
 
 Se utilizan las mismas reglas que en las matrices para saber la dimensión, nombres de filas y columnas.
 
-### FILTROS
+### 1.5.2. Filtros
 
 Para filtrar matrices y data frames se utiliza corchetes separados por coma `[,]`. En el caso de vectores, corchetes simples `[]`.
 
@@ -537,7 +537,7 @@ kable(consulta, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
 
 ![](www/logicos3.png){width=450px}
 
-### MODIFICACION DE VALORES
+### 1.5.3. Modificacion de valores
 
 R ofrece algunas facilidades para modificar los valores de sus objetos.
 
@@ -665,9 +665,9 @@ options(knitr.kable.NA = '')
 
 ![](www/paisesNA2.png){width=450px}
 
-##### FILTROS EN VARIABLES CON VALORES FALTANTES
+##### FILTROS EN COLUMNAS CON VALORES FALTANTES
 
-La presencia de NA en una variable dificulta la definición de condiciones lógicas.  Por ejemplo, si seleccionamos países con PIB per cápita inferior a 500 dólares se obtiene el siguiente resultado incorrecto:
+La presencia de NA en una columna dificulta la definición de condiciones lógicas.  Por ejemplo, si seleccionamos países con PIB per cápita inferior a 500 dólares se obtiene el siguiente resultado incorrecto:
 
 ```{r, eval=FALSE}
 paises07NA[paises07NA$pib_per_capita<500,]
@@ -729,11 +729,11 @@ Vamos a mejorar de nuevo el informe de los países introduciendo:
 
 Adapta los comentarios solicitados en `14_actividad.R`, ejecuta y observa:
 
-- Se ha recodificado una variable factor.
+- Se ha recodificado una columna factor.
 - Se ha parametrizado los colores de los continentes y las etiquetas de los países.
 - La función `describir()` devuelve una lista de resultados (plots y tablas).
 - Se han introducido boxplots.
 - Se ha construido un data frame con los países con etiqueta.
-- Se ha seleccionado las variables a presentar en el summary.
+- Se ha seleccionado las columnas a presentar en el summary.
 
 

@@ -1,5 +1,5 @@
 
-## NUMPY
+## 2.6. Numpy
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_31_numpy.ipynb)__
 
@@ -38,7 +38,7 @@ starships_df = entidades_df['starships'][["cost_in_credits","MGLT","crew"]].drop
 starships_df.head()
 ```
 
-Transformamos la matriz numpy con las variables numéricas:
+Transformamos la matriz numpy con las columnas numéricas:
 
 ```{python}
 starship_np = starships_df.values
@@ -215,7 +215,7 @@ print("Naves cantidad de bytes:", starship_np.nbytes, "bytes")
 print("Nombres cantidad de bytes:", starship_names.nbytes, "bytes")
 ```
 
-### FILTROS EN NUMPY
+### 2.6.1. Filtros en Numpy
 
 Siguen las mismas reglas que en las listas, pero ahora con más dimensiones
 
@@ -393,7 +393,7 @@ plt.show();
 
 Parece que el Halcón Milenario con 75 MGLT, es la nave que andábamos buscando!
 
-### MODIFICAR ARRAYS
+### 2.6.2. Modificar arrays
 
 Para modificar un valor de un array.
 

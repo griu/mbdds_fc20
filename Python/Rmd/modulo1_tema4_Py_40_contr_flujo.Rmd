@@ -1,5 +1,5 @@
 
-## CONTROL DE FLUJO
+## 2.8. Control de flujo
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_40_contr_flujo.ipynb)__
 
@@ -23,7 +23,7 @@ vehicles_df = entidades_df['vehicles'][["cost_in_credits","length","max_atmosphe
 vehicles_df.head()
 ```
 
-### FUNCIONES
+### 2.8.1. Funciones
 
 Hagamos un breve repaso sobre lo que se ha tratado hasta el momento respecto a las funciones en Python. 
 
@@ -45,7 +45,7 @@ El segundo concepto, van a ser las funciones de agregación (suma, media, cuanti
 
 La combinación de ambos conceptos, funciones vectorizadas y funciones de agregación sobre objetos pandas, van a terminar de rellenar tu caja de herramientas para poder iniciarte en data science.
 
-### CONDICIONALES
+### 2.8.2. Condicionales
 
 Hagamos también aquí un breve repaso de los aspectos que ya se han comentado respecto a estructuras condicionales.
 
@@ -67,7 +67,7 @@ Por ejemplo, veamos la siguiente variable *crew* que nos informa del número de 
 vehicles_df[['crew']].head()
 ```
 
-Para transformar esta variable en una nueva que indique si un vehículo puede llevar 1, 2 o 3 o más tripulantes.
+Para transformar esta columna en una nueva que indique si un vehículo puede llevar 1, 2 o 3 o más tripulantes.
 
 ```{python}
 vehicles_df['crew_r'] = np.where(vehicles_df.crew<3, vehicles_df.crew, 3)
@@ -76,7 +76,7 @@ vehicles_df[['crew','crew_r']].head()
 
 > **Observa**: esta función de numpy aplica elemento a elemento. Observa también que se ha aplicado a una serie de un DataFrame, obteniendo una nueva serie.
 
-### BUCLES
+### 2.8.3. Bucles
 
 Los bucles for, se han tratado de forma básica en las *list comprehension* del capítulo de [Listas, tuplas y diccionarios](modulo1_tema4_Py_30_colec_obj.ipynb).
 

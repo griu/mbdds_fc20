@@ -15,7 +15,7 @@ options(knitr.kable.NA = '')
 #  Reemplazar > expresiones regulares > ##.*
 ```
 
-## ELEMENTOS BÁSICOS DE R
+## 1.3. Elementos básicos de R
 
 Aunque se presuponen unos conocimientos iniciales de R, a continuación se hace un repaso de R y RStudio.
 

@@ -1,9 +1,9 @@
 
-## COLECCIONES DE OBJETOS
+## 2.5. Colecciones de objetos
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_30_colec_obj.ipynb)__
 
-### DEFINCIÓN DE LOS OBJETOS
+### 2.5.1. Definción de los objetos
 
 #### TIPO BÁSICOS
 
@@ -75,7 +75,7 @@ Utiliza los constructores de cada tipo para realizar *casting*.
 print('True es',int(True),'y False es',int(False))
 ```
 
-### LISTAS
+### 2.5.2. Listas
 
 Sus elementos van entre corchetes y separados por comas: `[ele1, elem2, ...]`. 
 
@@ -191,7 +191,7 @@ De esta forma es fácil cambiar el carácter de separación.
 '-'.join(a)
 ```
 
-### TUPLAS
+### 2.5.3. Tuplas
 
 Sus elementos van entre paréntesis y separados por comas: `(ele1, elem2, ...)`. 
 
@@ -235,7 +235,7 @@ Para convertirlos a lista.
 list(a)
 ```
 
-### DICCIONARIOS
+### 2.5.4. Diccionarios
 
 Sus elementos van entre llaves, separados por comas con una clave:  `{'clave1': val1, 'clave2': val1,...}`
 

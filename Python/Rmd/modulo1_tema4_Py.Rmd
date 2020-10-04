@@ -1,5 +1,5 @@
 ---
-title: "MÓDULO 1: HERRAMIENTAS BIG DATA"
+title: "MÓDULO: HERRAMIENTAS BIG DATA"
 author: "Ferran Carrascosa Mallafrè"
 date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
 output:
@@ -11,7 +11,7 @@ output:
     toc: yes
     toc_depth: '6'
     df_print: paged
-subtitle: 'TEMA 4.2. HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN PYTHON'
+subtitle: 'Tema: Herramientas de análisis: Programación en Python'
 ---
 
 ```{r setup, include=FALSE}
@@ -20,9 +20,24 @@ library(reticulate)
 use_condaenv("mbdds_rpy20")
 ```
 
-# PROGRAMACIÓN EN PYTHON
+```{=openxml}
+<w:p>
+  <w:r>
+    <w:br w:type="page"/>
+  </w:r>
+</w:p>
+```
 
-## INTRODUCCIÓN
+# Objetivos específicos
+
+- Realizar operaciones de lectura y escritura de datos con Python.
+- Saber escoger la estructura de datos de Python adecuada para cada problema.
+- Tener las bases para realizar análisis descriptivo mediante tablas y gráficos en Python.
+- Desarrollar pequeñas piezas de código en Python.
+
+# 2. Programación en Python
+
+## 2.1. Introducción
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py.ipynb)__
 
@@ -40,7 +55,7 @@ import this
 
 Ser *Pythoniano* o *Pythónico* significa utilizar correctamente el código, es decir, programar con un lenguaje simple y fácil de leer.
 
-## ACTIVIDAD GUIADA 2
+## 2.2. Actividad guiada 2
 
 La actividad guiada, que te proponemos, en consonancia con los Pythonianos, es que te diviertas analizando datos relacionados con la saga de Star Wars: Planetas, Naves, Vehículos, Personajes y Especies.
 
@@ -78,7 +93,7 @@ Una muestra de los datos de los personajes.
 entidades_df['people'].head()
 ```
 
-Observa que hay variables numéricas como la altura, peso, edad (en años ABY Antes de la Batalla de Yavin). Otras categóricas, como el género del personaje. Incluso variables en formato de lista, como las películas en las que salió el personaje y los vehículos y naves que condujo...
+Observa que hay columnas numéricas como la altura, peso, edad (en años ABY Antes de la Batalla de Yavin). Otras categóricas, como el género del personaje. Incluso columnas en formato de lista, como las películas en las que salió el personaje y los vehículos y naves que condujo...
 
 ```
 "Yoda habló de otra." 

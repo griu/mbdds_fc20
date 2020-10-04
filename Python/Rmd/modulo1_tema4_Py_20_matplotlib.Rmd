@@ -1,5 +1,5 @@
 
-## GRÁFICOS CON MATPLOTLIB
+## 2.4. Gráficos con Matplotlib
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_20_matplotlib.ipynb)__
 
@@ -7,7 +7,7 @@ La librería gráfica [Matplotlib](https://matplotlib.org/), concebida por John 
 
 Actualmente, se apoya en otras librerías, más simples y de aspecto gráfico modernizado com Seaborn y los mismos Pandas.
 
-Los objetos numpy y pandas se expondrán ampliamente en el siguiente apartado, no obstante, dado que el curso presupone ciertos conocimientos de Python, se muestran ahora los gráficos para poder utilizarlos en los siguientes apartados como herramienta.
+Los objetos numpy y pandas se expondrán ampliamente en el siguiente apartado, no obstante, dado que el curso presupone ciertos conocimientos de programación, se muestran ahora los gráficos para poder utilizarlos en los siguientes apartados como herramienta.
 
 Para importar la librería, habitualmente se importa el submódulo pyplot.
 
@@ -22,7 +22,7 @@ Consiste en conocer mejor a las especies mediante gráficos. En concreto se pued
 >     «¡No puedes llevar a Su Alteza Real allí! Los Hutts son gangsters ...» 
     ―Quarsh Panaka. 
 
-El primer paso consiste en cargar los datos de las especies y extraer las variables.
+El primer paso consiste en cargar los datos de las especies y extraer las columnas.
 
 ```{python}
 import numpy as np
@@ -51,7 +51,7 @@ Observa como cada fila representa una especie que viene caracterizada por 5 vect
 - **vida_media**: Vida media en años.
 - **num_peliculas**: Número de películas en las que aparece esa especie.
 
-### CONCEPTOS BASICOS EN MATPLOTLIB
+### 2.4.1. Conceptos básicos en Matplotlib
 
 Se ajusta el estilo que regula el aspecto general del gráfico al seaborn-whitegrid.
 
@@ -267,7 +267,7 @@ plt.show();
 
 No es muy estético, pero puede ser útil en determinados casos.
 
-### LIBRERÍA SEABORN
+### 2.4.2. Librería Seaborn
 
 Automatiza la generación de gráficos con data frames aprovechando la asignación de nombres a sus filas y columnas.
 
@@ -324,7 +324,7 @@ plt.show();
 
 En diagonal se muestra un gráfico de densidad (parecido a un histograma).
 
-En el resto del cuadrante, se muestra el gráfico de dispersión entre dos variables. También se añaden los colores con las especies.  
+En el resto del cuadrante, se muestra el gráfico de dispersión entre dos columnas. También se añaden los colores con las especies.  
 
 Impresionante!
 

@@ -1,15 +1,29 @@
 
-# ANEXO: README DE PYTHON
+# Ideas clave
+
+- Python es un lenguje de propósito general con un conjunto de paquetes que facilitan la computacion científica en el ámbito de la ciencia de datos.
+- Python permite la visualización de datos.
+- Python es un lenguaje perfectamente válido para entornos productivos de tratamientos de datos.
+- Python interactua de forma simple con distintas bases de datos.
+- El entorno Jupyter/Colab aportan capacidades interactivas a Python. Permite tanto desarrollar programas, como análisis de datos.
+- Se utiliza en todas las fases de análisis de datos:
+   - Adquisición y preparación de los datos (bases de datos, ficheros planos, etc.).
+   - Análisis de los datos: construcción de modelos predictivos, de agrupamiento o clasificación, utilidades gráficas para la visualización de datos, etc.
+   - Manejo y almacenamiento efectivo de los datos como son los cálculos con matrices. Y un lenguaje de programación bien desarrollado que incluye saltos condicionales, bucles, funciones recursivas, utilidades para la entrada y salida de datos, etc.
+   - Comunicación de los resultados: realización de informes para presentación de los resultados y conclusiones. Utiliza Jupyter/Colab combinado con Markdown.
+   - Aplicación de los resultados obtenidos: por ejemplo, utilización de modelos predictivos desarrollados para en función de una serie de datos históricos (datos de entrenamiento y test del modelo) predecir ciertas salidas.
+
+# Anexo: Readme de Python
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_60_anexo.ipynb)__
 
-## PREPARACIÓN DEL ENTORNO COLAB
+#### PREPARACIÓN DEL ENTORNO COLAB
 
 Des de [Colab](http://colab.research.google.com), hay que clonar el repositorio cada vez que inicias un nuevo libro. En los libros se incluye el código necesario para ello.
 
-## PREPARACIÓN ENTORNO LOCAL-JUPYTER (OPCIONAL)
+#### PREPARACIÓN ENTORNO LOCAL-JUPYTER (OPCIONAL)
 
-#### CLONAR REPOSITORIO
+##### CLONAR REPOSITORIO
 
 En local puedes utilizar el mismo proyecto que has clonado en el [README DE R](../R/README.md). 
 
@@ -21,7 +35,7 @@ git pull
 cd Python
 ```
 
-#### CREAR EN LOCAL UN NUEVO ENVIRONMENT DE ANACONDA
+##### CREAR EN LOCAL UN NUEVO ENVIRONMENT DE ANACONDA
 
 Abrimos una línea de comandos (con *Anaconda 3.0* ya disponible).
 
@@ -40,7 +54,7 @@ Verifica que se ha creado y está activo.
 conda info --envs
 ```
 
-#### INSTALA LAS LIBRERIAS DE PYTHON
+##### INSTALA LAS LIBRERIAS DE PYTHON
 
 ```
 cd mbdds_fc20/Python
@@ -48,7 +62,7 @@ conda activate mbdds_rpy20
 python -m pip install -r requirementsColab.txt
 ```
 
-#### PUBLICAR EL KERNEL
+##### PUBLICAR EL KERNEL
 
 Para acceder al nuevo environment desde Jupyter necesitas publicar el kernel.
 
@@ -58,7 +72,7 @@ python -m ipykernel install --user --name mbdds_rpy20 --display-name "mbdds_rpy2
 
 Puede tardar unos minutos en publicarse.
 
-#### LANZAR ENTORNO JUPYTER NOTEBOOK
+##### LANZAR ENTORNO JUPYTER NOTEBOOK
 
 Para acceder al servidor Jupyter. 
 
@@ -69,7 +83,7 @@ jupyter notebook
 
 Debería abrirse un navegador con acceso a Jupyter desde donde podrás acceder a los notebooks. Habitualmente el servidor Jupyter se abre en http://localhost:8888/ .
 
-## IMPORTAR DATOS DE STARWARS SWAPI
+#### IMPORTAR DATOS DE STARWARS SWAPI
 
 Datos procesados a partir de https://swapi.dev/documentation#root.
 
@@ -184,3 +198,21 @@ vehicles_df2.to_pickle("www/vehicles_df.pkl")
 ```
 vehicles_df2.describe()
 ```
+
+# Bibliografía
+
+- W. McKinney. Python for Data Anlysis. O’Reilly Media, Inc. 2nd ed.; 2017
+
+Profundizar en el uso de Pandas, NumPy y Matplotlib para el análisis y preparación de datos.
+
+- J. VanderPlas. Python Data Science Handbook. O’Reilly Media, Inc.; 2016. Disponible en: http://faculty.marshall.usc.edu/gareth-james/ISL/
+
+Profundizar en el uso de Pandas, Numpy y Machine Learning.
+
+- C. R. Severance. Python para todos. Elliott Hauser, Sue Blumenberg; 2009. Disponible en: https://www.py4e.com/book.php
+
+Cubre todo lo básico de Python más la interacción con bases de datos, visualización y modelado.
+
+# Recursos en internet
+
+- [Cheatsheet de Python](https://www.pythoncheatsheet.org/)
