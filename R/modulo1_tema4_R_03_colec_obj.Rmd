@@ -285,6 +285,8 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
 
 ![](www/dataframe.png){width=125px}
 
+<br>
+
 Para conocer la estructura del objeto es útil la función `str()`.
 
 ```{r}
@@ -345,6 +347,8 @@ kable(paises07[c(4,6), 4, drop=FALSE], "html", booktabs=TRUE,align="r", row.name
 
 ![](www/headpaises070.png){width=125px}
 
+<br>
+
 Si no se informa la columna (alternativamente fila), se seleccionan todos sus valores.
 
 ```{r, eval=FALSE}
@@ -360,6 +364,8 @@ kable(head(paises07[c(4,6),]), "html", booktabs=TRUE,align="r", row.names = TRUE
 ```
 
 ![](www/headpaises071.png){width=450px}
+
+<br>
 
 En el caso de vectores, se utiliza un solo corchete.
 
@@ -436,6 +442,8 @@ kable(head(paises07[,c(FALSE, FALSE, FALSE, TRUE, FALSE, TRUE)]), "html", bookta
 
 ![](www/headpaises074.png){width=200px}
 
+<br>
+
 La forma habitual de seleccionar elementos de una matriz es mediante expresiones lógicas.
 
 ```{r, eval=FALSE}
@@ -452,7 +460,11 @@ kable(paises07[paises07$continente=="Oceanía",], "html", booktabs=TRUE,align="r
 
 ![](www/headpaises075.png){width=450px}
 
+<br>
+
 Para construir estas expresiones, puedes utilizar los siguientes operadores.
+
+<br>
 
 ```{r, include=FALSE}
 a <- data.frame(
@@ -478,6 +490,8 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
 ```
 
 ![Operadores lógicos: (fuente: elaboración propia)](www/logicos1.png){width=350px}
+
+<br>
 
 Estos operadores resultan extremadamente útiles en vectores.
 
@@ -516,6 +530,8 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
 ```
 
 ![Operaciones booleanas (fuente: elaboración propia)](www/logicos2.png){width=450px}
+
+<br>
 
 Para seleccionar los países asiáticos con esperanza de vida media en 2007 superior o igual a 80 años.
 
@@ -594,6 +610,8 @@ kable(head(paises07), "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
 
 ![](www/headpaises076.png){width=500px}
 
+<br>
+
 Modificar el nombre de una columna.
 
 ```{r}
@@ -647,6 +665,8 @@ kable(summary(paises07NA), "html", booktabs=TRUE,align="r", row.names = TRUE,) %
 
 ![](www/paisesNA1.png){width=550px}
 
+<br>
+
 Para seleccionar los registros con missing en una columna.
 
 ```{r, eval=FALSE}
@@ -685,6 +705,8 @@ options(knitr.kable.NA = '')
 
 ![](www/paisesNA2.png){width=450px}
 
+<br>
+
 Esta problemática se puede resolver mediante la función `which()`.
 
 
@@ -703,6 +725,8 @@ options(knitr.kable.NA = '')
 ```
 
 ![](www/paisesNA3.png){width=450px}
+
+<br>
 
 La función `which()` devuelve la posición de los valores TRUE dentro de un vector.
 

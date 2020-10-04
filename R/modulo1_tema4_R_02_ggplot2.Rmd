@@ -120,6 +120,8 @@ Otros elementos a tener en cuenta en la presentación:
 -	Temas: Personaliza posición de la leyenda y resto de elementos gráficos, tamaños colores, fuente... Consulta: `theme()` y `theme_bw()`.
 - Interactivos: packages [gganimate](https://gganimate.com/) y [plotly](https://plotly.com/r/).
 
+<br>
+
 Para ampliar la lectura consulta:
 
 - [R for Data Science](https://r4ds.had.co.nz/) from Garrett Grolemund and Hadley Wickham.
@@ -142,6 +144,8 @@ Observa:
 - La escala del eje x (pib_per_capita) se ha transformado a escala logarítmica con `scale_x_log10()`.
 - Se ha definido un panel temporal con `facet_wrap()` 
 - Hay que imprimir el gráfico con `print()`
+
+<br>
 
 Adapta los comentarios a la nueva información y regenera el informe.
 

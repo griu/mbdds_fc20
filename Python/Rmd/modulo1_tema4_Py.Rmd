@@ -85,6 +85,8 @@ for i, (k, row) in enumerate(entidades_count_df.iterrows()):
 plt.show()
 ```
 
+<br>
+
 Vemos que los datos están formados por 5 conjuntos. Por ejemplo, `people`, contienen 82 personajes descritos mediante 16 variables.
 
 Una muestra de los datos de los personajes.

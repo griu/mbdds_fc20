@@ -43,6 +43,8 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
 
 ![](www/readmtcars0.png){width=400px}
 
+<br>
+
 Dado que se trata de un fichero con un carácter separado, la función genérica para teste tipo de ficheros es `read.table()`.
 
 ```{r}
@@ -146,6 +148,8 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
 ```
 
 ![](www/fwf-sample0.png){width=175px}
+
+<br>
 
 Para leer texto de ancho fijo, se utiliza `read.fwf()`.
 
@@ -331,6 +335,8 @@ options(knitr.kable.NA = '')
 
 ![](www/a_inner.png){width=115px}
 
+<br>
+
 R, ha seleccionado `ID` y `X1` como campos clave porque son las columnas con nombres coincidentes en ambas tablas. Veremos cómo modificar esto.
 
 Otra decisión que R ha tomado, es que **sólo** ha recuperado los **registros** con valores de `ID` y `X1` **compartidos** en ambas tablas. Este comportamiento en el lenguaje SQL, es conocido como *INNER JOIN*.
@@ -360,6 +366,8 @@ options(knitr.kable.NA = '')
 
 ![](www/a_full.png){width=115px}
 
+<br>
+
 Observa ahora, no ha descartado ningún registro de las tablas origen. Además, ha rellenado con `NA` los campos que no cruzan. Este comportamiento en SQL es conocido como *FULL JOIN* .
 
 ###### LEFT JOIN
@@ -387,6 +395,8 @@ options(knitr.kable.NA = '')
 
 ![](www/a_left.png){width=115px}
 
+<br>
+
 Vemos que ID=1 ahora está presente y ID=4 ha quedado descartado. También que ID=3 sólo aparece una vez. Este comportamiento en SQL, es conocido como LEFT JOIN .
 
 ###### RIGHT JOIN
@@ -413,6 +423,8 @@ options(knitr.kable.NA = '')
 ```
 
 ![](www/a_right.png){width=115px}
+
+<br>
 
 Ahora ID=3 aparece 2 veces. También aparece ID=4.
 
@@ -448,6 +460,8 @@ options(knitr.kable.NA = '')
 
 ![](www/a_comparte.png){width=140px}
 
+<br>
+
 R ha añadido el sufijo `.x` y `.y` a `X1`, porque es una columna compartida que ahora no es clave para el cruce. Observa también que ID=3 aparece 2 veces ya que está duplicado en la tabla `a2`.
 
 ### 1.7.3 Resumenes de agregados
@@ -482,6 +496,8 @@ options(knitr.kable.NA = '')
 ```
 
 ![](www/paisSumm1.png){width=400px}
+
+<br>
 
 `summary` en `factor` y `logic` devuelve una tabla de frecuencias o conteos, en cambio en `character` no. En `numeric`y `Date` devuelve 6 estadísticos básicos de resumen más el conteo de `NA`s.
 
@@ -624,6 +640,8 @@ options(knitr.kable.NA = '')
 
 ![](www/paisSumm5.png){width=175px}
 
+<br>
+
 Gráficamente.
 
 ```{r}
@@ -677,6 +695,8 @@ options(knitr.kable.NA = '')
 ```
 
 ![](www/paisSumm6.png){width=400px}
+
+<br>
 
 El mismo gráfico visto para países, ahora, agregado a nivel de continente y riqueza.
 
@@ -769,6 +789,8 @@ options(knitr.kable.NA = '')
 
 ![](www/pais07dplyr.png){width=200px}
 
+<br>
+
 Las 3 comparten el hecho que no necesitan de comillas para referirse a las columnas. También utilizan el operador `%>%` llamado *pipe*. Éste sustituye el parámetro de entrada de datos. De esta forma, permite escribir las operaciones de izquierda a derecha facilitando así su lectura.
 
 ##### DPLYR: MUTATE, GROUP_BY, SUMMARISE
@@ -805,6 +827,8 @@ options(knitr.kable.NA = '')
 
 ![](www/continentes_anio.png){width=350px}
 
+<br>
+
 Para la evolución de los continentes en ggplot2, es útil el [geom_path()](https://ggplot2.tidyverse.org/reference/geom_path.html.) 
 
 ```{r, fig.width=7, fig.cap='Fuente: Elaboración propia con datos de Gapminder'}
@@ -823,6 +847,8 @@ Vamos a incorporar los gráficos de evolución de los continentes en el informe 
 
 - Recodifica Oceanía como Asia y Modifica los colores de los continentes.
 - Utiliza la paleta de colores de la actividad guiada 1.4.
+
+<br>
 
 Adapta los comentarios solicitados en `15_actividad.R`, ejecuta y observa:
 
