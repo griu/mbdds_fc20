@@ -3,7 +3,7 @@
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_30_colec_obj.ipynb)__
 
-### 2.5.1. Definción de los objetos
+### 2.5.1. Definición de los objetos
 
 #### TIPO BÁSICOS
 

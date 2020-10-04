@@ -18,7 +18,7 @@ paises07 <- as.data.frame(paises %>% filter(anio==2007))
 
 ## 1.5. Colecciones de objetos
 
-### 1.5.1. Definción de los objetos
+### 1.5.1. Definición de los objetos
 
 #### TIPO BÁSICOS
 
@@ -553,7 +553,7 @@ kable(consulta, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
 
 ![](www/logicos3.png){width=450px}
 
-### 1.5.3. Modificacion de valores
+### 1.5.3. Modificación de valores
 
 R ofrece algunas facilidades para modificar los valores de sus objetos.
 

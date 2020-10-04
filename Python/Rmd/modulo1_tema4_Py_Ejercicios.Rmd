@@ -1,5 +1,5 @@
 ---
-title: "MÓDULO 1: HERRAMIENTAS BIG DATA"
+title: "MÓDULO: HERRAMIENTAS BIG DATA"
 author: "Ferran Carrascosa Mallafrè"
 date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
 output:
@@ -11,7 +11,7 @@ output:
     toc: yes
     toc_depth: '6'
     df_print: paged
-subtitle: 'TEMA 4.2. HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN PYTHON - EJERCICIOS'
+subtitle: 'TEMA: HERRAMIENTAS DE ANÁLISIS: PROGRAMACIÓN EN PYTHON - EJERCICIOS'
 ---
 
 ```{r setup, include=FALSE}
@@ -22,7 +22,7 @@ use_condaenv("mbdds_rpy20")
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_Ejercicio_1.ipynb)__ 
 
-# Ejercicio 1
+# Ejercicio 3
 
 Para realizar el ejercicio cargamos los datos de *Especies* en STARWARS SWAPI y las librerías principales.
 
@@ -41,7 +41,7 @@ people_df = entidades_df['people'][["height","mass","birth_year","gender","homew
 people_df
 ```
 
-## Ejercicio 1.1. 
+## Ejercicio 3.1. 
 
 Construye un gráfico de dispersión de los personajes donde se visualice: la altura (height), el peso (mass), la edad en años BBY (birth_year) y el género (gender). Para ello utiliza la función `sns.scatterplot()` de la librería seaborn. Aprovecha los parámetros: `x`, `y`, `size`, `hue` y `style` (consulta la ayuda de la función [.scatterplot()](https://seaborn.pydata.org/generated/seaborn.scatterplot.html).
 
@@ -49,9 +49,9 @@ Construye un gráfico de dispersión de los personajes donde se visualice: la al
 # Solución:
 ```
 
-## Ejercicio 1.2.
+## Ejercicio 3.2.
 
-Sobre el gráfico del ejercicio 1.1:
+Sobre el gráfico del ejercicio 3.1:
 
 - Pon título al gráfico y a los ejes x e y. 
 - Modifica los límites del eje y para que aparezcan sólo personajes de menos de 150 Kg de peso.
@@ -61,7 +61,7 @@ Sobre el gráfico del ejercicio 1.1:
 # Solución:
 ```
 
-## Ejercicio 1.3.
+## Ejercicio 3.3.
 
 Utiliza las *list comprehension* para calcular el cuadrado de los valores positivos de la siguiente lista:
 
@@ -75,7 +75,7 @@ val = [5, 6, -1, 2, -3, -7, 9, 1]
 # Solución:
 ```
 
-## Ejercicio 1.4.
+## Ejercicio 3.4.
 
 Construye un diccionario donde se identifique, mediante claves y valores, las siguientes características del personaje Yoda: "nombre", "altura", "peso", "edad" y "genero". Utiliza los datos de people_df.
 
@@ -85,7 +85,7 @@ Muestra el diccionario por pantalla.
 # Solución:
 ```
 
-## Ejercicio 1.5.
+## Ejercicio 3.5.
 
 Calcula, a partir de los vectores numpy de altura y peso, definidos a continuación, el [índice de masa corporal (IMC)](https://es.wikipedia.org/wiki/%C3%8Dndice_de_masa_corporal) de los personajes de star wars contenidos en people_df: 
 
@@ -102,9 +102,9 @@ peso = people_df.mass.values
 # Solución:
 ```
 
-## Ejercicio 1.6.
+## Ejercicio 3.6.
 
-A partir del IMC que has calculado en el ejercicio 1.5. Construye un panel con dos histogramas:
+A partir del IMC que has calculado en el ejercicio 3.5. Construye un panel con dos histogramas:
 
 - Un histograma con toda la muestra
 - Un histograma seleccionando los valores con un IMC inferior a 100.
@@ -113,12 +113,12 @@ A partir del IMC que has calculado en el ejercicio 1.5. Construye un panel con d
 # Solución:
 ```
 
-## Ejercicio 1.7.
+## Ejercicio 3.7.
 
 A partir del vector 1 y 2 que se definen a continuación contesta las siguientes preguntas:
 
 - Calcula el shape, ndim, size del vector1 y vector2
-- Explica cual es la diferencia entre vector1 y vector2 a partir de los que hayas observado
+- Explica cuál es la diferencia entre vector1 y vector2 a partir de los que hayas observado
 
 ```{python}
 vector1 = np.hstack([altura,peso])
@@ -129,7 +129,7 @@ vector2 = np.vstack([altura,peso])
 # Solución:
 ```
 
-## Ejercicio 1.8.
+## Ejercicio 3.8.
 
 Crea una copia de people_df llamada personajes_df y renombra las columnas con su traducción al castellano. 
 
@@ -143,19 +143,19 @@ Muestra los 5 primeros registros del nuevo data frame con `.head()`.
 # Solución:
 ```
 
-## Ejercicio 1.9.
+## Ejercicio 3.9.
 
-Haz el mismo cálculo de IMC que has hecho en 1.5. pero directamente sobre el objeto personajes_df.
+Haz el mismo cálculo de IMC que has hecho en 3.5. pero directamente sobre el objeto personajes_df.
 
 Ordena el data frame de mayor a menor IMC y muestra los personajes con IMC por encima de 30.
 
-> ¿Sabias que IMC por encima de 30 se considera obeso?
+> ¿Sabías que IMC por encima de 30 se considera obeso?
 
 ```{python}
 # Solución:
 ```
 
-## Ejercicio 1.10.
+## Ejercicio 3.10.
 
 Inserta un valor faltante en los valores de IMC que sean superiores a 100 y dibuja el histograma con `.plot.hist()`.
 
@@ -163,9 +163,9 @@ Inserta un valor faltante en los valores de IMC que sean superiores a 100 y dibu
 # Solución:
 ```
 
-# Ejercicio 2
+# Ejercicio 4
 
-Para el ejercicio 2, añadimos los datos del ejercicio 1 los datos de planetas.
+Para el ejercicio 4, añadimos los datos del ejercicio 1 los datos de planetas.
 
 ```{python}
 # planetas
@@ -173,7 +173,7 @@ planets_df = entidades_df['planets'][["orbital_period","url"]].dropna()
 planets_df.head()
 ```
 
-## Ejercicio 2.1.
+## Ejercicio 4.1.
 
 Construye una función que diga "buenos días", "buenas tardes" o "buenas noches" en función de la hora del día.
 
@@ -185,7 +185,7 @@ Construye una función que diga "buenos días", "buenas tardes" o "buenas noches
 # Solución:
 ```
 
-## Ejercicio 2.2.
+## Ejercicio 4.2.
 
 Elimina del data frame personajes_df los personajes con valores faltantes en IMC y crea una nueva variable con el trameado de la variable IMC definido en la siguiente tabla:
 
@@ -202,15 +202,15 @@ Elimina del data frame personajes_df los personajes con valores faltantes en IMC
 # Solución:
 ```
 
-## Ejercicio 2.3.
+## Ejercicio 4.3.
 
-Muestra las frecuencias de la nueva variable definida en 2.2.
+Muestra las frecuencias de la nueva variable definida en 4.2.
 
 ```{python}
 # Solución:
 ```
 
-## Ejercicio 2.4.
+## Ejercicio 4.4.
 
 Calcula ahora un trameado de la edad en 5 grupos equiprobables.
 
@@ -220,9 +220,9 @@ Calcula ahora un trameado de la edad en 5 grupos equiprobables.
 # Solución:
 ```
 
-## Ejercicio 2.5.
+## Ejercicio 4.5.
 
-Presenta la tabla cruzada de tramos de edad (ej. 2.4) por tramos de IMC (ej. 2.2). 
+Presenta la tabla cruzada de tramos de edad (ej. 4.4) por tramos de IMC (ej. 4.2). 
 
 ¿Qué tramo de edad tiene un mayor número de personajes con Bajo peso?
 
@@ -230,9 +230,9 @@ Presenta la tabla cruzada de tramos de edad (ej. 2.4) por tramos de IMC (ej. 2.2
 # Solución:
 ```
 
-## Ejercicio 2.6.
+## Ejercicio 4.6.
 
-Calcula la media del IMC en cada tramo de edad del ejercicio 2.2.
+Calcula la media del IMC en cada tramo de edad del ejercicio 4.2.
 
 > Truco: En el mismo cálculo del IMC medio, calcula también, la mediana de edad de cada tramo de edad para que sea el eje x del gráfico de líneas.
 
@@ -240,17 +240,17 @@ Calcula la media del IMC en cada tramo de edad del ejercicio 2.2.
 # Solución:
 ```
 
-## Ejercicio 2.7.
+## Ejercicio 4.7.
 
-Presenta los datos del ej. 2.6. como un gráfico de líneas donde el eje x sea la edad y el eje y el IMC medio
+Presenta los datos del ej. 4.6. como un gráfico de líneas donde el eje x sea la edad y el eje y el IMC medio
 
 ```{python}
 # Solución:
 ```
 
-## Ejercicio 2.8.
+## Ejercicio 4.8.
 
-Calcula el cociente del IMC sobre la mediana del IMC de su tramo de edad (definidos en el ejercicio 2.2.) mediante la función groupby(...).apply(...).
+Calcula el cociente del IMC sobre la mediana del IMC de su tramo de edad (definidos en el ejercicio 4.2.) mediante la función groupby(...).apply(...).
 
 > truco: primero crea la función que devuelva:  `x / np.nanmedian(x)`.
 
@@ -260,16 +260,16 @@ Presenta los datos mediante un boxplot de la nueva variable: [pd.boxplot()](http
 # Solución:
 ```
 
-## Ejercicio 2.9.
+## Ejercicio 4.9.
 
-¿Cual es planeta con menor IMC medio de sus personajes?
+¿Cuál es planeta con menor IMC medio de sus personajes?
 ¿Que personaje/s son de ese planeta?
 
 ```{python}
 # Solución:
 ```
 
-## Ejercicio 2.10.
+## Ejercicio 4.10.
 
 Convierte a datetime los siguientes strings con la función [datetime.strptime()](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior) (consulta la ayuda si es necesario) de la libreria datetime:
 

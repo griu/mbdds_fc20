@@ -2,7 +2,7 @@
 
 __[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/Python/modulo1_tema4_Py_32_pandas.ipynb)__
 
-Abreviación de Panel Data, los objetos pandas dan soporte al análisi de datos con columnas de distinta tipología: categóricas, binarias, numéricas...
+Abreviación de Panel Data, los objetos pandas dan soporte al análisis de datos con columnas de distinta tipología: categóricas, binarias, numéricas...
 
 Respecto a los numpy, permiten indexar las filas y columnas. Este tipo de indexación, facilita, por ejemplo, realizar análisis de series temporales, no necesariamente con una frecuencia fija.
 

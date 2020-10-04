@@ -464,7 +464,7 @@ options(knitr.kable.NA = '')
 
 R ha añadido el sufijo `.x` y `.y` a `X1`, porque es una columna compartida que ahora no es clave para el cruce. Observa también que ID=3 aparece 2 veces ya que está duplicado en la tabla `a2`.
 
-### 1.7.3 Resumenes de agregados
+### 1.7.3 Resúmenes de agregados
 
 R tiene muchas opciones para construir agregados.
 
