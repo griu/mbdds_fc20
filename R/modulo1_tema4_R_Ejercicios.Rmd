@@ -160,7 +160,7 @@ Presenta los datos con un summary del nuevo objeto `obj`.
 
 ## EJERCICIO 2.1.
 
-Escribe un bucle for que calcule le media todas las columnas numéricas de `millas`. 
+Escribe un bucle for que calcule la media todas las columnas numéricas de `millas`. 
 
 ```{r}
 # Solución:
