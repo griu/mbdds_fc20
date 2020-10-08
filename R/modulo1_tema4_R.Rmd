@@ -30,32 +30,40 @@ options(knitr.kable.NA = '')
 #  Reemplazar > expresiones regulares > ##.*
 ```
 
-```{=openxml}
-<w:p>
-  <w:r>
-    <w:br w:type="page"/>
-  </w:r>
-</w:p>
-```
+<br>
 
 # Objetivos específicos
+
+<br>
 
 - Realizar operaciones de lectura y escritura de datos con R.
 - Saber escoger la estructura de datos de R adecuada para cada problema.
 - Tener las bases para realizar análisis descriptivo mediante tablas y gráficos en R.
 - Desarrollar pequeñas piezas de código en R
 
+<br>
+
 # 1. Programación en R
+
+<br>
 
 ## 1.1. Introducción
 
+<br>
+
 El *Data science* permite transformar datos en conocimiento. El objetivo es aprender a utilizar las mejores herramientas disponibles en R para el *data science*.
 
+<br>
+
 ## 1.2. Actividad guiada 1
+
+<br>
 
 La actividad guiada, que resolveremos a lo largo de este temario consiste en comprender la evolución de la riqueza y la esperanza de vida de las personas a nivel de país y continente.
 
 Para ello, contamos con los datos de [países](https://www.rdocumentation.org/packages/datos/versions/0.3.0/topics/paises) coleccionados por [Gapminder](https://www.gapminder.org/) y traducidos al Castellano en el package [datos](https://cran.r-project.org/web/packages/datos/index.html).  
+
+<br>
 
 ```{r}
 library(datos)
@@ -65,6 +73,8 @@ paises07 <- as.data.frame(paises %>% filter(anio==2007))
 ```{r, eval=FALSE}
 paises07 %>% head(10)
 ```
+
+<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 kable(paises07%>%head(10), "html", booktabs=TRUE) %>%
@@ -77,14 +87,22 @@ kable(paises07%>%head(10), "html", booktabs=TRUE) %>%
 
 Los datos muestran la esperanza de vida media en 142 países, población total y su nivel de riqueza medido con el [Producto Interior Bruto (PIB)](https://es.wikipedia.org/wiki/Producto_interno_bruto) per cápita.
 
+<br>
+
 > \<recuerda\>El PIB per cápita se puede interpretar como el Salario medio que recibe cada persona del país.\</recuerda\>
+
+<br>
 
 Para el análisis, el continente se recodificará incorporando Oceanía con Asia. 
 
 Para realizar el informe, nos apoyaremos en el package Rmarkdown.
 
+<br>
+
 ```{r,child=c('modulo1_tema4_R_01_elem_bas.Rmd','modulo1_tema4_R_02_ggplot2.Rmd','modulo1_tema4_R_03_colec_obj.Rmd','modulo1_tema4_R_04_contr_flujo.Rmd','modulo1_tema4_R_05_gest_dat.Rmd')}
 ```
+
+<br>
 
 ```{r, child='README.md'}
 ```
