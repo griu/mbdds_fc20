@@ -61,8 +61,6 @@ El *Data science* permite transformar datos en conocimiento. El objetivo es apre
 
 Ve al documento de la actividad guiada 1 de Programación en R y lee la exposición de la tarea.
 
-<br>
-
 ```{r,child=c('modulo1_tema4_R_01_elem_bas.Rmd','modulo1_tema4_R_02_ggplot2.Rmd','modulo1_tema4_R_03_colec_obj.Rmd','modulo1_tema4_R_04_contr_flujo.Rmd','modulo1_tema4_R_05_gest_dat.Rmd')}
 ```
 

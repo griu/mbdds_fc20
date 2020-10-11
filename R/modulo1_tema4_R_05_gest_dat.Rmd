@@ -57,6 +57,8 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
   save_kable("www/readmtcars0.png")
 ```
 
+![](www/readmtcars0.png){width=400px}
+
 \<imagen1\>(www/readmtcars0.png){width=400px}
 
 <br>
@@ -119,6 +121,8 @@ kable(head(mtcars), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
+![](www/mtcars.png){width=350px}
+
 \<imagen1\>(www/mtcars.png){width=350px}
 
 <br>
@@ -138,6 +142,8 @@ kable(summary(mtcars), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
   save_kable("www/mtcars2.png")
 options(knitr.kable.NA = '')
 ```
+
+![](www/mtcars2.png){width=800px}
 
 \<imagen1\>(www/mtcars2.png){width=800px}
 
@@ -180,6 +186,8 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
   save_kable("www/readmtcars.png")
 ```
 
+![](www/readmtcars.png){width=400px}
+
 \<imagen1\>(www/readmtcars.png){width=400px}
 
 <br>
@@ -205,6 +213,8 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
   column_spec(1,monospace=TRUE) %>%
   save_kable("www/fwf-sample0.png")
 ```
+
+![](www/fwf-sample0.png){width=175px}
 
 \<imagen1\>(www/fwf-sample0.png){width=175px}
 
@@ -240,6 +250,8 @@ kable(fwf_sample, "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
   save_kable("www/fwf-sample.png")
 options(knitr.kable.NA = '')
 ```
+
+![](www/fwf-sample.png){width=175px}
 
 \<imagen1\>(www/fwf-sample.png){width=175px}
 
@@ -325,6 +337,8 @@ kable(head(paises07Ord), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
+![](www/paisesOrd.png){width=400px}
+
 \<imagen1\>(www/paisesOrd.png){width=400px}
 
 <br>
@@ -360,6 +374,8 @@ kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
+![](www/paiscbind.png){width=275px}
+
 \<imagen1\>(www/paiscbind.png){width=275px}
 
 <br>
@@ -392,6 +408,8 @@ kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
   save_kable("www/paiscbind1.png")
 options(knitr.kable.NA = '')
 ```
+
+![](www/paiscbind1.png){width=275px}
 
 \<imagen1\>(www/paiscbind1.png){width=275px}
 
@@ -474,6 +492,8 @@ kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
+![](www/a_inner.png){width=115px}
+
 \<imagen1\>(www/a_inner.png){width=115px}
 
 <br>
@@ -512,6 +532,8 @@ kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
   save_kable("www/a_full.png")
 options(knitr.kable.NA = '')
 ```
+
+![](www/a_full.png){width=115px}
 
 \<imagen1\>(www/a_full.png){width=115px}
 
@@ -563,6 +585,8 @@ kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
+![](www/a_comparte.png){width=140px}
+
 \<imagen1\>(www/a_comparte.png){width=140px}
 
 <br>
@@ -611,6 +635,8 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
   save_kable("www/paisSumm1.png")
 options(knitr.kable.NA = '')
 ```
+
+![](www/paisSumm1.png){width=400px}
 
 \<imagen1\>(www/paisSumm1.png){width=400px}
 
@@ -664,6 +690,8 @@ kable(a, "html", booktabs=TRUE,align="r") %>%
 options(knitr.kable.NA = '')
 ```
 
+![](www/paisSumm1_1.png){width=250px}
+
 \<imagen1\>(www/paisSumm1_1.png){width=250px}
 
 <br>
@@ -693,6 +721,8 @@ kable(a, "html", booktabs=TRUE,align="r") %>%
 options(knitr.kable.NA = '')
 ```
 
+![](www/paisSumm2.png){width=200px}
+
 \<imagen1\>(www/paisSumm2.png){width=200px}
 
 <br>
@@ -717,6 +747,8 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
   save_kable("www/paisSumm3.png")
 options(knitr.kable.NA = '')
 ```
+
+![](www/paisSumm3.png){width=125px}
 
 \<imagen1\>(www/paisSumm3.png){width=125px}
 
@@ -755,6 +787,8 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
   save_kable("www/paisSumm4.png")
 options(knitr.kable.NA = '')
 ```
+
+![](www/paisSumm4.png){width=250px}
 
 \<imagen1\>(www/paisSumm4.png){width=250px}
 
@@ -804,6 +838,8 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
   save_kable("www/paisSumm5.png")
 options(knitr.kable.NA = '')
 ```
+
+![](www/paisSumm5.png){width=175px}
 
 \<imagen1\>(www/paisSumm5.png){width=175px}
 
@@ -880,6 +916,8 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
   save_kable("www/paisSumm6.png")
 options(knitr.kable.NA = '')
 ```
+
+![](www/paisSumm6.png){width=400px}
 
 \<imagen1\>(www/paisSumm6.png){width=400px}
 
@@ -1022,6 +1060,8 @@ kable(pais07dplyr, "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
+![](www/pais07dplyr.png){width=200px}
+
 \<imagen1\>(www/pais07dplyr.png){width=200px}
 
 <br>
@@ -1069,6 +1109,8 @@ kable(continentes_anio %>% head(10), "html", booktabs=TRUE,align="r", row.names 
   save_kable("www/continentes_anio.png")
 options(knitr.kable.NA = '')
 ```
+
+![](www/continentes_anio.png){width=350px}
 
 \<imagen1\>(www/continentes_anio.png){width=350px}
 

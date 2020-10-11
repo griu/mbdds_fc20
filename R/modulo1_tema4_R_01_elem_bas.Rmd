@@ -51,7 +51,11 @@ El lenguaje R se puede escribir mediante editor de texto en ficheros con extensi
 
 <br>
 
+![](www/rstudio.png){width=450px}
+
 \<imagen1\>Imagen: Entorno RStudio (Fuente: Elaboración propia). (www/rstudio.png){width=450px}
+
+<br>
 
 ##### RSTUDIO Y DOCUMENTOS RMARKDOWN (*.Rmd)
 
@@ -329,6 +333,8 @@ kable(resumen, "html", booktabs=TRUE,align="r") %>%
   column_spec(1:2,monospace=TRUE ) %>%
   save_kable("www/resumen.png")
 ```
+
+![](www/resumen.png){width=200px}
 
 \<imagen1\>(www/resumen.png){width=200px}
 
