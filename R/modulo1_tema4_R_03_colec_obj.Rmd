@@ -1067,25 +1067,4 @@ which(a)
 
 <br>
 
-Vamos a mejorar de nuevo el informe de los países introduciendo:
-
-- Haz un panel de boxplot por año del PIB per cápita (escala log10) y la esperanza de vida.
-- Mejora el gráfico de dispersión de países:
-   - Recodifica Oceanía como Asia y Modifica los colores de los continentes.
-   - Utiliza los siguiente paleta de colores:
-     - "blue": "África"
-     - "green": "Américas"
-     - "red": "Asia"
-     - "yellow": "Europa"
-   - Inserta Etiquetas para España, China, Etiopía y Canadá.
-
-<br>
-
-Adapta los comentarios solicitados en `14_actividad.R`, ejecuta y observa:
-
-- Se ha recodificado una columna factor.
-- Se ha parametrizado los colores de los continentes y las etiquetas de los países.
-- La función `describir()` devuelve una lista de resultados (plots y tablas).
-- Se han introducido boxplots.
-- Se ha construido un data frame con los países con etiqueta.
-- Se ha seleccionado las columnas a presentar en el summary.
+Mejora de nuevo el informe con la actividad guiada 1.4.

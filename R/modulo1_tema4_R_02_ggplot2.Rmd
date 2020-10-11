@@ -180,21 +180,8 @@ Amplia la lectura en:
 
 <br>
 
-Mejora el resumen HTML de la `esperanza_de_vida` y el `pib_per_capita` en 2007 con datos de `paises` del package `datos`.
-
-Para ello abre el fichero `13_actividad.Rmd y completa los apartados solicitados entre \< ... \> .
-
-Genera el informe HTML con el botón **Knit**.
-
-Observa:
-
-- Se han añadido parámetros estéticos: `color` y `size`.
-- La escala del eje x (pib_per_capita) se ha transformado a escala logarítmica con `scale_x_log10()`.
-- Se ha definido un panel temporal con `facet_wrap()` 
-- Hay que imprimir el gráfico con `print()`
+Mejora el Crea un resumen HTML de la esperanza_de_vida y el pib_per_capita en 2007 con la actividad guiada 1.3.
 
 <br>
 
-Adapta los comentarios a la nueva información y regenera el informe.
-
-> \<sabías que\>Hans Rosling de Gapminder utilizó un gráfico muy parecido a éste, añadiendo un quinto eje (el tiempo) en una famosa conferencia [TED Talk](https://www.ted.com/talks/hans_rosling_the_best_stats_you_ve_ever_seen) (14,6M de visualizaciones). Dedícale 1 minuto a ver la simulación dándole al botón de play (abajo izquierda), en el [siguiente enlace](https://www.gapminder.org/tools/#$chart-type=bubbles). La herramienta utilizada Trendalyzer fue posteriormente adquirida por Google.\</sabías que\>
+> \<sabías que\>Hans Rosling de Gapminder utilizó un gráfico muy parecido al de la actividad , añadiendo un quinto eje (el tiempo) en una famosa conferencia [TED Talk](https://www.ted.com/talks/hans_rosling_the_best_stats_you_ve_ever_seen) (14,6M de visualizaciones). Dedícale 1 minuto a ver la simulación dándole al botón de play (abajo izquierda), en el [siguiente enlace](https://www.gapminder.org/tools/#$chart-type=bubbles). La herramienta utilizada Trendalyzer fue posteriormente adquirida por Google.\</sabías que\>

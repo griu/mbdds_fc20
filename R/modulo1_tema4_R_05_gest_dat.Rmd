@@ -1094,21 +1094,7 @@ ggplot(continentes_anio, aes(x=pib_per_capita
 
 <br>
 
-Vamos a incorporar los gráficos de evolución de los continentes en el informe  teniendo en cuenta los siguientes cambios
-
-<br>
-
-- Recodifica Oceanía como Asia y Modifica los colores de los continentes.
-- Utiliza la paleta de colores de la actividad guiada 1.4.
-
-<br>
-
-Adapta los comentarios solicitados en `15_actividad.R`, ejecuta y observa:
-
-<br>
-
-- Se ha utilizado dplyr: arrange,mutate,group_by y summarize.
-- Se ha utilizado geom_path.
+Incorporar los gráficos de evolución de los continentes en la actividad 1.5.
 
 <br>
 

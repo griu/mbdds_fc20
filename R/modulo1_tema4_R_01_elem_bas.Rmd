@@ -51,7 +51,7 @@ El lenguaje R se puede escribir mediante editor de texto en ficheros con extensi
 
 <br>
 
-\<imagen1\>Imagen 1: Entorno RStudio (Fuente: Elaboración propia). (www/rstudio.png){width=450px}
+\<imagen1\>Imagen: Entorno RStudio (Fuente: Elaboración propia). (www/rstudio.png){width=450px}
 
 ##### RSTUDIO Y DOCUMENTOS RMARKDOWN (*.Rmd)
 
@@ -69,17 +69,7 @@ Puedes generar de forma dinámica documentos PDF, Word (como éste que estás le
 
 <br>
 
-Genera tu primer documento RMarkdown. En RStudio, accede al menú `File > New File > R Markdown > Documentos > html` y edita `Title`y `Author` del formulario de la imagen y el formato de salida HTML > aprieta `OK`.
-
-<br>
-
-\<imagen1\>Imagen 2: Menú de nuevo RMarkdown (Fuente: Elaboración propia). (www/rmarkdown1.png){width=200px}
-
-<br>
-
-Guarda el documento generado automáticamente con el nombre `11_actividad.Rmd`. Ahora genera el documento apretando el botón **Knit**.
-
-Comparte con tus compañeros/as, en el foro del curso, tu experiencia, dudas, dificultades con algún otro formato de salida... 
+Genera tu primer documento RMarkdown con la actividad guiada 1.1.
 
 <br>
 
@@ -348,11 +338,7 @@ kable(resumen, "html", booktabs=TRUE,align="r") %>%
 
 <br>
 
-Crea un resumen HTML de la `esperanza_de_vida` y el `pib_per_capita` en 2007 con datos de `países` del package `datos`.
-
-Para ello abre el fichero `12_actividad.Rmd y completa los apartados solicitados entre \< ... \> .
-
-Genera el informe HTML con el botón **Knit**.
+Crea un resumen HTML de la `esperanza_de_vida` y el `pib_per_capita` en 2007 en la actividad guiada 1.2.
 
 <br>
 
