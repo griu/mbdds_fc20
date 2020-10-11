@@ -3,17 +3,9 @@
 
 <br>
 
-- R es un lenguaje orientado al análisis estadístico que se utiliza ampliamente en el campo de la ciencia de datos.
-- Es potente en visualización de información y datos.
-- Es una opción recomendada si necesitamos hacer un análisis estadístico a realizar en una máquina.
-- Se integra bien con otros lenguajes de programación como C, C++ o Fortran para tareas de análisis de datos computacionalmente intensivas (alto consumo de recursos como CPU y RAM). Además, puede integrarse con distintas bases de datos y existen bibliotecas que facilitan su utilización desde lenguajes de programación interpretados como Perl y Python.
-- Ss algo más que un lenguaje de programación. El usuario no programa propiamente, sino que utiliza R interactivamente: ensaya, se equivoca y vuelve a probar. Solo cuando termina el ciclo y el resultado es satisfactorio, produce un resultado final que, generalmente, no es un programa, sino un informe o análisis.
-- Se utiliza en todas las fases de análisis de datos:
-   - Adquisición y preparación de los datos.
-   - Análisis de los datos.
-   - Manejo y almacenamiento efectivo de los datos.
-   - Comunicación de los resultados: Tiene un formato de documentación basado en Markdown.
-   - Aplicación de los resultados obtenidos: Utilización de modelos predictivos.
+- R cubre todo el espectro de trabajo con datos.
+- Es un lenguaje rápido de implementar y de ejecución óptima.
+- Aporta una gran facilidad para la visualización de datos.
 
 <br>
 

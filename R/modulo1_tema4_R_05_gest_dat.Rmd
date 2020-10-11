@@ -1,5 +1,5 @@
 ```{r include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.path="www/")
 library(knitr)
 library(pander)
 library(kableExtra)
@@ -57,11 +57,11 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
   save_kable("www/readmtcars0.png")
 ```
 
-![](www/readmtcars0.png){width=400px}
+\<imagen1\>(www/readmtcars0.png){width=400px}
 
 <br>
 
-Dado que se trata de un fichero con un carácter separado, la función genérica para teste tipo de ficheros es `read.table()`.
+Dado que se trata de un fichero con un carácter separador, la función genérica para este tipo de ficheros es `read.table()`.
 
 <br>
 
@@ -119,7 +119,7 @@ kable(head(mtcars), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/mtcars.png){width=350px}
+\<imagen1\>(www/mtcars.png){width=350px}
 
 <br>
 
@@ -139,7 +139,7 @@ kable(summary(mtcars), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/mtcars2.png){width=800px}
+\<imagen1\>(www/mtcars2.png){width=800px}
 
 <br>
 
@@ -180,7 +180,7 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
   save_kable("www/readmtcars.png")
 ```
 
-![](www/readmtcars.png){width=400px}
+\<imagen1\>(www/readmtcars.png){width=400px}
 
 <br>
 
@@ -206,7 +206,7 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
   save_kable("www/fwf-sample0.png")
 ```
 
-![](www/fwf-sample0.png){width=175px}
+\<imagen1\>(www/fwf-sample0.png){width=175px}
 
 <br>
 
@@ -241,7 +241,7 @@ kable(fwf_sample, "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/fwf-sample.png){width=175px}
+\<imagen1\>(www/fwf-sample.png){width=175px}
 
 <br>
 
@@ -325,7 +325,7 @@ kable(head(paises07Ord), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/paisesOrd.png){width=400px}
+\<imagen1\>(www/paisesOrd.png){width=400px}
 
 <br>
 
@@ -360,7 +360,7 @@ kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/paiscbind.png){width=275px}
+\<imagen1\>(www/paiscbind.png){width=275px}
 
 <br>
 
@@ -389,11 +389,11 @@ kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
   kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
                 ,font_size = 11,full_width = F,) %>%
   column_spec(1:ncol(head(a)),monospace=TRUE) %>%
-  save_kable("www/paiscbind.png")
+  save_kable("www/paiscbind1.png")
 options(knitr.kable.NA = '')
 ```
 
-![](www/paiscbind.png){width=275px}
+\<imagen1\>(www/paiscbind1.png){width=275px}
 
 <br>
 
@@ -474,7 +474,7 @@ kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/a_inner.png){width=115px}
+\<imagen1\>(www/a_inner.png){width=115px}
 
 <br>
 
@@ -513,7 +513,7 @@ kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/a_full.png){width=115px}
+\<imagen1\>(www/a_full.png){width=115px}
 
 <br>
 
@@ -521,77 +521,7 @@ Observa ahora, no ha descartado ningún registro de las tablas origen. Además, 
 
 <br>
 
-###### LEFT JOIN
-
-<br>
-
-Para imponer que conserve **todos los valores origen de la tabla izquierda** (`a1`) y que descarte los de la taba derecha que no sean compartidos utiliza `all.x=TRUE`.
-
-<br>
-
-```{r}
-a_left <- merge(a1, a2, all.x = TRUE)
-```
-
-```{r, eval=FALSE}
-a_left
-```
-
-<br>
-
-```{r echo=FALSE, results='hide', warning=FALSE}
-a <- a_left
-options(knitr.kable.NA = 'NA')
-kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
-  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
-                ,font_size = 11,full_width = F,) %>%
-  column_spec(1:ncol(head(a)),monospace=TRUE) %>%
-  save_kable("www/a_left.png")
-options(knitr.kable.NA = '')
-```
-
-![](www/a_left.png){width=115px}
-
-<br>
-
-Vemos que ID=1 ahora está presente y ID=4 ha quedado descartado. También que ID=3 sólo aparece una vez. Este comportamiento en SQL, es conocido como LEFT JOIN .
-
-<br>
-
-###### RIGHT JOIN
-
-<br>
-
-Para preservar **todos los valores de la tabla derecha** utiliza `all.y=TRUE`. Este comportamiento en SQL es el conocido como *RIGHT JOIN*.
-
-<br>
-
-```{r}
-a_right <- merge(a1, a2, all.y = TRUE)
-```
-
-```{r, eval=FALSE}
-a_right
-```
-
-<br>
-
-```{r echo=FALSE, results='hide', warning=FALSE}
-a<- a_right
-options(knitr.kable.NA = 'NA')
-kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
-  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
-                ,font_size = 11,full_width = F,) %>%
-  column_spec(1:ncol(head(a)),monospace=TRUE) %>%
-  save_kable("www/a_right.png")
-options(knitr.kable.NA = '')
-```
-
-![](www/a_right.png){width=115px}
-
-<br>
-
-Ahora ID=3 aparece 2 veces. También aparece ID=4.
+<piensa un minuto>Intenta realizar tu mismo **LEFT JOIN**  (resp. **RIGHT JOIN**) utilizando `all.x = TRUE` (resp. `all.x = TRUE`).</ piensa un minuto>
 
 <br>
 
@@ -599,20 +529,20 @@ Ahora ID=3 aparece 2 veces. También aparece ID=4.
 
 <br>
 
-Para definir las claves del cruce, es necesario pasar como parámetro los nombre de las columnas:
+Puedes pasar los nombre de las columnas clave del cruce como parámetros:
 
-- Cuando los nombres de los campos clave son compartidos en ambas tablas, utiliza `by`. 
-- Cuando hay cambios de nombre, utiliza `by.x` y `by.y`
+- Si son compartidos utiliza `by`. 
+- Cuando no, utiliza `by.x` y `by.y`
 
 <br>
 
-El siguiente ejemplo, realiza un *FULL JOIN* definiendo como clave la columna `ID`.
+Observa el siguiente ejemplo.
 
 <br>
 
 ```{r}
 a_comparte <- merge(a1, a2, all.x=TRUE, by = c("ID")) 
-# de forma equivalente
+# equivalentemente
 a_comparte <- merge(a1, a2, all.x=TRUE, by.x = c("ID"), by.y = c("ID"))
 ```
 
@@ -633,7 +563,7 @@ kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/a_comparte.png){width=140px}
+\<imagen1\>(www/a_comparte.png){width=140px}
 
 <br>
 
@@ -682,7 +612,7 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/paisSumm1.png){width=400px}
+\<imagen1\>(www/paisSumm1.png){width=400px}
 
 <br>
 
@@ -709,13 +639,7 @@ max(paises07Summ$pib_per_capita, na.rm=TRUE)
 
 <br>
 
-El parámetro `na.rm=TRUE` evita que las funciones resumen, devuelvan un NA debido a la presencia de NA s en la columna `pib_por_capita`. Observa como esto sucede en la siguiente función. 
-
-<br>
-
-```{r}
-mean(paises07Summ$pib_per_capita)
-```
+El parámetro `na.rm=TRUE` elimina los `NA` antes de aplicar la función, en caso contrario devuelve `NA`. 
 
 <br>
 
@@ -740,7 +664,7 @@ kable(a, "html", booktabs=TRUE,align="r") %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/paisSumm1_1.png){width=250px}
+\<imagen1\>(www/paisSumm1_1.png){width=250px}
 
 <br>
 
@@ -769,7 +693,7 @@ kable(a, "html", booktabs=TRUE,align="r") %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/paisSumm2.png){width=200px}
+\<imagen1\>(www/paisSumm2.png){width=200px}
 
 <br>
 
@@ -794,7 +718,7 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/paisSumm3.png){width=125px}
+\<imagen1\>(www/paisSumm3.png){width=125px}
 
 <br>
 
@@ -832,7 +756,7 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/paisSumm4.png){width=250px}
+\<imagen1\>(www/paisSumm4.png){width=250px}
 
 <br>
 
@@ -881,7 +805,7 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/paisSumm5.png){width=175px}
+\<imagen1\>(www/paisSumm5.png){width=175px}
 
 <br>
 
@@ -889,7 +813,7 @@ Gráficamente.
 
 <br>
 
-```{r}
+```{r plot7, warning=FALSE, message=FALSE, fig.cap="Riqueza por continente. (plot7-1.png)"}
 ggplot(paises07Summ) +
   geom_bar(aes(x=continente, fill=nivel_de_riqueza), position = "fill") +
   labs(y="%")
@@ -957,7 +881,7 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/paisSumm6.png){width=400px}
+\<imagen1\>(www/paisSumm6.png){width=400px}
 
 <br>
 
@@ -965,7 +889,7 @@ El mismo gráfico visto para países, ahora, agregado a nivel de continente y ri
 
 <br>
 
-```{r, fig.cap='Contienentes (Fuente: Elaboración propia, datos de Gapminder)'}
+```{r plot8, warning=FALSE, message=FALSE, fig.cap='Continentes (Fuente: Elaboración propia, datos de Gapminder). (plot8-1.png)'}
 ggplot(agg3, aes(x=pib_per_capita
                           , y=esperanza_de_vida
                           , label=continente_riqueza
@@ -983,7 +907,7 @@ ggplot(agg3, aes(x=pib_per_capita
 
 <br>
 
-Como se ha comentado, las funciones apply permiten vectorizar las operaciones de forma eficiente, sin utilizar bucles `for()`.
+Permiten vectorizar las operaciones de forma eficiente.
 
 <br>
 
@@ -991,7 +915,7 @@ Como se ha comentado, las funciones apply permiten vectorizar las operaciones de
 
 <br>
 
-Es una alternativa a aggregate() para aplicar una función de agregación sobre una única columna y segmentando por un único eje.
+Es una alternativa a `aggregate()` para aplicar una función de agregación sobre una única columna y segmentando por un único eje.
 
 <br>
 
@@ -1010,7 +934,7 @@ Permite aplicar una función sobre cada elemento de un vector o lista. Devuelve 
 <br>
 
 ```{r}
-lapply(paises07[,-1], function(x) summary(x))
+lapply(paises07[,-1], function(x) class(x))
 ```
 
 <br>
@@ -1098,7 +1022,7 @@ kable(pais07dplyr, "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
 options(knitr.kable.NA = '')
 ```
 
-![](www/pais07dplyr.png){width=200px}
+\<imagen1\>(www/pais07dplyr.png){width=200px}
 
 <br>
 
@@ -1146,7 +1070,7 @@ kable(continentes_anio %>% head(10), "html", booktabs=TRUE,align="r", row.names 
 options(knitr.kable.NA = '')
 ```
 
-![](www/continentes_anio.png){width=350px}
+\<imagen1\>(www/continentes_anio.png){width=350px}
 
 <br>
 
@@ -1154,7 +1078,7 @@ Para la evolución de los continentes en ggplot2, es útil el [geom_path()](http
 
 <br>
 
-```{r, fig.width=7, fig.cap='Fuente: Elaboración propia con datos de Gapminder'}
+```{r plot9, warning=FALSE, message=FALSE, fig.width=7, fig.cap='Fuente: Elaboración propia con datos de Gapminder. (plot9-1.png)'}
 ggplot(continentes_anio, aes(x=pib_per_capita
                           , y=esperanza_de_vida
                           , color =continente)) +
@@ -1196,7 +1120,7 @@ Para obtener el día actual con *lubridate* utiliza `today()`, día y hora con n
 
 <br>
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(lubridate)
 today()
 now()
@@ -1229,7 +1153,7 @@ Para obtener los meses y días de la semana en Castellano.
 
 <br>
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 Sys.setlocale(locale="es_ES.UTF-8")
 
 fechahora <- ymd_hms("2019-03-28 15:11:23")

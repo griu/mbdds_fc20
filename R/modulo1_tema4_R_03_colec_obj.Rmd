@@ -445,7 +445,7 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
   save_kable("www/dataframe.png")
 ```
 
-![](www/dataframe.png){width=125px}
+\<imagen1\>(www/dataframe.png){width=125px}
 
 <br>
 
@@ -499,7 +499,7 @@ kable(head(paises07), "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
   save_kable("www/headpaises07.png")
 ```
 
-![](www/headpaises07.png){width=450px}
+\<imagen1\>(www/headpaises07.png){width=450px}
 
 <br>
 
@@ -535,7 +535,7 @@ kable(paises07[c(4,6), 4, drop=FALSE], "html", booktabs=TRUE,align="r", row.name
   save_kable("www/headpaises070.png")
 ```
 
-![](www/headpaises070.png){width=125px}
+\<imagen1\>(www/headpaises070.png){width=125px}
 
 <br>
 
@@ -555,7 +555,7 @@ kable(head(paises07[c(4,6),]), "html", booktabs=TRUE,align="r", row.names = TRUE
   save_kable("www/headpaises071.png")
 ```
 
-![](www/headpaises071.png){width=450px}
+\<imagen1\>(www/headpaises071.png){width=450px}
 
 <br>
 
@@ -600,7 +600,7 @@ kable(head(paises07[,-c(3,5)]), "html", booktabs=TRUE,align="r", row.names = TRU
   save_kable("www/headpaises072.png")
 ```
 
-![](www/headpaises072.png){width=350px}
+\<imagen1\>(www/headpaises072.png){width=350px}
 
 <br>
 
@@ -626,7 +626,7 @@ kable(head(paises07[, c("pais","esperanza_de_vida")]), "html", booktabs=TRUE,ali
   save_kable("www/headpaises073.png")
 ```
 
-![](www/headpaises073.png){width=200px}
+\<imagen1\>(www/headpaises073.png){width=200px}
 
 <br>
 
@@ -671,7 +671,7 @@ kable(head(paises07[,c(FALSE, FALSE, FALSE, TRUE, FALSE, TRUE)]), "html", bookta
   save_kable("www/headpaises074.png")
 ```
 
-![](www/headpaises074.png){width=200px}
+\<imagen1\>(www/headpaises074.png){width=200px}
 
 <br>
 
@@ -693,7 +693,7 @@ kable(paises07[paises07$continente=="Oceanía",], "html", booktabs=TRUE,align="r
   save_kable("www/headpaises075.png")
 ```
 
-![](www/headpaises075.png){width=450px}
+\<imagen1\>(www/headpaises075.png){width=200px}
 
 <br>
 
@@ -724,7 +724,7 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
   save_kable("www/logicos1.png")
 ```
 
-![Operadores lógicos: (fuente: elaboración propia)](www/logicos1.png){width=350px}
+\<imagen1\>Operadores lógicos: (fuente: elaboración propia) (www/logicos1.png){width=350px}
 
 <br>
 
@@ -778,7 +778,7 @@ kable(a, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
   save_kable("www/logicos2.png")
 ```
 
-![Operaciones booleanas (fuente: elaboración propia)](www/logicos2.png){width=450px}
+\<imagen1\>Operaciones booleanas: (fuente: elaboración propia) (www/logicos2.png){width=450px}
 
 <br>
 
@@ -789,8 +789,6 @@ Para seleccionar los países asiáticos con esperanza de vida media en 2007 supe
 ```{r}
 consulta <- paises07[paises07$continente=="Asia" & paises07$esperanza_de_vida >= 80 ,]
 ```
-
-<br>
 
 ```{r, eval=FALSE}
 consulta
@@ -806,7 +804,7 @@ kable(consulta, "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
   save_kable("www/logicos3.png")
 ```
 
-![](www/logicos3.png){width=450px}
+\<imagen1\>(www/logicos3.png){width=450px}
 
 <br>
 
@@ -877,8 +875,6 @@ En data frames (y listas) se pueden añadir columnas (resp. elementos).
 paises07$id <- 1:nrow(paises07)
 ```
 
-<br>
-
 ```{r, eval=FALSE}
 head(paises07)
 ```
@@ -893,7 +889,7 @@ kable(head(paises07), "html", booktabs=TRUE,align="r", row.names = TRUE) %>%
   save_kable("www/headpaises076.png")
 ```
 
-![](www/headpaises076.png){width=500px}
+\<imagen1\>(www/headpaises076.png){width=500px}
 
 <br>
 
@@ -972,7 +968,7 @@ kable(summary(paises07NA), "html", booktabs=TRUE,align="r", row.names = TRUE,) %
   save_kable("www/paisesNA1.png")
 ```
 
-![](www/paisesNA1.png){width=550px}
+\<imagen1\>(www/paisesNA1.png){width=550px}
 
 <br>
 
@@ -996,7 +992,7 @@ kable(paises07NA[is.na(paises07NA$pib_per_capita),], "html", booktabs=TRUE,align
 options(knitr.kable.NA = '')
 ```
 
-![](www/paisesNA2.png){width=450px}
+\<imagen1\>(www/paisesNA2.png){width=450px}
 
 <br>
 
@@ -1020,11 +1016,11 @@ kable(paises07NA[paises07NA$pib_per_capita<500,], "html", booktabs=TRUE,align="r
   kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
                 ,font_size = 11,full_width = F,) %>%
   column_spec(1:ncol(paises07NA[paises07NA$pib_per_capita<500,]),monospace=TRUE) %>%
-  save_kable("www/paisesNA2.png")
+  save_kable("www/paisesNA21.png")
 options(knitr.kable.NA = '')
 ```
 
-![](www/paisesNA2.png){width=450px}
+\<imagen1\>(www/paisesNA21.png){width=450px}
 
 <br>
 
@@ -1048,7 +1044,7 @@ kable(paises07NA[which(paises07NA$pib_per_capita<500),], "html", booktabs=TRUE,a
 options(knitr.kable.NA = '')
 ```
 
-![](www/paisesNA3.png){width=450px}
+\<imagen1\>(www/paisesNA3.png){width=450px}
 
 <br>
 

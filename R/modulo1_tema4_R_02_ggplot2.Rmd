@@ -1,5 +1,5 @@
 ```{r include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.path="www/")
 library(knitr)
 library(pander)
 library(kableExtra)
@@ -33,7 +33,7 @@ ggplot2 es un sistema coherente para hacer gráficos.
 
 <br>
 
-```{r fig.width=3.2, fig.asp=4/5, fig.cap="grafico de puntos"}
+```{r plot3, fig.width=3.2, fig.asp=4/5, fig.cap="Grafico de puntos. (plot3-1.png)"}
 library(ggplot2)
 ggplot(data = pressure) +  
   geom_point(mapping = aes(x = temperature, y = pressure))
@@ -89,7 +89,7 @@ Para obtener el plot, ejecuta el objeto.
 
 <br>
 
-```{r fig.width=3.2, fig.asp=4/5, fig.cap="grafico de líneas y puntos"}
+```{r plot4, fig.width=3.2, fig.asp=4/5, fig.cap="Grafico de líneas y puntos. (plot4-1.png)"}
 p1
 ```
 
@@ -99,7 +99,7 @@ Para añadir graduación continua del color por temperatura.
 
 <br>
 
-```{r fig.width=4.7, fig.asp=4/7, fig.cap="Escala de color contínua"}
+```{r plot5, fig.width=4.7, fig.asp=4/7, fig.cap="Escala de color contínua. (plot5-1.png)"}
 p1 <- ggplot(data = pressure, mapping = aes(x = temperature, y = pressure
     , color = temperature)) +
   geom_point() +
@@ -142,7 +142,7 @@ p4 <- ggplot(paises07 %>% arrange(desc(esperanza_de_vida)) %>% head(25),
 
 <br>
 
-```{r echo=FALSE, fig.width=11, fig.height=5, warning=FALSE, message=FALSE}
+```{r plot6,  echo=FALSE, fig.width=11, fig.height=5, warning=FALSE, message=FALSE, fig.cap="Galería GGPLOT2. (plot6-1.png)"}
 suppressPackageStartupMessages(library(cowplot))
 # arrange two plots into one column
 plot_grid(p1, p2, p3, p4,
@@ -157,17 +157,17 @@ plot_grid(p1, p2, p3, p4,
 
 Otros elementos a tener en cuenta en la presentación: 
 
-- Permite crear un panel de gráficos utilizando variables de segmentación: `facet_wrap()`  y `facet_grid()` 
--	Insertar etiquetas y anotaciones de texto: consulta la función `annotate()`, `geom_text()`, `geom_label()`, `geom_label_repel()`.
--	Escalas: Permite cambiar los valores de los ejes. Por ejemplo, consulta `scale_x_continuous()` y `scale_x_log10()`.
-- Colores: Para cambiar las paletas de colores consulta `scale_colour_discrete()`, `scale_colour_brewer()`, `scale_colour_manual()`, `scale_fill_viridis()`, `scale_colour_gradient()`...
--	Zoom: Importante, para realizar zoom utiliza xlim e ylim en: `coord_cartesian()`.
--	Temas: Personaliza posición de la leyenda y resto de elementos gráficos, tamaños colores, fuente... Consulta: `theme()` y `theme_bw()`.
-- Interactivos: packages [gganimate](https://gganimate.com/) y [plotly](https://plotly.com/r/).
+- Crear un panel de gráficos: `facet_wrap()`  y `facet_grid()` 
+-	Etiquetas y anotaciones: `annotate()`, `geom_text()`, `geom_label()`, `geom_label_repel()`.
+-	Valores de los ejes: `scale_x_continuous()` y `scale_x_log10()`.
+- Colores: `scale_colour_discrete()`, `scale_colour_brewer()`...
+-	Zoom: Importante, utiliza xlim e ylim en: `coord_cartesian()`.
+-	Temas: Personalizar aspecto con `theme()`, `theme_bw()`...
+- Interactivos: packages [gganimate](https://gganimate.com/),  [plotly](https://plotly.com/r/)...
 
 <br>
 
-Para ampliar la lectura consulta:
+Amplia la lectura en:
 
 - [R for Data Science](https://r4ds.had.co.nz/) from Garrett Grolemund and Hadley Wickham.
 - [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/) de Hadley Wickham.
@@ -180,7 +180,7 @@ Para ampliar la lectura consulta:
 
 <br>
 
-Mejora el Crea un resumen HTML de la `esperanza_de_vida` y el `pib_per_capita` en 2007 con datos de `paises` del package `datos`.
+Mejora el resumen HTML de la `esperanza_de_vida` y el `pib_per_capita` en 2007 con datos de `paises` del package `datos`.
 
 Para ello abre el fichero `13_actividad.Rmd y completa los apartados solicitados entre \< ... \> .
 
