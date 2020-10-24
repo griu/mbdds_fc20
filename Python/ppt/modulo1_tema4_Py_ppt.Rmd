@@ -1,0 +1,278 @@
+---
+title: "Tema: Programación en Python"
+author: "Ferran Carrascosa Mallafrè"
+date: "24/10/2020"
+output:
+  powerpoint_presentation:
+     reference_doc: plantilla_4.pptx
+     slide_level: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+use_condaenv("mbdds_rpy20")
+```
+
+# Bienvenido Padawan
+
+## Índice
+
+<br>
+
+- Objetivos específicos
+
+<br>
+
+- Actividad guiada
+
+<br>
+
+- Contenidos:
+   1. Elementos básicos de Python
+   1. Gráficos con Matplotlib
+   1. Colecciones de objetos
+   1. Control de flujo
+   1. Gestión de datos
+
+<br>
+
+- Conclusiones
+
+## Objetivos específicos
+
+<br>
+
+
+* Realizar operaciones de lectura y escritura de datos con Python.
+
+<br>
+
+* Saber escoger la estructura de datos de Python adecuada para cada problema.
+
+<br>
+
+* Tener las bases para realizar análisis descriptivo mediante tablas y gráficos en Python.
+
+<br>
+
+* Desarrollar pequeñas piezas de código en Python.
+
+## Actividad guiada
+
+:::::: {.columns}
+
+::: {.column}
+
+<br>
+
+**Objetivo**
+
+<br>
+
+La actividad guiada, que te proponemos, en consonancia con los Pythonianos, es que te diviertas analizando datos relacionados con la saga de Star Wars: Planetas, Naves, Vehículos, Personajes y Especies.
+
+Para ello, contamos con los datos de SWAPI, acrónimo de STAR WARS API, que nos da acceso libre a una colección de datos de la saga.
+
+Estos datos se han descargado y preparado expresamente para este curso. Puedes encontrar el código utilizado en el Anexo: README de Python, capítulo “IMPORTAR DATOS DE STARWARS SWAPI”.
+
+:::
+
+::: {.column}
+
+![Fuente: [SWAPI](https://swapi.dev/)](www/starwars.png)
+
+:::
+
+::::::
+
+## 1. Elementos básicos de Python
+
+:::::: {.columns}
+
+::: {.column}
+
+<br>
+
+- Entorno jupyter/Colab
+   - Preparar el entorno jupyter/Colab
+   - Editar un notebook
+   - Comandos mágicos y shell
+   - Instalar packages des de Python
+
+:::
+
+::: {.column}
+
+    
+:::
+
+::::::
+
+## 1.1. Preparar el entorno jupyter/Colab
+
+:::::: {.columns}
+
+::: {.column}
+
+<br>
+
+**PREPARACIÓN DEL ENTORNO COLAB**
+
+<br>
+
+```
+if 'google.colab' in str(get_ipython()):
+    !git clone https://github.com/griu/mbdds_fc20.git /content/mbdds_fc20
+    !git -C /content/mbdds_fc20 pull
+    %cd /content/mbdds_fc20/Python
+    !python -m pip install -r requirementsColab.txt
+```
+
+:::
+
+::: {.column}
+
+<br>
+
+**PREPARACIÓN DEL ENTORNO JUPYTER**
+
+<br>
+
+1- CLONAR REPOSITORIO
+2- CREAR EN LOCAL UN NUEVO ENVIRONMENT DE ANACONDA
+3- INSTALA LAS LIBRERIAS DE PYTHON
+4- PUBLICAR EL KERNEL
+5- LANZAR ENTORNO JUPYTER NOTEBOOK
+
+Seguir pasos en [GitHub](https://github.com/griu/mbdds_fc20/blob/master/Python/README.md)
+
+:::
+
+::::::
+
+## 1.2. Editar un notebook y comandos Magic
+
+:::::: {.columns}
+
+::: {.column}
+
+<br>
+
+**Tipo celdas**: Code (Tecla Y) o Mardown (Tecla M) 
+
+**Modo**: Edición o Visión
+
+**Ejecutar**: Ctrl+Enter, ejecutar y avanzar (Mayús+Enter)
+
+**Insertar celda**: Antes (Tecla A), después (Tecla B)
+
+**Copiar, pegar, desplazar arriba, abajo**
+
+**Colab**: Mismos atajos de tecaldo pero con Ctr+M+<tecla>
+
+:::
+
+::: {.column}
+
+<br>
+
+**Ejecutar script .py**: `%run holaMundo.py`
+
+**Historial**: `%history 1-3`
+
+**Tiempo de ejecución linea**: `%time linea`
+
+**Tiempo de ejecución celda**: `%%time`
+
+:::
+
+::::::
+
+## 1.3. Comandos shell e instalar packages Python
+
+<br>
+
+**Listar ficheros y directorios**: `!dir`
+
+**Listar directorio anterior**: `!dir ..`
+
+**Instalar paquetes**: `!pip install nombre_paquete`
+
+**Importar un paquete**: `import nombre_paquete`
+
+## 2. Gráficos con Matplotlib
+
+:::::: {.columns}
+
+::: {.column}
+
+<br>
+
+```{python echo=TRUE, eval=FALSE}
+plt.figure();  # crea la figura del plot
+
+# crea el primer panel y lo configura lo ejes.
+plt.subplot(2, 1, 1) # (filas, columnas, número de panel)
+plt.hist(altura_media, color="blue", label="Altura media")
+## (array([2., 0., 1., 0., 7., 2., 2., 1., 0., 1.]), array([ 66. ,  89.4, 112.8, 136.2, 159.6, 183. , 206.4, 229.8, 253.2,
+##        276.6, 300. ]), <a list of 10 Patch objects>)
+plt.xlabel("cm",labelpad=-6)  # labelpad desplaça el titulo arriba
+plt.ylabel("N")
+plt.legend();
+
+# crea el segundo panel y lo configura lo ejes
+plt.subplot(2, 1, 2)
+plt.hist(vida_media, color="green", label="Vida media");
+plt.xlabel("años")
+plt.ylabel("N")
+plt.legend();
+plt.show();
+```
+
+:::
+
+::: {.column}
+
+```{python echo=FALSE}
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+entidades = ['planets','starships','vehicles','people','species']
+entidades_df = {x: pd.read_pickle('../www/' + x + '_df.pkl') for x in entidades}
+entidades_df['species']["num_peliculas"] = entidades_df['species'].films.apply(lambda x: len(x))   # numero de peliculas en las que aparece
+species_df = entidades_df['species'][["classification","average_height","average_lifespan","num_peliculas"]].dropna()
+
+nombre = species_df.index.values
+clasificacion = species_df.classification.values
+altura_media = species_df.average_height.values
+vida_media = species_df.average_lifespan.values
+num_peliculas = species_df.num_peliculas.values
+
+plt.scatter(x=altura_media,y=vida_media)
+
+plt.show()
+
+```
+
+:::
+
+::::::
+
+## Conclusiones
+
+<br>
+
+-	R cubre todo el espectro de trabajo con datos.
+
+<br>
+
+-	Es un lenguaje rápido de implementar y de ejecución óptima.
+
+<br>
+
+-	Aporta una gran facilidad para la visualización de datos.
+
+# Que la fuerza te acompañe
