@@ -140,9 +140,13 @@ if 'google.colab' in str(get_ipython()):
 <br>
 
 1- CLONAR REPOSITORIO
+
 2- CREAR EN LOCAL UN NUEVO ENVIRONMENT DE ANACONDA
+
 3- INSTALA LAS LIBRERIAS DE PYTHON
+
 4- PUBLICAR EL KERNEL
+
 5- LANZAR ENTORNO JUPYTER NOTEBOOK
 
 Seguir pasos en [GitHub](https://github.com/griu/mbdds_fc20/blob/master/Python/README.md)

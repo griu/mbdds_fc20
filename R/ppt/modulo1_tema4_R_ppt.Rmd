@@ -101,7 +101,6 @@ Comprender la evolución de la riqueza y la esperanza de vida de las personas a 
    - Instalar packages des de R
    - 4 nociones de RMarkdown
    - Cheatsheet de R. Disponibles en: https://rstudio.com/resources/cheatsheets/
-- Crear una función
 
 :::
 
