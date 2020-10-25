@@ -101,7 +101,7 @@ Los **filtros** permiten seleccionar filas y columnas de Matrices y Data Frames.
 
 Respecto a los gráficos en R, se introduce [ggplot2](https://ggplot2.tidyverse.org/) que se utilizará dentro del máster en los módulos 3, 4 y 5. En Python se introduce [matplotlib](https://matplotlib.org/) que se utilizará en el módulo 2.
 
-> \<sabías que\>**ggplot2** está desarrollada por *Hadley Wickham* en 2005. Por su lado, **matplotlib* desarrollada por *John Hunter* en 2003, basada en el sistema de gráficos del software [MATLAB](https://www.mathworks.com/products/matlab.html).\<sabías que\> 
+> \<sabías que\>**ggplot2** está desarrollada por *Hadley Wickham* en 2005. Por su lado, **matplotlib** desarrollada por *John Hunter* en 2003, basada en el sistema de gráficos del software [MATLAB](https://www.mathworks.com/products/matlab.html).\<sabías que\> 
 
 Las capacidades de control de la programación consisten en:
 
