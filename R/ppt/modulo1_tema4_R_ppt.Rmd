@@ -287,7 +287,8 @@ p00 <- ggplot(paises
     , aes(x=pib_per_capita
     , y=esperanza_de_vida
     , color=continente
-    , size=poblacion))+
+    , size=poblacion
+    , label=pais))+
   geom_point() +
   scale_x_log10() +
   facet_wrap(~anio)+
