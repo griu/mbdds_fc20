@@ -1,0 +1,777 @@
+---
+title: "Tema: Programación en Python"
+author: "Ferran Carrascosa Mallafrè"
+date: "24/10/2020"
+output:
+  powerpoint_presentation:
+     reference_doc: plantilla_4.pptx
+     slide_level: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+use_condaenv("mbdds_rpy20")
+```
+
+# Bienvenido Padawan
+
+## Índice
+
+<br>
+
+- Objetivos específicos
+
+<br>
+
+- Actividad guiada
+
+<br>
+
+- Contenidos:
+   1. Elementos básicos de Python
+   1. Gráficos con Matplotlib
+   1. Colecciones de objetos
+   1. Control de flujo
+   1. Gestión de datos
+
+<br>
+
+- Conclusiones
+
+## Objetivos específicos
+
+<br>
+
+
+* Realizar operaciones de lectura y escritura de datos con Python.
+
+<br>
+
+* Saber escoger la estructura de datos de Python adecuada para cada problema.
+
+<br>
+
+* Tener las bases para realizar análisis descriptivo mediante tablas y gráficos en Python.
+
+<br>
+
+* Desarrollar pequeñas piezas de código en Python.
+
+## Actividad guiada
+
+:::::: {.columns}
+
+::: {.column}
+
+<br>
+
+**Objetivo**
+
+<br>
+
+La actividad guiada, que te proponemos, en consonancia con los Pythonianos, es que te diviertas analizando datos relacionados con la saga de Star Wars: Planetas, Naves, Vehículos, Personajes y Especies.
+
+Para ello, contamos con los datos de SWAPI, acrónimo de STAR WARS API, que nos da acceso libre a una colección de datos de la saga.
+
+Estos datos se han descargado y preparado expresamente para este curso. Puedes encontrar el código utilizado en el Anexo: README de Python, capítulo “IMPORTAR DATOS DE STARWARS SWAPI”.
+
+:::
+
+::: {.column}
+
+![Fuente: [SWAPI](https://swapi.dev/)](www/starwars.png)
+
+:::
+
+::::::
+
+# 1. ELEMENTOS BÁSICOS DE PYTHON
+
+## 1. Elementos básicos de Python
+
+:::::: {.columns}
+
+::: {.column}
+
+<br>
+
+- Entorno jupyter/Colab
+   - Preparar el entorno jupyter/Colab
+   - Editar un notebook
+   - Comandos mágicos y shell
+   - Instalar packages des de Python
+
+:::
+
+::: {.column}
+
+    
+:::
+
+::::::
+
+## 1.1. Preparar el entorno jupyter/Colab
+
+:::::: {.columns}
+
+::: {.column}
+
+<br>
+
+**PREPARACIÓN DEL ENTORNO COLAB**
+
+<br>
+
+```
+if 'google.colab' in str(get_ipython()):
+    !git clone https://github.com/griu/mbdds_fc20.git /content/mbdds_fc20
+    !git -C /content/mbdds_fc20 pull
+    %cd /content/mbdds_fc20/Python
+    !python -m pip install -r requirementsColab.txt
+```
+
+:::
+
+::: {.column}
+
+<br>
+
+**PREPARACIÓN DEL ENTORNO JUPYTER**
+
+<br>
+
+1- CLONAR REPOSITORIO
+
+2- CREAR EN LOCAL UN NUEVO ENVIRONMENT DE ANACONDA
+
+3- INSTALA LAS LIBRERIAS DE PYTHON
+
+4- PUBLICAR EL KERNEL
+
+5- LANZAR ENTORNO JUPYTER NOTEBOOK
+
+Seguir pasos en [GitHub](https://github.com/griu/mbdds_fc20/blob/master/Python/README.md)
+
+:::
+
+::::::
+
+## 1.2. Editar un notebook y comandos Magic
+
+:::::: {.columns}
+
+::: {.column}
+
+<br>
+
+**Tipo celdas**: Code (Tecla Y) o Mardown (Tecla M) 
+
+**Modo**: Edición o Visión
+
+**Ejecutar**: Ctrl+Enter, ejecutar y avanzar (Mayús+Enter)
+
+**Insertar celda**: Antes (Tecla A), después (Tecla B)
+
+**Copiar, pegar, desplazar arriba, abajo**
+
+**Colab**: Mismos atajos de tecaldo pero con Ctr+M+<tecla>
+
+:::
+
+::: {.column}
+
+<br>
+
+**Ejecutar script .py**: `%run holaMundo.py`
+
+**Historial**: `%history 1-3`
+
+**Tiempo de ejecución linea**: `%time linea`
+
+**Tiempo de ejecución celda**: `%%time`
+
+:::
+
+::::::
+
+## 1.3. Comandos shell e instalar packages Python
+
+<br>
+
+**Listar ficheros y directorios**: `!dir`
+
+**Listar directorio anterior**: `!dir ..`
+
+**Instalar paquetes**: `!pip install nombre_paquete`
+
+**Importar un paquete**: `import nombre_paquete`
+
+# 2. GRÁFICOS CON MATPLOTLIB
+
+## 2. Gráficos con Matplotlib
+
+
+:::::: {.columns}
+
+::: {.column}
+
+
+```{python echo=TRUE}
+import matplotlib.pyplot as plt
+
+import numpy as np
+import pandas as pd
+
+entidades = ['planets','starships','vehicles','people','species']
+entidades_df = {x: pd.read_pickle('../www/' + x + '_df.pkl') for x in entidades}
+entidades_df['species']["num_peliculas"] = entidades_df['species'].films.apply(lambda x: len(x))
+species_df = entidades_df['species'][["classification","average_height","average_lifespan","num_peliculas"]].dropna()
+
+nombre = species_df.index.values  # prepara datos
+clasificacion = species_df.classification.values
+altura_media = species_df.average_height.values
+vida_media = species_df.average_lifespan.values
+num_peliculas = species_df.num_peliculas.values
+
+plt.style.use('seaborn-whitegrid');
+
+plt.scatter(x=altura_media,y=vida_media)
+plt.show();
+```
+
+:::
+
+::: {.column}
+
+```{python echo=FALSE, fig.cap="[plt.scatter()](https://matplotlib.org/3.3.2/api/_as_gen/matplotlib.pyplot.scatter.html)"}
+plt.scatter(x=altura_media,y=vida_media)
+plt.show();
+```
+
+:::
+
+::::::
+
+## 2. Gráficos con Matplotlib. Interfaz estilo Matlab
+
+
+:::::: {.columns}
+
+::: {.column}
+
+
+```{python echo=TRUE}
+plt.figure();  # crea la figura del plot
+
+# crea el primer panel y lo configura lo ejes.
+plt.subplot(2, 1, 1); # filas, columnas, numero de panel
+plt.hist(altura_media, color="blue", label="Altura media");
+plt.xlabel("cm",labelpad=-6);  # labelpad desplaza el titulo arriba
+plt.ylabel("N");
+plt.legend();
+
+# crea el segundo panel y lo configura lo ejes
+plt.subplot(2, 1, 2);
+plt.hist(vida_media, color="green", label="Vida media");
+plt.xlabel("anyos");
+plt.ylabel("N");
+plt.legend();
+plt.show();
+```
+
+:::
+
+::: {.column}
+
+```{python echo=FALSE, fig.cap="Interfaz estilo Matlab"}
+plt.figure();  # crea la figura del plot
+
+# crea el primer panel y lo configura lo ejes.
+plt.subplot(2, 1, 1); # filas, columnas, numero de panel
+plt.hist(altura_media, color="blue", label="Altura media");
+plt.xlabel("cm",labelpad=-6);  # labelpad desplaza el titulo arriba
+plt.ylabel("N");
+plt.legend();
+
+# crea el segundo panel y lo configura lo ejes
+plt.subplot(2, 1, 2);
+plt.hist(vida_media, color="green", label="Vida media");
+plt.xlabel("anyos");
+plt.ylabel("N");
+plt.legend();
+plt.show();
+```
+
+:::
+
+::::::
+
+## 2. Gráficos con Matplotlib. Interfaz orientada a objetos
+
+
+:::::: {.columns}
+
+::: {.column}
+
+
+```{python echo=TRUE}
+# Se crea la parrilla de plots
+# ax sera un vector de 2 objetos Axes
+fig, ax = plt.subplots(2);
+
+
+# Llama el metodo plot() sobre el objeto apropiado
+ax[0].boxplot(altura_media, vert=False);
+ax[1].boxplot(vida_media, vert=False);
+
+ax[0].set(xlim=(150, 250),ylabel='Altura media (cm)',title='Boxplot');
+ax[1].set(xlim=(0, 300),ylabel='Vida media (anyos)');
+plt.show();
+```
+
+:::
+
+::: {.column}
+
+```{python echo=FALSE, fig.cap="Interfaz orientada a objetos"}
+# Se crea la parrilla de plots
+# ax sera un vector de 2 objetos Axes
+fig, ax = plt.subplots(2);
+
+
+# Llama el metodo plot() sobre el objeto apropiado
+ax[0].boxplot(altura_media, vert=False);
+ax[1].boxplot(vida_media, vert=False);
+
+ax[0].set(xlim=(150, 250),ylabel='Altura media (cm)',title='Boxplot');
+ax[1].set(xlim=(0, 300),ylabel='Vida media (anyos)');
+plt.show();
+```
+
+:::
+
+::::::
+
+## 2. Gráficos con Matplotlib. Personalización.
+
+:::::: {.columns}
+
+::: {.column}
+
+
+```{python echo=TRUE}
+# Recuperamos el grafico de especies
+plt.scatter(altura_media, np.log(vida_media), c=num_peliculas, s=100*num_peliculas, alpha=0.3,cmap='viridis')
+
+# leyenda del color
+cbar = plt.colorbar();  # Muestra la paleta
+cbar.ax.get_yaxis().labelpad = 15   # da espacio al titulo
+cbar.ax.set_ylabel('# de peliculas', rotation=270) # anyade titulo
+
+plt.title("N peliculas aparece cada especies de Star Wars")
+plt.xlabel("Altura media (cm)")
+plt.ylabel("log(anyos de vida media)");
+
+# Add labels to the plot
+style = dict(size=10, color='grey')
+
+plt.text(300, np.log(1000), "Hutt", **style, ha='right')
+plt.text(66, np.log(900), "Yoda's species", **style, ha='left')
+plt.text(190, np.log(700), "Pau'an", **style, ha='center')
+plt.text(210, np.log(400), "Wookie", **style, ha='center')
+plt.text(180, np.log(120), "Human", **style, ha='center');
+plt.show();
+```
+
+:::
+
+::: {.column}
+
+```{python echo=FALSE, fig.cap="Personalización"}
+# Recuperamos el grafico de especies
+plt.scatter(altura_media, np.log(vida_media), c=num_peliculas, s=100*num_peliculas, alpha=0.3,cmap='viridis')
+
+# leyenda del color
+cbar = plt.colorbar();  # Muestra la paleta
+cbar.ax.get_yaxis().labelpad = 15   # da espacio al titulo
+cbar.ax.set_ylabel('# de peliculas', rotation=270) # anyade titulo
+
+plt.title("N peliculas aparece cada especies de Star Wars")
+plt.xlabel("Altura media (cm)")
+plt.ylabel("log(anyos de vida media)");
+
+# Add labels to the plot
+style = dict(size=10, color='grey')
+
+plt.text(300, np.log(1000), "Hutt", **style, ha='right')
+plt.text(66, np.log(900), "Yoda's species", **style, ha='left')
+plt.text(190, np.log(700), "Pau'an", **style, ha='center')
+plt.text(210, np.log(400), "Wookie", **style, ha='center')
+plt.text(180, np.log(120), "Human", **style, ha='center');
+plt.show();
+```
+
+:::
+
+::::::
+
+## 2. Gráficos con Matplotlib. Seaborn
+
+:::::: {.columns}
+
+::: {.column}
+
+
+```{python echo=TRUE}
+import seaborn as sns
+import warnings
+
+sns.set()
+warnings.filterwarnings('ignore')
+
+# Especies de mas de un individuo
+sns.pairplot(species_df, hue="classification", height=2.5);
+
+plt.gcf().subplots_adjust(top=0.95)
+plt.suptitle('Matriz de graficos de dispersion 2 a 2')
+
+plt.show();
+```
+
+:::
+
+::: {.column}
+
+```{python echo=FALSE, fig.cap="Librearia Seaborn"}
+# Especies de mas de un individuo
+sns.pairplot(species_df, hue="classification", height=2.5);
+
+plt.gcf().subplots_adjust(top=0.95)
+plt.suptitle('Matriz de graficos de dispersion 2 a 2')
+
+plt.show();
+```
+
+:::
+
+::::::
+
+# 3. COLECCIONES DE OBJETOS
+
+## 3. Colecciones de objetos. Tipos básicos
+
+:::::: {.columns}
+
+::: {.column}
+
+ | Ejemplo | Constructores | Tipo de dato |
+ | ------- | ------------- | ------- | 
+ | x = "Hola Mundo" | x = str("Hello World") | str |
+ | x = 20 | x = int(20) | int |
+ | x = 20.5 | x = float(20.5) | float |
+ | x = True | x = bool(5) | bool |
+
+
+:::
+
+::: {.column}
+
+Para saber el tipo del objeto utiliza type()
+
+Operaciones con booleanos: `and`, `or` y `not`
+
+Comparadores booleanos: `<`, `<=`, `>`, `>=`, `==` y `!=`
+
+Casting: `str`, `int`, `float` y `bool`.
+
+:::
+
+::::::
+
+## 3. Colecciones de objetos. Listas, texto, tuplas y rangos
+
+:::::: {.columns}
+
+::: {.column}
+
+```{python echo=TRUE}
+# Listas
+lista1 = [True, 'Texto', 3.1416]
+len(lista1)
+[1,2,3] + [4,5,6]
+[1,2,3] * 2
+#'Texto' in lista1
+max([1,5,7,3])
+
+len('abcd')  # Texto
+"ab" + "cd"
+"abc" * 2
+' '.join(["Soy","texto"])
+```
+
+:::
+
+::: {.column}
+
+```{python echo=TRUE}
+# Tuplas
+a = (1,2,3)
+a, b = 2, 6
+
+# Rangos
+range(3,6)
+
+a = {'uno': 1, 'dos': 2} # Diccionarios
+a["uno"]
+a.keys()
+a.items()
+```
+
+
+:::
+
+::::::
+
+## 3. Colecciones de objetos. Filtros, List comprehension y Math
+
+:::::: {.columns}
+
+::: {.column}
+
+```{python echo=TRUE}
+#Filtros
+a = [3,7,2,9,2,8,6]
+a[0]
+a[-2]
+a[-2]
+a[1:5]
+a[1:5:2]
+a[:4]
+a = "no soy una lista"
+a[3:]
+```
+
+:::
+
+::: {.column}
+
+```{python echo=TRUE}
+# List Comprehension
+a = [0,1,0,2,0,3,4,0]
+b = [1 / x for x in a if x != 0]
+b
+
+a = {'uno': 1, 'dos': 2, 'tres': 3}
+b = {k: v*v for k,v in a.items()}
+b
+
+import math
+
+math.pi
+math.sqrt(2)
+```
+
+Ver [funciones math](https://docs.python.org/3/library/math.html): log, log10, exp, pow, cos, floor...
+
+:::
+
+::::::
+
+## 3. Numpy. Ufunc
+
+:::::: {.columns}
+
+::: {.column}
+
+```{python echo=TRUE}
+b_np = np.array([True, False, False]) # booleano
+s_np = np.array(['f', 'h', 'j']) # string
+i_np = np.array(range(3)) # entero
+f_np = np.array([2.4, 1.5, 3.0]) # coma flotante
+
+ej_np = (b_np, s_np, i_np, f_np)
+[x.dtype for x in ej_np]
+
+i_np.astype(str) # casting
+np.array([1,2,3]) * 2  # multiplicación por escalar
+np.sqrt(np.array([1,2,3,4])) # raiz
+```
+
+:::
+
+::: {.column}
+
+```{python echo=TRUE}
+# secuencias
+np.arange(0,6,2)
+np.zeros(3)
+np.ones(3)
+np.tile([1.2], 2)
+np.repeat([1.2], 2)
+
+
+np.random.seed(123)   # dimensiones
+x1 = np.random.randint(10, size=6)  # array 1-dimensional 
+x2 = np.random.randint(10, size=(3, 4))  # array 2-dimensional
+x3 = np.random.randint(10, size=(3, 4, 5))  # array 3-dimensional 
+x1.shape
+x2.shape
+x3.shape
+```
+
+:::
+
+::::::
+
+## 3. Numpy. Filtros y Modificacion
+
+:::::: {.columns}
+
+::: {.column}
+
+```{python echo=TRUE}
+# Filtros
+x2 = np.random.randint(10, size=(3, 4))  # array 2-dimensional
+x2[2,:] # fila
+x2[2] # fila
+x1[[0,2,4]] # Indexacion elegante
+x1[(x1<4) | (x1>8)] # operaciones booleanas
+
+x2[1,1] = 20.765  # Modificacion
+x2[1,:] = x2[0,:] * 10
+x2[[1,2],[2,2]] = 55
+
+# VISTAS NO COPIADAS
+a = np.array([1, 'm', [2, 3, 4]], dtype=object)
+b = a
+b[0] = 10
+a
+```
+
+:::
+
+::: {.column}
+
+
+```{python echo=TRUE}
+# COPIAS DE ARRAYS
+c = a.copy()
+c[0] = 20
+print(a)  # pero no es perfecto
+c[2][0] = 30
+print(a)
+
+import copy # COPIAS PROFUNDAS DE ARRAYS
+d = copy.deepcopy(a)
+d[2][0] = 40
+print(a)
+```
+
+Cambiar shape: `x.reshape(fils, cols)`
+
+Concatenar misma dimensión:
+
+- filas: `np.concatenate([a1, a2])`
+- columnas: np.concatenate([a3, a4], axis=1)
+
+Concatenar distinta dimensión:
+
+- filas: np.vstack([a1, a2])
+- columnas: np.hstack([a3, a4])
+
+:::
+
+::::::
+
+## 3. Numpy. Modificacion
+
+:::::: {.columns}
+
+::: {.column}
+
+#```{python echo=TRUE}
+
+Broadcast
+
+
+#concatenar
+a = np.array([1, 'm', [2, 3, 4]], dtype=object)
+b = np.copy(a)
+b[0] = 10
+a
+array([1, 'm', list([10, 3, 4])], dtype=object)
+
+
+Concersion a litas
+
+#```
+
+:::
+
+::: {.column}
+
+```{python echo=TRUE}
+```
+
+:::
+
+::::::
+
+## 3. Pandas. Series y Dataframe
+
+:::::: {.columns}
+
+::: {.column}
+
+```{python echo=TRUE}
+
+```
+
+:::
+
+::: {.column}
+
+```{python echo=TRUE}
+```
+
+:::
+
+::::::
+
+## 3. Pandas. Filtros
+
+:::::: {.columns}
+
+::: {.column}
+
+```{python echo=TRUE}
+
+```
+
+:::
+
+::: {.column}
+
+```{python echo=TRUE}
+```
+
+:::
+
+::::::
+
+## Conclusiones
+
+<br>
+
+-	R cubre todo el espectro de trabajo con datos.
+
+<br>
+
+-	Es un lenguaje rápido de implementar y de ejecución óptima.
+
+<br>
+
+-	Aporta una gran facilidad para la visualización de datos.
+
+# Que la fuerza te acompañe
