@@ -81,9 +81,14 @@ resumen <- describir(paises_informe, colores_continente, etiquetas_paises)
 resumen[["pib_per_capita"]]
 ```
 
+<AÑADE UN BREVE COMENTARIO DE LOS RESULTADOS>
+
 ```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot Esperanza de vida (Continente y año)", fig.align="center",message=FALSE}
 resumen[["esperanza_de_vida"]]
 ```
+
+<AÑADE UN BREVE COMENTARIO DE LOS RESULTADOS>
+
 
 ## 1.5.2. GRÁFICO DE DISPERSIÓN DE PAÍSES
 
@@ -91,14 +96,17 @@ resumen[["esperanza_de_vida"]]
 resumen[["paises"]]
 ```
 
+<AÑADE UN BREVE COMENTARIO DE LOS RESULTADOS>
+
 ## 1.5.3. EVOLUCIÓN DE LOS CONTINENTES
 
-```{r, echo=FALSE, fig.cap="Evolución continentes (Fuente: Elaboración propia con datos de Gapminder)", fig.align="center",message=FALSE, dpi=150}
-resumen[["continentes"]]
+```{}
+# CREA UN GRAFICO DE LINEA QUE REPRESENTE LA EVOLUCIÓN PARA LOS "continentes"
+
 ```
 
 ## 1.5.4. TABLA DESCRIPTIVA DE PAÍSES 
 
-```{r, echo=FALSE}
-kable(resumen[["summary"]], caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
+```{}
+# GENERA LA TABLA DESCRIPTIVA, NO TE OLVIDES DE PONERLE UN TITULO
 ```

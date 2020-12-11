@@ -1,5 +1,5 @@
 ```{r include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.path="www/")
+knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 library(pander)
 library(kableExtra)
@@ -17,37 +17,21 @@ options(knitr.kable.NA = '')
 paises07 <- as.data.frame(paises %>% filter(anio==2007))
 ```
 
-<br>
-
-## 1.7. Gestión de datos
-
-<br>
+## GESTIÓN DE DATOS
 
 A continuación, se presentan las funciones para la lectura/escritura de datos, cruce y construcción de tablas resumen. 
 
-<br>
-
-### 1.7.1 Importar y exportar datos
-
-<br>
+### IMPORTAR Y EXPORTAR DATOS
 
 RStudio aporta facilidades para la importación de datos a través del menú: `File -> Import Data set -> From Text...`
 
-<br>
-
 #### LECTURA TEXTO CON SEPARADOR
 
-<br>
-
 Para leer el siguiente fichero de texto:
-
-<br>
 
 ```{r, eval=FALSE}
 cat(paste0(readLines("www/mtcars.csv", n = 6), collapse="\n"))
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<-data.frame(readLines("www/mtcars.csv", n = 6))
@@ -59,57 +43,37 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
 
 ![](www/readmtcars0.png){width=400px}
 
-\<imagen1\>(www/readmtcars0.png){width=400px}
-
-<br>
-
-Dado que se trata de un fichero con un carácter separador, la función genérica para este tipo de ficheros es `read.table()`.
-
-<br>
+Dado que se trata de un fichero con un carácter separado, la función genérica para teste tipo de ficheros es `read.table()`.
 
 ```{r}
 mtcars <- read.table("www/mtcars.csv", dec=".",sep=",", header=TRUE)
 ```
 
-<br>
-
 Los parámetros especificados son:
 
 - `dec`: El separador decimal. En Europa se acostumbra a utilizar la coma ",".
 - `sep`: El separador de columnas. Es habitual usar también ";" y "\\t" cuando es un tabulador.
-- `header`: Indica si la primera fila contiene el nombre de las columnas o no.
-
-<br>
+- `header`: Indica si la primera fila contiene el nombre de las variables o no.
 
 También es común el uso de `fileEncoding="Latin1"` cuando el fichero se ha creado con Windows y utiliza caracteres especiales de texto (tildes, ...).
 
 Dada la estructura del fichero, con `read.csv()` la carga es más simple.
 
-<br>
-
 ```{r}
 mtcars <- read.csv("www/mtcars.csv")
 ```
-
-<br>
 
 Cuando el csv es europeo, "," decimal y ";" como separador, se utiliza `read.csv2()`.
 
 Es una buena práctica verificar su carga con `dim()`, `head()` y `summary()`.
 
-<br>
-
 ```{r}
 dim(mtcars)
 ```
 
-<br>
-
 ```{r, eval=FALSE}
 head(mtcars)
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 options(knitr.kable.NA = NA)
@@ -123,15 +87,9 @@ options(knitr.kable.NA = '')
 
 ![](www/mtcars.png){width=350px}
 
-\<imagen1\>(www/mtcars.png){width=350px}
-
-<br>
-
 ```{r, eval=FALSE}
 summary(mtcars)
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 options(knitr.kable.NA = NA)
@@ -145,39 +103,22 @@ options(knitr.kable.NA = '')
 
 ![](www/mtcars2.png){width=800px}
 
-\<imagen1\>(www/mtcars2.png){width=800px}
-
-<br>
-
 #### ESCRITURA TEXTO CON SEPARADOR
 
-<br>
-
 Para la escritura, puedes utilizar sus equivalentes: `write.table()`, `write.csv()`, `write.csv2()`. Cabe destacar algunas pequeñas variaciones.  
-
-<br>
 
 ```{r}
 write.csv2(mtcars, file="www/mtcars2.csv", row.names=FALSE, na="")
 ```
 
-<br>
-
 - `row.names`: Si no se especifica, por defecto, se inserta el número de fila.
 - `na`: Si no se especifica, introduce el texto `NA`.
 
-<br>
-
 Observa como el nuevo csv ahora tiene el formato de csv europeo.
-
-<br>
 
 ```{r, eval=FALSE}
 cat(paste0(readLines("www/mtcars2.csv", n = 6), collapse="\n"))
 ```
-
-<br>
-
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<-data.frame(readLines("www/mtcars2.csv", n = 6))
 kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
@@ -188,23 +129,13 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
 
 ![](www/readmtcars.png){width=400px}
 
-\<imagen1\>(www/readmtcars.png){width=400px}
-
-<br>
-
 #### TEXTO CON ANCHO FIJO
 
-<br>
-
 Veamos un ejemplo de fichero de ancho fijo:
-
-<br>
 
 ```{r, eval=FALSE}
 cat(paste0(readLines("www/fwf-sample.txt", n = 6), collapse="\n"))
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<-data.frame(readLines("www/fwf-sample.txt", n = 6))
@@ -216,31 +147,19 @@ kable(a, "html", booktabs=TRUE,align="r",row.names = FALSE,col.names = NULL) %>%
 
 ![](www/fwf-sample0.png){width=175px}
 
-\<imagen1\>(www/fwf-sample0.png){width=175px}
-
-<br>
-
 Para leer texto de ancho fijo, se utiliza `read.fwf()`.
-
-<br>
 
 ```{r}
 fwf_sample <- read.fwf("www/fwf-sample.txt", widths=c(20,10,12)
                      , col.names=c("name", "state", "ssn"))
 ```
 
-<br>
-
-- `widths`: Son los anchos de cada columna.
-- `col.names`: Nombres de las columnas.
-
-<br>
+- `widths`: Son los anchos de cada variable.
+- `col.names`: Nombres de las variables.
 
 ```{r, eval=FALSE}
 fwf_sample
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 kable(fwf_sample, "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
@@ -253,80 +172,48 @@ options(knitr.kable.NA = '')
 
 ![](www/fwf-sample.png){width=175px}
 
-\<imagen1\>(www/fwf-sample.png){width=175px}
-
-<br>
-
-### 1.7.2 Cruce entre tablas
-
-<br>
+### CRUCE ENTRE TABLAS
 
 Para cruzar 2 o más tablas es necesario que éstas compartan un conjunto de índices. 
 
-<br>
-
 #### CRUCES POR ORDENACIÓN
-
-<br>
 
 Una forma indexar consiste simplemente en compartir una misma ordenación de filas o columnas.
 
-<br>
-
 ##### ORDENACION DE TABLAS
 
-<br>
-
 Para ordenar un vector se utiliza la función `sort()`.
-
-<br>
 
 ```{r}
 a <- c(5,2,9,4)
 sort(a)
 ```
 
-<br>
-
 Lo mismo se puede hacer en dos pasos. Primero, con order() se obtienen los índices de ordenación.
-
-<br>
 
 ```{r}
 indices_ordenacion <- order(a)
 indices_ordenacion
 ```
 
-<br>
-
 Segundo se seleccionan los elementos del vector `a` en ese orden.
-
-<br>
 
 ```{r}
 a[indices_ordenacion]
 ```
 
-<br>
-
 Observa que el resultado es idéntico a utilizar directamente `sort()`.
 
 Mismo principio ahora, para ordenar la tabla `paises07` por continente (decreciente) y esperanza de vida (creciente).
-
-<br>
 
 ```{r}
 paises07Ord <- paises07[order(paises07$continente,paises07$esperanza_de_vida
                               ,decreasing = c(T,F)),]
 ```
 
-<br>
-
 ```{r, eval=FALSE}
 head(paises07Ord)
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 kable(head(paises07Ord), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
@@ -339,17 +226,9 @@ options(knitr.kable.NA = '')
 
 ![](www/paisesOrd.png){width=400px}
 
-\<imagen1\>(www/paisesOrd.png){width=400px}
-
-<br>
-
 ##### UNIÓN POR COLUMNAS
 
-<br>
-
 Para unir las columnas de 2 tablas que comparten ordenación de sus filas se utiliza `cbind()`.
-
-<br>
 
 ```{r}
 a1 <- paises07[,1:2]
@@ -357,13 +236,9 @@ a2 <- paises07[,4:5]
 a <- cbind(a1, a2)
 ```
 
-<br>
-
 ```{r, eval=FALSE}
 head(a)
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
@@ -376,17 +251,9 @@ options(knitr.kable.NA = '')
 
 ![](www/paiscbind.png){width=275px}
 
-\<imagen1\>(www/paiscbind.png){width=275px}
-
-<br>
-
 ##### UNIÓN POR FILAS
 
-<br>
-
 Unir las filas de dos tablas con la misma ordenación de sus columnas `rbind()`.
-
-<br>
 
 ```{r}
 a1 <- paises07[1:2,]
@@ -398,52 +265,34 @@ a <- rbind(a1, a2)
 head(a)
 ```
 
-<br>
-
 ```{r echo=FALSE, results='hide', warning=FALSE}
 kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
   kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
                 ,font_size = 11,full_width = F,) %>%
   column_spec(1:ncol(head(a)),monospace=TRUE) %>%
-  save_kable("www/paiscbind1.png")
+  save_kable("www/paiscbind.png")
 options(knitr.kable.NA = '')
 ```
 
-![](www/paiscbind1.png){width=275px}
-
-\<imagen1\>(www/paiscbind1.png){width=275px}
-
-<br>
+![](www/paiscbind.png){width=275px}
 
 #### CRUCE POR CAMPOS CLAVE
 
-<br>
-
-Un campo clave consiste en una columna que identifica cada registro de forma única.
+Un campo clave consiste en una variable que identifica cada registro de forma única.
 
 Por ejemplo, `pais` y `continente` son campos clave ya que identifican de forma única a sus respectivas entidades en la tabla de `paises`.
 
 Antes de realizar cualquier cruce por campos clave, es importante saber si éste tiene o no duplicados. 
 
-<br>
-
 ##### VECTOR DE CLAVES
 
-<br>
-
 Para obtener las claves únicas de un vector utiliza `unique()`.
-
-<br>
 
 ```{r}
 sort(unique(as.character(paises07$continente)))
 ```
 
-<br>
-
 Para saber qué filas de un data frame están duplicadas, utiliza `duplicated()`.
-
-<br>
 
 ```{r}
 paisesDup <- paises07[c(1,1,2,3,3,4,5,5,6),]
@@ -451,23 +300,13 @@ any(duplicated(paisesDup))    # ¿Tiene duplicados?
 as.character(paisesDup$pais[duplicated(paisesDup)]) # que países son
 ```
 
-<br>
-
 ##### FUSIÓN CON CLAVES
-
-<br>
 
 Para cruzar 2 tablas con claves, utiliza `merge()`.
 
-<br>
-
 ###### INNER JOIN
 
-<br>
-
 Analiza el siguiente ejemplo:
-
-<br>
 
 ```{r}
 a1 <- data.frame(ID = c(1,2,3), X1 = c(1,1,2), X2 = c("b","a","a"))
@@ -478,8 +317,6 @@ a_inner <- merge(a1, a2)
 ```{r, eval=FALSE}
 a_inner
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<- a_inner
@@ -494,23 +331,13 @@ options(knitr.kable.NA = '')
 
 ![](www/a_inner.png){width=115px}
 
-\<imagen1\>(www/a_inner.png){width=115px}
-
-<br>
-
-R, ha seleccionado `ID` y `X1` como campos clave porque son las columnas con nombres coincidentes en ambas tablas. Veremos cómo modificar esto.
+R, ha seleccionado `ID` y `X1` como campos clave porque son las variables con nombres coincidentes en ambas tablas. Veremos cómo modificar esto.
 
 Otra decisión que R ha tomado, es que **sólo** ha recuperado los **registros** con valores de `ID` y `X1` **compartidos** en ambas tablas. Este comportamiento en el lenguaje SQL, es conocido como *INNER JOIN*.
 
-<br>
-
 ###### FULL JOIN
 
-<br>
-
 Para conservar **todos los registros de las tablas originales**, tanto de la tabla izquierda como derecha, coincida o no, se utiliza el parámetro `all=TRUE`.
-
-<br>
 
 ```{r}
 a_full <- merge(a1, a2, all = TRUE)
@@ -519,8 +346,6 @@ a_full <- merge(a1, a2, all = TRUE)
 ```{r, eval=FALSE}
 a_full
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<- a_full
@@ -535,44 +360,80 @@ options(knitr.kable.NA = '')
 
 ![](www/a_full.png){width=115px}
 
-\<imagen1\>(www/a_full.png){width=115px}
-
-<br>
-
 Observa ahora, no ha descartado ningún registro de las tablas origen. Además, ha rellenado con `NA` los campos que no cruzan. Este comportamiento en SQL es conocido como *FULL JOIN* .
 
-<br>
+###### LEFT JOIN
 
-<piensa un minuto>Intenta realizar tu mismo **LEFT JOIN**  (resp. **RIGHT JOIN**) utilizando `all.x = TRUE` (resp. `all.x = TRUE`).</ piensa un minuto>
+Para imponer que conserve **todos los valores origen de la tabla izquierda** (`a1`) y que descarte los de la taba derecha que no sean compartidos utiliza `all.x=TRUE`.
 
-<br>
+```{r}
+a_left <- merge(a1, a2, all.x = TRUE)
+```
+
+```{r, eval=FALSE}
+a_left
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+a <- a_left
+options(knitr.kable.NA = 'NA')
+kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F,) %>%
+  column_spec(1:ncol(head(a)),monospace=TRUE) %>%
+  save_kable("www/a_left.png")
+options(knitr.kable.NA = '')
+```
+
+![](www/a_left.png){width=115px}
+
+Vemos que ID=1 ahora está presente y ID=4 ha quedado descartado. También que ID=3 sólo aparece una vez. Este comportamiento en SQL, es conocido como LEFT JOIN .
+
+###### RIGHT JOIN
+
+Para preservar **todos los valores de la tabla derecha** utiliza `all.y=TRUE`. Este comportamiento en SQL es el conocido como *RIGHT JOIN*.
+
+```{r}
+a_right <- merge(a1, a2, all.y = TRUE)
+```
+
+```{r, eval=FALSE}
+a_right
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+a<- a_right
+options(knitr.kable.NA = 'NA')
+kable(head(a), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F,) %>%
+  column_spec(1:ncol(head(a)),monospace=TRUE) %>%
+  save_kable("www/a_right.png")
+options(knitr.kable.NA = '')
+```
+
+![](www/a_right.png){width=115px}
+
+Ahora ID=3 aparece 2 veces. También aparece ID=4.
 
 ###### DEFINCIÓN DE LAS CLAVES
 
-<br>
+Para definir las claves del cruce, es necesario pasar como parámetro los nombre de las variables:
 
-Puedes pasar los nombre de las columnas clave del cruce como parámetros:
+- Cuando los nombres de los campos clave son compartidos en ambas tablas, utiliza `by`. 
+- Cuando hay cambios de nombre, utiliza `by.x` y `by.y`
 
-- Si son compartidos utiliza `by`. 
-- Cuando no, utiliza `by.x` y `by.y`
-
-<br>
-
-Observa el siguiente ejemplo.
-
-<br>
+El siguiente ejemplo, realiza un *FULL JOIN* definiendo como clave la variable `ID`.
 
 ```{r}
 a_comparte <- merge(a1, a2, all.x=TRUE, by = c("ID")) 
-# equivalentemente
+# de forma equivalente
 a_comparte <- merge(a1, a2, all.x=TRUE, by.x = c("ID"), by.y = c("ID"))
 ```
 
 ```{r, eval=FALSE}
 a_comparte
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<- a_comparte
@@ -587,29 +448,15 @@ options(knitr.kable.NA = '')
 
 ![](www/a_comparte.png){width=140px}
 
-\<imagen1\>(www/a_comparte.png){width=140px}
+R ha añadido el sufijo `.x` y `.y` a `X1`, porque es una variable compartida que ahora no es clave para el cruce. Observa también que ID=3 aparece 2 veces ya que está duplicado en la tabla `a2`.
 
-<br>
-
-R ha añadido el sufijo `.x` y `.y` a `X1`, porque es una columna compartida que ahora no es clave para el cruce. Observa también que ID=3 aparece 2 veces ya que está duplicado en la tabla `a2`.
-
-<br>
-
-### 1.7.3 Resúmenes de agregados
-
-<br>
+### RESUMENES DE AGREGADOS 
 
 R tiene muchas opciones para construir agregados.
 
-<br>
-
 #### SUMMARY
 
-<br>
-
 Para tener una primera impresión sobre los datos utiliza `summary()`.
-
-<br>
 
 ```{r}
 paises07Summ <- paises07
@@ -622,8 +469,6 @@ paises07Summ$pib_per_capita[c(34,70,108)] <- NA
 ```{r, eval=FALSE}
 summary(paises07Summ[,c("pais","continente","pib_per_capita","es_grande","fecha"),])
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<- summary(paises07Summ[,c("pais","continente","pib_per_capita","es_grande","fecha"),])
@@ -638,21 +483,11 @@ options(knitr.kable.NA = '')
 
 ![](www/paisSumm1.png){width=400px}
 
-\<imagen1\>(www/paisSumm1.png){width=400px}
-
-<br>
-
-`summary` en `factor` y `logic` devuelve una tabla de frecuencias o conteos, en cambio en `character` no. En `numeric`y `Date` devuelve 6 estadísticos básicos de resumen más el conteo de `NA`s.
-
-<br>
+`summary` en `factor` y `logic` devuelve una tabla de frecuencias, en cambio en `character` no. En `numeric`y `Date` devuelve 6 estadísticos básicos de resumen más el conteo de `NA`s.
 
 #### ESTADÍSTICOS BASICOS
 
-<br>
-
 Los 6 estadísticos básicos del summary son:
-
-<br>
 
 ```{r}
 min(paises07Summ$pib_per_capita, na.rm=TRUE)
@@ -663,21 +498,17 @@ quantile(paises07Summ$pib_per_capita, 0.75, na.rm=TRUE)
 max(paises07Summ$pib_per_capita, na.rm=TRUE)
 ```
 
-<br>
+El parámetro `na.rm=TRUE` evita que las funciones resumen, devuelvan un NA debido a la presencia de NA s en la variable `pib_por_capita`. Observa como esto sucede en la siguiente función. 
 
-El parámetro `na.rm=TRUE` elimina los `NA` antes de aplicar la función, en caso contrario devuelve `NA`. 
-
-<br>
+```{r}
+mean(paises07Summ$pib_per_capita)
+```
 
 La función `quantile()`, por sí sola, puede calcular todos los valores, excepto la media.
-
-<br>
 
 ```{r, eval=FALSE}
 quantile(paises07Summ$pib_per_capita, seq(0,1,1/4), na.rm=TRUE)
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<- t(quantile(paises07Summ$pib_per_capita, seq(0,1,1/4), na.rm=TRUE))
@@ -692,23 +523,13 @@ options(knitr.kable.NA = '')
 
 ![](www/paisSumm1_1.png){width=250px}
 
-\<imagen1\>(www/paisSumm1_1.png){width=250px}
+#### TABLAS DE FRECUENCIAS
 
-<br>
-
-#### TABLAS DE FRECUENCIAS O CONTEOS
-
-<br>
-
-Para obtener una tabla de frecuencias o conteos, utiliza `table()`. Para una columna.
-
-<br>
+Para obtener una tabla de frecuencias, utiliza `table()`. Para una variable.
 
 ```{r, eval=FALSE}
-table(paises07Summ$continente)  # una columna
+table(paises07Summ$continente)  # una variable
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<- t(table(paises07Summ$continente))  # una variable
@@ -723,19 +544,11 @@ options(knitr.kable.NA = '')
 
 ![](www/paisSumm2.png){width=200px}
 
-\<imagen1\>(www/paisSumm2.png){width=200px}
-
-<br>
-
-Tablas cruzadas de dos o más columnas.
-
-<br>
+Tablas cruzadas de dos o más variables.
 
 ```{r, eval=FALSE}
 table(paises07Summ$continente,paises07Summ$es_grande)
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<- table(paises07Summ$continente,paises07Summ$es_grande)
@@ -750,21 +563,11 @@ options(knitr.kable.NA = '')
 
 ![](www/paisSumm3.png){width=125px}
 
-\<imagen1\>(www/paisSumm3.png){width=125px}
-
-<br>
-
 > \<sabías que\>Asia es el continente con mayor número de países grandes (de más de 30M de hab.)\</sabías que\>. 
 
-<br>
+En muchas ocasiones, es útil tramar las variables numéricas en intervalos. En R utiliza `cut()`.
 
-En muchas ocasiones, es útil tramar las columna numéricas en intervalos. En R utiliza `cut()`.
-
-<br>
-
-Vamos a crear la columna nivel de riqueza a partir del pib_per_capita cortando la columna por 1700$ y 18000$.
-
-<br>
+Vamos a crear la variable nivel de riqueza a partir del pib_per_capita cortando la variable por 1700$ y 18000$.
 
 ```{r}
 paises07Summ$nivel_de_riqueza <- cut(paises07Summ$pib_per_capita, 
@@ -774,8 +577,6 @@ paises07Summ$nivel_de_riqueza <- cut(paises07Summ$pib_per_capita,
 ```{r, eval=FALSE}
 head(paises07Summ[,c("pais","pib_per_capita","nivel_de_riqueza")])
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<- head(paises07Summ[,c("pais","pib_per_capita","nivel_de_riqueza")])
@@ -790,43 +591,25 @@ options(knitr.kable.NA = '')
 
 ![](www/paisSumm4.png){width=250px}
 
-\<imagen1\>(www/paisSumm4.png){width=250px}
-
-<br>
-
 > \<recuerda\>Para definir los `breaks`, R permite utilizar `-Inf` e `Inf` (infinito) como si fueran números.\</recuerda\>
 
-<br>
-
-`cut()` crea un `factor` ordenado a partir de la columna `numeric` con los siguientes levels:
-
-<br>
+`cut()` crea un `factor` ordenado a partir de la variable `numeric` con los siguientes levels:
 
 ```{r}
 levels(paises07Summ$nivel_de_riqueza)
 ```
 
-<br>
-
 Para modificar las etiquetas utiliza la misma función `levels()`. 
-
-<br>
 
 ```{r}
 levels(paises07Summ$nivel_de_riqueza) <- c("Pobres","Medios","Ricos")
 ```
 
-<br>
-
 Mostramos a continuación la distribución de países ricos y pobres por continente en 2007.
-
-<br>
 
 ```{r, eval=FALSE}
 table(paises07Summ$continente, paises07Summ$nivel_de_riqueza, useNA = "ifany")
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<- table(paises07Summ$continente, paises07Summ$nivel_de_riqueza, useNA = "ifany")
@@ -841,40 +624,24 @@ options(knitr.kable.NA = '')
 
 ![](www/paisSumm5.png){width=175px}
 
-\<imagen1\>(www/paisSumm5.png){width=175px}
-
-<br>
-
 Gráficamente.
 
-<br>
-
-```{r plot7, warning=FALSE, message=FALSE, fig.cap="Riqueza por continente. (plot7-1.png)"}
+```{r}
 ggplot(paises07Summ) +
   geom_bar(aes(x=continente, fill=nivel_de_riqueza), position = "fill") +
   labs(y="%")
 ```
 
-<br>
-
 > \<recuerda\>Para definir el nivel de riqueza de los países en 2007 se ha realizado la siguiente transformación:\</recuerda\>
-
-<br>
 
 ```{r}
 paises07$nivel_de_riqueza <- cut(paises07$pib_per_capita, breaks=c(-Inf,1700,18000,Inf))
 levels(paises07$nivel_de_riqueza) <- c("Pobres","Medios","Ricos")
 ```
 
-<br>
-
 #### AGREGADOS POR SUBGRUPOS
 
-<br>
-
-Además de frecuencias o conteos, es necesario saber calcular otros estadísticos básicos para subgrupo de un data frame. Por ejemplo, la media de esperanza de vida y del pib per cápita, así como, el total de población por continente y nivel de riqueza.
-
-<br>
+Además de frecuencias, es necesario saber calcular otros estadísticos básicos para subgrupo de un data frame. Por ejemplo, la media de esperanza de vida y del pib per cápita, así como, el total de población por continente y nivel de riqueza.
 
 ```{r}
 agg1 <- aggregate(paises07[,c("esperanza_de_vida","pib_per_capita")],
@@ -885,15 +652,9 @@ agg2 <- aggregate(paises07[,c("poblacion"),drop=FALSE],
                        , nivel_de_riqueza=paises07$nivel_de_riqueza),sum)
 ```
 
-<br>
+> \<recuerda\>aggregate() permite calcular un mismo estadístico sobre varias variables segmentando por más de un eje.\</recuerda\>
 
-> \<recuerda\>aggregate() permite calcular un mismo estadístico sobre varias columnas segmentando por más de un eje.\</recuerda\>
-
-<br>
-
-Se juntan ahora los dos agregados con `merge()` y se genera la columna combinada `continente_riqueza`.
-
-<br>
+Se juntan ahora los dos agregados con `merge()` y se genera la variable combinada `continente_riqueza`.
 
 ```{r}
 agg3 <- merge(agg1,agg2)
@@ -903,8 +664,6 @@ agg3$continente_riqueza <- paste(agg3$continente,agg3$nivel_de_riqueza,sep="-")
 ```{r, eval=FALSE}
 agg3
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 a<- agg3
@@ -919,15 +678,9 @@ options(knitr.kable.NA = '')
 
 ![](www/paisSumm6.png){width=400px}
 
-\<imagen1\>(www/paisSumm6.png){width=400px}
-
-<br>
-
 El mismo gráfico visto para países, ahora, agregado a nivel de continente y riqueza.
 
-<br>
-
-```{r plot8, warning=FALSE, message=FALSE, fig.cap='Continentes (Fuente: Elaboración propia, datos de Gapminder). (plot8-1.png)'}
+```{r, fig.cap='Contienentes (Fuente: Elaboración propia, datos de Gapminder)'}
 ggplot(agg3, aes(x=pib_per_capita
                           , y=esperanza_de_vida
                           , label=continente_riqueza
@@ -939,107 +692,63 @@ ggplot(agg3, aes(x=pib_per_capita
   labs(title="Continentes-riqueza en 2007 (no ponderado)")
 ```
 
-<br>
-
 #### LA FAMILIA APPLY 
 
-<br>
-
-Permiten vectorizar las operaciones de forma eficiente.
-
-<br>
+Como se ha comentado, las funciones apply permiten vectorizar las operaciones de forma eficiente, sin utilizar bucles `for()`.
 
 ##### TAPPLY
 
-<br>
-
-Es una alternativa a `aggregate()` para aplicar una función de agregación sobre una única columna y segmentando por un único eje.
-
-<br>
+Es una alternativa a aggregate() para aplicar una función de agregación sobre una única variable y segmentando por un único eje.
 
 ```{r}
 tapply(paises07$esperanza_de_vida,paises07$continente,quantile,probs=0.25)
 ```
 
-<br>
-
 ##### LAPPLY
-
-<br>
 
 Permite aplicar una función sobre cada elemento de un vector o lista. Devuelve una lista.
 
-<br>
-
 ```{r}
-lapply(paises07[,-1], function(x) class(x))
+lapply(paises07[,-1], function(x) summary(x))
 ```
-
-<br>
 
 ##### SAPPLY
 
-<br>
-
 Misma funcionalidad que lapply, pero simplificando el resultado a vector cuando es posible.
-
-<br>
 
 ```{r}
 sapply(paises07, function(x) class(x))
 ```
 
-<br>
-
 ##### APPLY
 
-<br>
-
 Calcula agregados sobre cada una de los vectores marginas fila (`MARGIN = 1`), alternativamente columna (`MARGIN = 2`) de una matriz.
-
-<br>
 
 ```{r}
 a <- matrix(1:10,ncol=2)
 apply(a,MARGIN = 1,sum)
 ```
 
-<br>
-
 Columnas,
-
-<br>
 
 ```{r}
 a <- matrix(1:10,ncol=2)
 apply(a,2,sum)
 ```
 
-<br>
-
 #### LAS ALTERNATIVAS TYDIVERSE
-
-<br>
 
 El universo de [Tydiverse](https://www.tidyverse.org/) consiste en una colección de packages de R orientados al Data Science. Se recomienda la consulta del libro online [R para Ciencia de Datos](https://es.r4ds.hadley.nz/index.html).  
 
 El package *dplyr*, al igual que *ggplot2*, está desarrollado por Hadley Wickham. Este paquete, supone un cambio de filosofía en la forma de trabajar con los datos y se está transformando en un nuevo estándar en R.
 
-<br>
-
 ##### DPLYR: ARRANGE, FILTER, SELECT
-
-<br>
 
 - `arange`: Ordena los registros de un data frame.
 - `filter`: Filtra a partir de un conjunto condiciones lógicas.
-- `select`: Selecciona las columnas.
-
-<br>
+- `select`: Selecciona las variables.
 
 > \<ejemplo\>Paises asiaticos con PIB per cápita inferior a 1000 $ en 2007.\</ejemplo\>
-
-<br>
 
 ```{r}
 pais07dplyr <- paises07 %>% 
@@ -1047,8 +756,6 @@ pais07dplyr <- paises07 %>%
   filter(continente=='Asia' & pib_per_capita < 1000) %>% 
   select(pais,esperanza_de_vida,pib_per_capita)
 ```
-
-<br>
 
 ```{r echo=FALSE, results='hide', warning=FALSE}
 options(knitr.kable.NA = NA)
@@ -1062,27 +769,15 @@ options(knitr.kable.NA = '')
 
 ![](www/pais07dplyr.png){width=200px}
 
-\<imagen1\>(www/pais07dplyr.png){width=200px}
-
-<br>
-
-Las 3 comparten el hecho que no necesitan de comillas para referirse a las columnas. También utilizan el operador `%>%` llamado *pipe*. Éste sustituye el parámetro de entrada de datos. De esta forma, permite escribir las operaciones de izquierda a derecha facilitando así su lectura.
-
-<br>
+Las 3 comparten el hecho que no necesitan de comillas para referirse a las variables. También utilizan el operador `%>%` llamado *pipe*. Éste sustituye el parámetro de entrada de datos. De esta forma, permite escribir las operaciones de izquierda a derecha facilitando así su lectura.
 
 ##### DPLYR: MUTATE, GROUP_BY, SUMMARISE
 
-<br>
-
-- `mutate`: Crea o modifica las columnas del data frame.
-- `group_by`: Especifica una o varias columnas de agrupación.
-- `summarise`: define los agregados de las columnas originales.
-
-<br>
+- `mutate`: Crea o modifica las variables del data frame.
+- `group_by`: Especifica una o varias variables de agrupación.
+- `summarise`: define los agregados de las variables originales.
 
 > \<ejemplo\>Esperanza de vida y PIB per cápita medio por continente y año.\</ejemplo\>
-
-<br>
 
 ```{r, warning=FALSE, message=FALSE}
 continentes_anio <- paises %>% 
@@ -1098,8 +793,6 @@ continentes_anio <- paises %>%
             , poblacion = sum(poblacion))
 ```
 
-<br>
-
 ```{r echo=FALSE, results='hide', warning=FALSE}
 options(knitr.kable.NA = NA)
 kable(continentes_anio %>% head(10), "html", booktabs=TRUE,align="r", row.names = TRUE,) %>%
@@ -1112,15 +805,9 @@ options(knitr.kable.NA = '')
 
 ![](www/continentes_anio.png){width=350px}
 
-\<imagen1\>(www/continentes_anio.png){width=350px}
-
-<br>
-
 Para la evolución de los continentes en ggplot2, es útil el [geom_path()](https://ggplot2.tidyverse.org/reference/geom_path.html.) 
 
-<br>
-
-```{r plot9, warning=FALSE, message=FALSE, fig.width=7, fig.cap='Fuente: Elaboración propia con datos de Gapminder. (plot9-1.png)'}
+```{r, fig.width=7, fig.cap='Fuente: Elaboración propia con datos de Gapminder'}
 ggplot(continentes_anio, aes(x=pib_per_capita
                           , y=esperanza_de_vida
                           , color =continente)) +
@@ -1130,39 +817,30 @@ ggplot(continentes_anio, aes(x=pib_per_capita
   labs(title="Evolución continentes (ponderado)")
 ```
 
-<br>
-
 ##### ACTIVIDAD GUIADA 1.5.
 
-<br>
+Vamos a incorporar los gráficos de evolución de los continentes en el informe  teniendo en cuenta los siguientes cambios
 
-Incorporar los gráficos de evolución de los continentes en la actividad 1.5.
+- Recodifica Oceanía como Asia y Modifica los colores de los continentes.
+- Utiliza la paleta de colores de la actividad guiada 1.4.
 
-<br>
+Adapta los comentarios solicitados en `15_actividad.R`, ejecuta y observa:
 
-### 1.7.4 Lubridate: gestión de fechas y horarios
+- Se ha utilizado dplyr: arrange,mutate,group_by y summarize.
+- Se ha utilizado geom_path.
 
-<br>
+### LUBRIDATE: GESTIÓN DE FECHAS Y HORARIOS
 
 Para obtener el día actual con *lubridate* utiliza `today()`, día y hora con now().  
 
-<br>
-
-```{r, message=FALSE, warning=FALSE}
+```{r}
 library(lubridate)
 today()
 now()
 ```
-
-<br>
-
 ###### CREAR FECHAS  HORAS
 
-<br>
-
 Para crear fechas.
-
-<br>
 
 ```{r}
 ymd("2017-01-31") # Días des de texto
@@ -1171,17 +849,11 @@ make_datetime(2020, 08, 24, 15, 36) # Des de los componentes
 as_datetime(today()) # Conversión
 ```
 
-<br>
-
 ###### OBTENER COMPONENTES
-
-<br>
 
 Para obtener los meses y días de la semana en Castellano. 
 
-<br>
-
-```{r, warning=FALSE, message=FALSE}
+```{r}
 Sys.setlocale(locale="es_ES.UTF-8")
 
 fechahora <- ymd_hms("2019-03-28 15:11:23")
@@ -1191,15 +863,9 @@ month(fechahora, label = TRUE)  # meses en texto
 wday(fechahora, label = TRUE, abbr = FALSE)    # días de la semana sin abreviar
 ```
 
-<br>
-
 ###### MODIFICAR FECHAS Y HORAS
 
-<br>
-
-Editar componentes.
-
-<br>
+Editar componentes
 
 ```{r}
 year(fechahora) <- 2020
@@ -1207,30 +873,17 @@ fechahora
 hour(fechahora) <- hour(fechahora) + 10
 fechahora
 ```
-
-<br>
-
 También resulta interesante los distintos tipos de redondeo de fechas.
-
-<br>
 
 ```{r}
 floor_date(fechahora, "month")
 ```
 
-<br>
-
 Alternativamente `round_date()` para aproximar y `ceiling_date()` valor por encima.
-
-<br>
 
 ###### DURACIONES
 
-<br>
-
 Se miden en segundos. 
-
-<br>
 
 ```{r}
 edad_h <- today() - ymd(19760623)
@@ -1238,33 +891,19 @@ edad_h
 as.duration(edad_h)
 ```
 
-<br>
-
 ¡Ten cuidado! Están condicionados a cambios de huso horario (hibierno/verano). 
-
-<br>
 
 ```{r}
 fechahora <- ymd_hms("2020-03-28 15:11:23", tz = "Europe/Madrid")
 fechahora
 fechahora + dhours(24)
 ```
-
-<br>
-
 ###### PERIODOS
 
-<br>
-
 No se miden en segundos si no directamente en la unidad definida.
-
-<br>
 
 ```{r}
 fechahora + hours(24)
 ```
-
-<br>
-
 Ahora ya no hay la problemática del cambio de huso horario.
 

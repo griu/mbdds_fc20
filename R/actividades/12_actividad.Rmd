@@ -16,20 +16,19 @@ paises07_2VAR <- paises %>%
  select(pib_per_capita, esperanza_de_vida)
 
 # función describir
-describir <- function(data, type,  col = 'red', ...) {
-< UTILIZA EL MISMO EJEMPLO DE DESCRIBIR DEL MODULO PARA CREAR UN GRAFICO DE PUNTOS ROJOS A PARTIR DE data>
-< HAZ QUE LA FUNCION DEVUELVA el summary de DATA >
-}
+#  UTILIZA EL MISMO EJEMPLO DE DESCRIBIR DEL MODULO PARA CREAR UN GRAFICO DE PUNTOS ROJOS A PARTIR DE data
+#  HAZ QUE LA FUNCION DEVUELVA el summary de DATA 
+
 ```
 
 ## GRÁFICO DE DISPERSIÓN DE PAÍSES
 
 ```{r, fig.cap="Fuente: Elaboración propia con datos de Gapminder", fig.align="center", message=FALSE}
-resumen <- describir(paises07_2VAR
-                     , type = "p"
-                     , main = "< TITULO DEL GRAFICO >"
-                     , xlab = "< TITULO DEL EJE X >"
-                     , ylab = "< TITULO DEL EJE Y >", cex.main=1)
+
+# utiliza la palabra "resumen" para asignar a la función describir creada anteriormente para los datos de paises07_2VAR 
+# añade en la función un tipo, un titulo al grafico y también ponle un titulo a los ejes
+# nota: añade el concepto en la función de cex.main=1
+
 ```
 
 < DESCRIBE BREVEMENTE LO QUE OBSERVAS >
@@ -37,7 +36,8 @@ resumen <- describir(paises07_2VAR
 ## TABLA DESCRIPTIVA DE PAÍSES 
 
 ```{r}
-kable(resumen, caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
+# utiliza el comando kable para "resumen" y añade un titulo 
+
 ```
 
 < DESCRIBE BREVEMENTE LO QUE OBSERVAS >

@@ -61,24 +61,19 @@ resumen <-  < LLAMA A LA FUNCION describir SOBRE LOS DATOS DE paises_informe ESP
 
 ## 1.4.1. DESCRIPTIVO BOXPLOT
 
-```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot PIB per càpita (Continente y año) - Escala Log10", fig.align="center",message=FALSE}
-resumen[["pib_per_capita"]]
+```{}
+# CREA UN GRAFICO DE BOX-PLOT PARA "pib_per_capita"
+
 ```
 
-```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot Esperanza de vida (Continente y año)", fig.align="center",message=FALSE}
-resumen[["esperanza_de_vida"]]
+```{}
+# CREA UN GRAFICO DE BOX-PLOT PARA "esperanza_de_vida"
+
 ```
 
 ## 1.4.2. GRÁFICO DE DISPERSIÓN DE PAÍSES
 
-```{r, echo=FALSE, fig.width=11,fig.height=8, fig.cap="Panel países (Fuente: Elaboración propia con datos de Gapminder)", fig.align="center",message=FALSE, dpi=150}
-resumen[["dispersion"]]
-```
-
-
-## 1.4.3. TABLA DESCRIPTIVA DE PAÍSES 
-
-```{r, echo=FALSE}
-kable(resumen[["summary"]], caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
+```{}
+# CREA UN GRAFICO DE DISPERSION USANDO LA FUNCIÓN DE DESCRIBIR GENERADA ANTERIOMENTE PARA "dispersion"
 ```
 

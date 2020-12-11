@@ -15,27 +15,17 @@ options(knitr.kable.NA = '')
 #  Reemplazar > expresiones regulares > ##.*
 ```
 
-<br>
-
-## 1.6. Control de flujo
-
-<br>
+## CONTROL DE FLUJO
 
 Existen distintos mecanismos para controlar el flujo de un programa. 
 
-<br>
-
-### 1.6.1. Funciones
-
-<br>
+### FUNCIONES
 
 Las funciones ayudan a automatizar piezas de nuestro código. 
 
-Un caso particular de funciones son las **funciones vectorizadas**. Éstas se aplican tantas veces como elementos tengamos en la entrada de la función. 
+Para avanzar en el uso de R es importante entender un caso particular de funciones, las **funciones vectorizadas**. Éstas se aplican tantas veces como elementos tengamos en la entrada de la función. 
 
 Veamos unos ejemplos simples.
-
-<br>
 
 ```{r}
 a <- seq(2,8,2)
@@ -44,13 +34,9 @@ a + a
 sqrt(a)
 ```
 
-<br>
-
 Estas funciones se aplican a cada uno de los elementos del objeto `a`.
 
 Otro ejemplo, sería una función para reemplazar los valores faltantes con el valor cero.
-
-<br>
 
 ```{r}
 a <- c(3, NA, -8, NA)
@@ -61,19 +47,11 @@ remplazar_na_cero <- function(x) {
 remplazar_na_cero(a)
 ```
 
-<br>
-
 En los siguientes puntos se presenta como vectorizar funciones sobre objetos R (vectores, listas, data frames...).  
 
-<br>
+### CONDICIONALES
 
-### 1.6.2. Condicionales
-
-<br>
-
-Una forma de modificar el flujo de un programa, es mediante el uso de expresiones `if-then-else`.
-
-<br>
+Una forma de modificar el flujo de un programa, es mediante el uso de expresiones `if-then-else`. Su forma más general sería la siguiente.
 
 ```{r}
 a <- 1
@@ -88,11 +66,7 @@ if (a > b){
 }
 ```
 
-<br>
-
 La expresión `if()` evalúa un único valor lógico. Es habitual el uso de `any()` y `all()` para tratar condiciones sobre vectores.
-
-<br>
 
 ```{r}
 a <- c(4, NA, 5) 
@@ -106,11 +80,7 @@ if (all(is.na(a))) {
 }
 ```
 
-<br>
-
-La función `ifelse()`, en cambio, sí que vectoriza.
-
-<br>
+La función `ifelse()` se puede utilizar sobre vectores y devuelve un vector.
 
 ```{r}
 a <- c(2:-2)
@@ -119,13 +89,9 @@ sqrt(a)
 sqrt(ifelse(a>=0, a, NA))
 ```
 
-<br>
-
 `sqrt()` al aplicarse sobre valores negativos, devuelve un nuevo valor `NaN` (acrónimo de *Not a Number*). La expresión `ifelse()` evita el NaN devolviendo un `NA`.
 
 En R, habitualmente se utiliza la siguiente alternativa basada en filtros.
-
-<br>
 
 ```{r}
 raiz <- rep(NA, length(a))
@@ -133,16 +99,10 @@ raiz[a>=0] <- sqrt(a[a>=0])
 raiz
 ```
 
-<br>
-
-### 1.6.3. Bucles
-
-<br>
+### BUCLES
 
 Si bien existen bucles de tipo `while()` y `repeat`, el más habitual es `for()`. 
-Para calcular el cuadrado de un vector de números con `for()`.
-
-<br>
+El siguiente ejemplo muestra como calcular el cuadrado de un vector de números con `for()`.
 
 ```{r}
 a <- seq(2,8,2)
@@ -155,12 +115,8 @@ for (x in a){
 cuadrados
 ```
 
-<br>
-
-`x` recorre los elementos del objeto `a` y acumula el resultado en `cuadrados`. 
-Esto, es poco eficiente, ya que obliga a ir ampliando la memoria en cada iteración. La forma correcta es, primero reservar el espacio y posteriormente rellenar el objeto:
-
-<br>
+La variable `x` recorre los elementos del objeto `a`. El resultado se va acumulando en forma de vector en el objeto `cuadrados`. 
+Esta forma de acumular el resultado, es poco eficiente, ya que obliga a ir ampliando la memoria en cada iteración. La forma correcta es, primero reservar el espacio y posteriormente rellenar el objeto:
 
 ```{r}
 cuadrados <- rep(NA,length(a))
@@ -171,20 +127,14 @@ for (i in 1:length(a)){
 cuadrados
 ```
 
-<br>
+Observa como ahora el bucle recorre los índices de posiciones del objeto `a`, no directamente sus elementos, esto permite que se pueda utilizar el mismo índice para rellenar el objeto `cuadrados`.
 
-Ahora se recorren los indices, no los valores de `a`.
-
-No obstante, en R, es más simple utilizar funciones vectorizadas.
-
-<br>
+En muchas ocasiones, se puede reemplazar el uso de un bucle mediante funciones de R vectorizadas. En este caso, la forma más simple de calcular los cuadrados de un vector es la siguiente.
 
 ```{r}
 cuadrados <- a^2
 cuadrados
 ```
 
-<br>
-
-En el apartado de [RESUMENES DE AGREGADOS](#resumenes-de-agregados), se muestran las funciones  `apply()` que permiten vectorizar operaciones sobre colecciones de objetos.
+En el apartado de [RESUMENES DE AGREGADOS](#resumenes-de-agregados), se presenta las funciones de la familia `apply()`. Éstas representan una alternativa a los bucles for(), para aplicar una misma función de resumen (vectorizar) sobre agrupaciones de objetos de entrada (filas de una matriz, columnas de un data frame...).
 

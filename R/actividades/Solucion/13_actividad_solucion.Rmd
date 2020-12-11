@@ -10,6 +10,9 @@ suppressPackageStartupMessages(library(tidyverse))
 knitr::opts_chunk$set(echo = TRUE)
 
 # funcion describir
+# CREA UNA FUNCIÓN describir QUE DEVUELVA EL summary DEL DATA
+# UTILIZA EL ggplot, para visualizar la población frente a la esperanza de vida, separando cada gráfico por el año desde 1952 hasta 2007
+# ACUERDATE DE AÑADIR TITULOS Y UNA LEYENDA PARA UNA MEJOR INTERPRETACIÓN
 describir <- function(data) {
   p1 <- ggplot(data, aes(x=pib_per_capita, y=esperanza_de_vida
       , color=continente, size=poblacion)) +
@@ -31,12 +34,14 @@ Se observa como África siempre ha estado a la cola (menor PIB y menor esperanza
 ## 1.1. GRÁFICO DE DISPERSIÓN DE PAÍSES
 
 ```{r, fig.width=11,fig.height=8, fig.cap="Panel países (Fuente: Elaboración propia con datos de Gapminder)", fig.align="center", message=FALSE}
+# CREA UN GRAFICO DE DISPERSION USANDO LA FUNCIÓN DE DESCRIBIR GENERADA ANTERIOMENTE
 resumen <- describir(paises)
 ```
 
 ## 1.2. TABLA DESCRIPTIVA DE PAÍSES 
 
 ```{r}
+# GENERA LA TABLA DESCRIPTIVA, NO TE OLVIDES DE PONERLE UN TITULO
 kable(resumen, caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
 ```
 

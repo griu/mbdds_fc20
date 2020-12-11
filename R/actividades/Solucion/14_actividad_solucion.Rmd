@@ -66,32 +66,19 @@ resumen <- describir(paises_informe, colores_continente, etiquetas_paises)
 ## 1.4.1. DESCRIPTIVO BOXPLOT
 
 ```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot PIB per càpita (Continente y año) - Escala Log10", fig.align="center",message=FALSE}
+# CREA UN GRAFICO DE BOX-PLOT PARA "pib_per_capita"
 resumen[["pib_per_capita"]]
 ```
 
-Se observa como los valores de las cajas suben, es decir, el PIB cada vez es mayor. Aunque parece que las cajas, cada vez son mas anchas.
 
 ```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot Esperanza de vida (Continente y año)", fig.align="center",message=FALSE}
+# CREA UN GRAFICO DE BOX-PLOT PARA "esperanza_de_vida"
 resumen[["esperanza_de_vida"]]
 ```
 
-A su vez, la esperanza de vida también sube. El eje central de la caja cada vez se sitúa más en al parte superior de la caja.
 
 ## 1.4.2. GRÁFICO DE DISPERSIÓN DE PAÍSES
 
 ```{r, echo=FALSE, fig.width=11,fig.height=8, fig.cap="Panel países (Fuente: Elaboración propia con datos de Gapminder)", fig.align="center",message=FALSE, dpi=150}
 resumen[["dispersion"]]
 ```
-
-Se observa una clara relación entre tener un mayor PIB per cápita (logaritmo base 10) y la esperanza de vida media de los países. 
-
-Se observa como África siempre ha estado a la cola (menor PIB y menor esperanza de vida) y Europa a la cabeza. Se observa como Asia y América en su conjunto, han ido subiendo posiciones tanto en PIB, como en esperanza de vida.
-
-Vemos como España y Canadá siempre han estado en la parte superior y Etiopía en la parte inferior en PIB per cápita y esperanza de vida. En cambio, China ha evolucionado positivamente en estos dos aspectos, pasando de la parte inferior a la parte superior de la nube de países.
-
-## 1.4.3. TABLA DESCRIPTIVA DE PAÍSES 
-
-```{r, echo=FALSE}
-kable(resumen[["summary"]], caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
-```
-

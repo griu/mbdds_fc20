@@ -113,6 +113,7 @@ El gráfico muestra la traza que han recorrido los continentes en sus valores me
 ## 1.5.4. TABLA DESCRIPTIVA DE PAÍSES 
 
 ```{r, echo=FALSE}
+# GENERA LA TABLA DESCRIPTIVA, NO TE OLVIDES DE PONERLE UN TITULO
 kable(resumen[["summary"]], caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
 ```
-
+Eñ

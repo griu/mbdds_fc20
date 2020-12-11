@@ -16,6 +16,8 @@ paises07_2VAR <- paises %>%
  select(pib_per_capita, esperanza_de_vida)
 
 # función describir
+#  UTILIZA EL MISMO EJEMPLO DE DESCRIBIR DEL MODULO PARA CREAR UN GRAFICO DE PUNTOS ROJOS A PARTIR DE data
+#  HAZ QUE LA FUNCION DEVUELVA el summary de DATA 
 describir <- function(data, type,  col = 'red', ...) {
   plot(data, type = type, col = col, ...)
   return(summary(data))
@@ -25,6 +27,9 @@ describir <- function(data, type,  col = 'red', ...) {
 ## GRÁFICO DE DISPERSIÓN DE PAÍSES
 
 ```{r, fig.cap="Fuente: Elaboración propia con datos de Gapminder", fig.align="center", message=FALSE}
+# utiliza la palabra "resumen" para asignar a la función describir creada anteriormente para los datos de paises07_2VAR 
+# añade en la función un tipo, un titulo al grafico y también ponle un titulo a los ejes
+# nota: añade el concepto en la función de cex.main=1
 resumen <- describir(paises07_2VAR
                      , type = "p"
                      , main = "Países (Año: 2007)"
@@ -37,6 +42,7 @@ Se observa cómo los países que tienen un valor de PIB per cápita inferior a 1
 ## TABLA DESCRIPTIVA DE PAÍSES 
 
 ```{r}
+# utiliza el comando kable para "resumen" y añade un titulo 
 kable(resumen, caption = "Resumen (Fuente: Elaboración propia con datos de Gapminder)")
 ```
 
