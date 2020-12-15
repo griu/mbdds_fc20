@@ -1,0 +1,128 @@
+---
+title: 'MÓDULO 1: HERRAMIENTAS BIG DATA'
+author: "Ferran Carrascosa Mallafrè"
+date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
+output:
+  word_document:
+    reference_docx: www/template2.docx
+  html_document:
+    df_print: paged
+subtitle: 'HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN R - MICROACTIVIDADES 2'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(pander)
+library(kableExtra)
+options(knitr.kable.NA = '')
+```
+
+# EJERCICIO 2
+
+## EJERCICIO 2.1.
+
+Escribe un bucle for que calcule le media todas las columnas numéricas de `millas`. 
+
+```{r}
+# Solución:
+
+```
+
+
+## EJERCICIO 2.2.
+
+Haz lo mismo que en 2.1 pero utilizando `sapply()` en vez del bucle for.
+
+```{r}
+# Solución:
+
+```
+
+## EJERCICIO 2.3.
+
+Explica la diferencia entre la función `if()` e `ifelse()`. Pon un ejemplo de uso de ambas.
+
+```{r}
+# Solución:
+
+```
+
+## EJERCICIO 2.4.
+
+¿Qué parámetros es imprescindible especificar cuando se leen datos de ancho fijo mediante: `read.fwf()`?
+
+Explica qué significan y pon un ejemplo.
+
+```{r}
+# Solución:
+
+```
+
+
+## EJERCICIO 2.5.
+
+Calcula la media de millas/galón en autopista para cada `clase` de coche de `millas`.
+
+```{r}
+# Solución:
+
+```
+
+## EJERCICIO 2.6.
+
+Incorpora la media de calculada en 2.5. en el data frame `millas` como una nueva variable llamada "autopista_clase". 
+
+> Utiliza la funcion `merge()` para juntar la table de 2.5 con `millas`.
+
+```{r}
+# Solución:
+
+```
+
+## EJERCICIO 2.7.
+
+Utiliza las funciones del package dplyr: `group_by()` y `mutate()` para realizar el mismo calculo que en 2.5. y 2.6. sin necesidad de utilizar `merge()`. Llama a la nueva columna "autopista_clase_dplyr"
+
+> Truco: Utiliza el siguiente ejemplo: `datos %>% group_by(var_seg) %>% mutate(nueva_variable=mean(variable))`
+
+Haz un `summary()` para verificar que el resultado es el mismo que en 2.6.
+
+```{r}
+# Solución:
+
+```
+
+## EJERCICIO 2.8.
+
+Analiza si `millas` tiene registros duplicado y en caso afirmativo crea un nuevo data frame que contenga una única copia de cada fila.
+
+```{r}
+# Solución:
+
+```
+
+## EJERCICIO 2.9.
+
+Crea una función que tenga como input la fecha de tu nacimiento (en formato date) y devuelva tu edad en años.
+
+```{r}
+# Solución:
+
+```
+
+## EJERCICIO 2.10.
+
+Explica porqué el resultado de fechahora_1 y fechahora_2 son distintos en la siguiente expresión:
+
+```{r, warning=FALSE, message=FALSE}
+library(lubridate)
+Sys.setlocale(locale="es_ES.UTF-8")
+fechahora <- ymd_hms("2020-03-28 15:11:23", tz = "Europe/Madrid")
+fechahora_1 <- fechahora + dhours(24)
+fechahora_2 <- fechahora + hours(24)
+
+print(fechahora_1)
+print(fechahora_2)
+```
+
