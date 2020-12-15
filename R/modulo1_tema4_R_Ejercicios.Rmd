@@ -78,6 +78,9 @@ Es millas un objeto de la clase *data.frame* o *matrix*?
 ¿Y el siguiente objeto `obj`?
 
 ```{r}
+
+obj <- cbind(millas$cilindrada,millas$cilindros)
+
 # solución
 
 ```
