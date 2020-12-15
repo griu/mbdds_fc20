@@ -27,10 +27,9 @@ library(datos)
 suppressPackageStartupMessages(library(tidyverse))
 ```
 
-
 ## EJERCICIO 2.1.
 
-Escribe un bucle for que calcule la media todas las columnas numéricas de `millas`. 
+Escribe un bucle for que calcule la media todas las columnas numéricas (integer o numeric) de `millas`. 
 
 ```{r}
 # Solución:

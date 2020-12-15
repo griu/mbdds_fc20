@@ -157,9 +157,16 @@ Presenta los datos con un summary del nuevo objeto `obj`.
 
 # EJERCICIO 2
 
+Cargamos datos de nuevo.
+
+```{r}
+library(datos)
+suppressPackageStartupMessages(library(tidyverse))
+```
+
 ## EJERCICIO 2.1.
 
-Escribe un bucle for que calcule le media todas las columnas numéricas de `millas`. 
+Escribe un bucle for que calcule la media todas las columnas numéricas (integer o numeric) de `millas`. 
 
 ```{r}
 # Solución:
@@ -232,7 +239,7 @@ Haz un `summary()` para verificar que el resultado es el mismo que en 2.6.
 
 ## EJERCICIO 2.8.
 
-Analiza si `millas` tiene registros duplicado y en caso afirmativo crea un nuevo data frame que contenga una única copia de cada fila.
+Analiza si `millas` tiene registros duplicados y en caso afirmativo crea un nuevo data frame que contenga una única copia de cada fila.
 
 ```{r}
 # Solución:
