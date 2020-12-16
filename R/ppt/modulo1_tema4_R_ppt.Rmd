@@ -4,7 +4,7 @@ author: "Ferran Carrascosa Mallafrè"
 date: "11/10/2020"
 output:
   powerpoint_presentation:
-     reference_doc: plantilla_4.pptx
+     reference_doc: www/temp.pptx
      slide_level: 2
 ---
 
