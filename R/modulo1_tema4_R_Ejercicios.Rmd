@@ -87,7 +87,7 @@ obj <- cbind(millas$cilindrada,millas$cilindros)
 
 ## EJERCICIO 1.5.
 
-Crea una función que tome un vector como input y retorne un lista con los siguientes resultados:
+Crea una función que tome un vector de tipo integer como input y retorne un lista con los siguientes resultados:
 
 1. El último valor del vector
 1. Los elementos de las posiciones impares.
