@@ -1,0 +1,291 @@
+---
+title: 'MÓDULO: GESTIÓN DE DATOS Y DATOS DIGITALES'
+author: "Ferran Carrascosa Mallafrè"
+date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
+output:
+  word_document:
+    reference_docx: www/template2.docx
+    toc: yes
+    toc_depth: 3
+  html_document:
+    toc: yes
+    toc_depth: '6'
+    df_print: paged
+subtitle: 'Tema: Datos digitales'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path="www/")
+library(knitr)
+library(pander)
+library(kableExtra)
+suppressPackageStartupMessages(library(tidyverse))
+panderOptions('table.split.table', Inf)
+panderOptions('decimal.mark', ",")
+panderOptions('big.mark', ".")
+panderOptions('missing', "")
+options(knitr.kable.NA = '')
+library(reticulate)
+#use_condaenv("mbdds_rpy20")
+```
+
+```{=openxml}
+<w:p>
+  <w:r>
+    <w:br w:type="page"/>
+  </w:r>
+</w:p>
+```
+
+# Objetivos específicos
+
+<br>
+
+- Conocer los distintos orígenes de los datos digitales.
+- Realizar un diagnóstico sobre cómo están estructurados los datos digitales.
+- Obtener datos digitales estructurados y no estructurados mediante herramientas analíticas.
+
+<br>
+
+# 1. Datos digitales
+
+<br>
+
+## 1.1. Introducción
+
+<br>
+
+__[Abre en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/datos_digitales/modulo3_tema1_dd_01_introduccion.ipynb)__
+
+<br>
+
+Antes de los datos digitales, hablemos de datos...  Los conceptos de datos, información, conocimientos y sabiduría están interrelacionados.
+
+<br>
+
+> \<sabías que\>En la literatura inglesa, el término "data" aparece por primera vez en 1640. La palabra "data" fue utilizada por primera vez en 1946 para referirse a "información informática transmisible y almacenable". La expresión "procesamiento de datos" se utilizó por primera vez en 1954. -- [data | Origin and meaning of data by Online Etymology Dictionary](https://www.etymonline.com/word/data). www.etymonline.com.\</sabías que\>
+
+<br>
+
+A continuación, se introducen algunos conceptos básicos en la cadena de obtención, interpretación, almacenaje y consulta de datos digitales que se irán desarrollando conforme vayas avanzando en el temario.
+
+<br>
+
+### 1.1.1. Conceptos básicos
+
+<br>
+
+Los datos digitales, en la teoría de la información y los sistemas de información, son la representación discreta y discontinua de información. Se representan habitualmente en forma de números y letras.
+
+<br>
+
+#### Estados
+
+<br>
+
+Los datos digitales se pueden encontrar en tres estados:
+
+<br>
+
+- **Datos en reposo**: Son datos almacenados en formato digital de forma persistente (bases de datos, data warehouses, hojas de cálculo, archivos, dispositivos móviles...). Están sujetos a ser accedidos, modificados o sustraídos. Para prevenir este tipo de accesos, las organizaciones utilizan medidas de protección como las contraseñas y la encriptación.
+- **Datos en tránsito**: Se define como la información que fluye sobre una red, ya sea pública (por ejemplo Internet) o privada (red interna de una compañía o corporación). 
+- **Datos en uso**: Son datos almacenados en formato digital de forma no persistente (memoria RAM, caché CPU, una sesión de una página web,...). 
+
+<br>
+
+La identificación del estado de los datos digitales y, como veremos a continuación, su formato de archivo, es fundamental para diagnosticar la mejor forma de acceder a ellos.
+
+<br>
+
+#### Formato de archivo
+
+<br>
+
+El formato de archivo es la forma de organizar la información y codificarla dentro del archivo o sistema informático. Algunos ejemplos de formatos que se van a utilizar en este tema, son:
+
+<br>
+
+##### Texto plano
+
+<br>
+
+Fichero que contiene únicamente texto formado por letras, números y signos de puntuación (incluyendo espacios), también incluye caracteres de control, como tabuladores, saltos de línea o retornos de carro (Enter o Return). Estos caracteres se pueden codificar de distintos métodos. Un método básico para codificar texto es el sistema [ASCII](https://es.wikipedia.org/wiki/ASCII). Si se necesita almacenar una mayor variedad de caracteres, por ejemplo, caracteres orientales, árabes,... se utiliza habitualmente el sistema [UTF-8](https://es.wikipedia.org/wiki/UTF-8).
+
+El texto plano utiliza muchas extensiones según su estructura interna. Cuando no se presupone una estructura interna prefijada, es muy común utilizar la extensión .txt.
+
+<br>
+
+> \<recuerda\>Los ficheros de tipo .csv vistos en los temas de programación en R y Python, son ficheros de texto plano con una estructura de tabla y valores separados por coma (o punto y coma).\</recuerda\>
+
+<br>
+
+##### JSON
+
+<br>
+
+Otro ejemplo de fichero de texto plano es el formato [JSON](https://es.wikipedia.org/wiki/JSON) (*JavaScript Object Notation*). Este formato se construye como arrays (vectores) de pares clave-valor (como los diccionarios de Python vistos en el módulo 1). Este formato tiene la virtud que es un formato simple de codificar y es autodefinido. Está enfocado a codificar documentos y se utiliza en bases de datos documentales,  por ejemplo, MongoDB (visto también en el tema 1).  
+
+<br>
+
+##### XML
+
+<br>
+
+Un precedente a JSON, aunque de propósito más general, es [XML](https://es.wikipedia.org/wiki/Extensible_Markup_Language), siglas en inglés de *eXtensible Markup Language*, traducido como "Lenguaje de Marcas Extensible". También está construido mediante texto plano, es autodefinido como JSON y está desarrollado por el *World Wide Web Consortium* (W3C).
+
+XML, tiene muchas variantes: 
+
+<br>
+
+- [XSLT](https://es.wikipedia.org/wiki/Extensible_Stylesheet_Language_Transformations): Permite generar contenido web dinámico en HTML o XHTML.
+- [XPATH](https://es.wikipedia.org/wiki/XPath): Permite buscar y seleccionar texto dentro de un documento XML.
+
+<br>
+
+Profundizaremos en estas cuestiones y algunas más en el apartado de web scraping.
+
+<br>
+
+##### HTML
+
+<br>
+
+[HTML](https://es.wikipedia.org/wiki/HTML): *HyperText Markup Language*, utilizado en las páginas web. Es un formato de texto plano. Inventado al mismo tiempo que la web por Tim Berners Lee en 1989. Viene estructurado con un conjunto de marcas, aunque habitualmente estas reglas se incumplen y los navegadores tienen que interpretar el código y corregir las ambigüedades presentes.
+
+Veamos algunos formatos complementarios a HTML que, a su vez, son variantes de XML:
+
+<br>
+
+- [XHTML](https://es.wikipedia.org/wiki/XHTML): Es un HTML con estructura XML válida, es decir, sin errores de construcción.
+- [CSS](https://es.wikipedia.org/wiki/Hojas_de_estilo_en_cascada): Hojas de estilo para páginas web.
+- [RSS](https://es.wikipedia.org/wiki/RSS): O *Really Simple Syndication*, utilizado para distribuir contenido en la web. Se utiliza para difundir información actualizada de forma frecuente a los usuarios suscritos. RSS, es por tanto un ejemplo de datos públicos en tránsito. Aunque se ha utilizado desde el inicio de la web, su gran impulso vino de la mano de la red social o [Web 2.0](https://es.wikipedia.org/wiki/Web_2.0) a través de los [Blogs](https://es.wikipedia.org/wiki/Blog). Es por lo tanto un precedente de otras formas de difusión social como Twitter y Facebook.
+
+<br>
+
+#### Métodos de acceso
+
+<br>
+
+Los métodos de acceso que se explican en el tema, cubren un abanico muy amplio de orígenes de datos. Desde la habitual descarga a través de una web, hasta el uso de Python para realizar estas tareas de forma automática.
+
+<br>
+
+##### Peticiones http
+
+<br>
+
+*Hypertext Transfer Protocol*, abreviado [HTTP](https://es.wikipedia.org/wiki/Protocolo_de_transferencia_de_hipertexto), es el protocolo en el que se basa Internet. Los mensajes HTTP son de texto plano, tanto la petición como la respuesta. El ejemplo más común de peticiones HTTP son las que realiza un navegador a un servidor web, para obtener el código HTML.
+
+<br>
+
+##### API
+
+<br>
+
+Una [API](https://es.wikipedia.org/wiki/Interfaz_de_programaci%C3%B3n_de_aplicaciones), acrónimo de *application programming interface*, permite definir las llamadas o peticiones que se pueden hacer a un programa. Si bien es un contexto muy general, se utilizará en este tema, como una forma de solicitar datos a través de la web de forma estructurada. Es decir, poder seleccionar los datos que se quieren obtener a través de unos parámetros de entrada y una salida generalmente de texto (JSON, XML...).
+
+Si bien existen varias arquitecturas API, en el temario nos centramos en el tipo [REST API](https://es.wikipedia.org/wiki/Transferencia_de_Estado_Representacional), *representational state transfer*. Esta arquitectura, también llamada *RESTful Web services*,  permite transferir datos a través de [HTTP](https://es.wikipedia.org/wiki/HTTP), es decir Internet, directamente en texto plano, por lo tanto, permite utilizar JSON y XML.
+
+Los siguientes sitios web utilizan APIs de tipo REST en formato de texto de tipo JSON:
+
+<br>
+
+- [SWAPI The Star Wars API](https://swapi.dev/): ¿Te suena?
+- [Twitter API](https://dev.twitter.com/)
+- [Facebook Social Graph API](https://developers.facebook.com/docs/graph-api)
+- [Flickr](https://www.flickr.com/services/api/response.json.html)
+- [YouTube](https://developers.google.com/youtube/2.0/developers_guide_json?csw=1)
+- [OpenStreetMap](https://wiki.openstreetmap.org/wiki/Api)
+- [Google Maps](https://developers.google.com/maps/)
+- [Wikipedia API](https://www.mediawiki.org/wiki/API:Main_page)
+- [Pokemon Go](https://pokeapi.co/)
+
+<br>
+
+#####  Parseado del texto
+
+<br>
+
+Para procesar datos digitales, no sólo es necesario acceder a los datos, además hay que saber seleccionar de entre todo el texto capturado, aquellos elementos que queremos analizar. Las técnicas para realizar esta selección se llaman parseado (o analizador sintáctico) del texto. El tema, muestra distintas técnicas, desde la selección directa mediante XPATH (ver sección XML), uso de herramientas que facilitan la explotación del HTML como [BeatifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/), hasta el uso de [expresiones regulares](https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular) que permiten seleccionar texto mediante patrones de búsqueda.
+
+<br>
+
+#####  Javascript y Selenium
+
+<br>
+
+Se trata del lenguaje de scripting más común que utilizan los navegadores para construir el contenido de una página web. Éste se ejecuta directamente en el navegador, lo que dificulta poder acceder directamente, desde Python, al contenido generado de la web. Para superar este tipo de barreras, Python se apoya en un software externo, [SELENIUM](https://www.selenium.dev/), que permite controlar el navegador desde Python y simular un acceso completo al contenido de la web.
+
+<br>
+
+####  Almacenaje de los datos
+
+<br>
+
+Para guardar la información de forma persistente, se utilizan:
+
+<br>
+
+- Ficheros de texto (por ejemplo: .txt, .csv, .json...): sistema muy flexible, pero poco eficiente.
+- Bases de datos estructuradas SQL:  Estructuras de datos muy rígidas, aunque muy eficientes.
+- Bases de datos documentales (por ejemplo: MongoDB): Es un mix de flexibilidad en la estructura de los datos y eficiencia en su explotación, que lo hace el sistema idóneo para este tipo de tareas.
+
+<br>
+
+####  Automatización
+
+<br>
+
+El último paso, consiste en automatizar, mediante lo que se llama un [bot](https://en.wikipedia.org/wiki/Internet_bot), la extracción de los datos. Para automatizar, se utilizan tiempos de espera planificados, calendarizadores que ejecutan scripts de Python según el día y la hora. Una buena automatización, además permite minimizar los errores por denegación de acceso, producidos por un excesivo volumen de consultas a un mismo sitio. También, permite lanzar avisos frente a cambios relevantes en la estructura de la web.
+
+<br>
+
+## 1.2. Actividades
+
+<br>
+
+### 1.2.1. Actividad guiada
+
+<br>
+
+La actividad guiada versará sobre la generación de un bot de datos relacionados con la saga Star Wars. Para ello se recopilaran datos de las distintas fuentes analizadas: oficiales, web y sociales. En algún caso, se utilizará MongoDB para almacenar datos en forma de documento.
+
+<br>
+
+### 1.2.2. Actividad grupal
+
+<br>
+
+La actividad grupal consiste en seleccionar una, o más de una web, que sean de un mismo sector de actividad/temática (restauración, turismo, el tiempo, enseñanza, transportes, sector público,...).
+
+Se pide generar un bot, que almacene en MongoDB distintos conjuntos de datos obtenidos de las webs seleccionadas, según los 3 métodos de acceso:
+
+<br>
+
+- Parseado de texto
+- Consultas API
+- Javascript con Selenium 
+
+<br>
+
+```{r,child=c("modulo3_tema1_dd_02_oficiales.Rmd")}
+```
+
+<br>
+
+# Ideas clave
+
+<br>
+
+- Los procesos de digitalización generan una fuente de datos continua y con un gran potencial de generación de riqueza.
+- Algunos ejemplos relevantes son: Datos oficiales, datos de analítica web, datos de redes sociales o datos disponibles en la web.
+- Python permite generar procesos de extracción para obtener y estructurar estos datos. 
+- Previo a extraer los datos es necesario realizar un buen diagnóstico de los datos a obtener.
+- Una vez se ha diagnosticado, hay que escoger las mejoras estrategias para explotar esta información: API o scraping de contenido estático o dinámico.
+
+<br>
+
+# Anexo: Readme 
+
+```{r, child='README.md'}
+```
