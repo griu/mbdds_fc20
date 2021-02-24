@@ -143,9 +143,150 @@ En el siguiente punto se muestra como descargar los datos directamente desde Pyt
 
 #### API JSON
 
+
+Abre 2.9. Gestión de datos en Colab
+
 <br>
 
-Para practicar con la API de INE, [abre 1.3. Datos Oficiales en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/datos_digitales/modulo3_tema1_dd_02_oficiales.ipynb).
+La [API JSON del INE](https://www.ine.es/dyngs/DataLab/manual.html?cid=45) permite acceder, mediante peticiones URL, a toda la información disponible en [INEbase](https://www.ine.es/dyngs/INEbase/listaoperaciones.htm). Las consultas a la API, según la fuente, pueden ser de dos tipos:
+
+<br>
+
+- **Base de datos de difusión (Tempus3)**: Datos principales publicados de forma periódica.
+- **Repositorio de ficheros PC-Axis**: Resto de datos.
+
+<br>
+
+Para comprender el funcionamiento de cada una veamos dos ejemplos:
+
+<br>
+
+##### API - Tempus3
+
+<br>
+
+Descargamos la "Serie original. Índice general, por sectores y por ramas de actividad" disponible en la URL: [https://www.ine.es/jaxiT3/Tabla.htm?t=25891](https://www.ine.es/jaxiT3/Tabla.htm?t=25891).
+
+<br>
+
+- Buscamos "cinematográficas" en la caja "Sectores y ramas de actividad", botón `Enter`, Seleccionamos "59 Actividades cinematográficas, de vídeo y de programas de televisión, grabación de sonido y edición musical".
+- Seleccionamos "Índice"
+- Seleccionamos todos los periodos
+
+<br>
+
+![](www/04_ine.png){width=750px}
+
+\<imagen1\>Imagen: Índice Actividades cinematográficas (Fuente: [INE](https://www.ine.es) ). (www/04_ine.png){width=750px}
+
+<br>
+
+- Consultar selección
+- Botón Descargar (flecha superior derecha)
+- Json
+
+<br>
+
+![](www/05_ine.png){width=750px}
+
+\<imagen1\>Imagen: Descarga Índice Actividades cinematográficas (Fuente: [INE](https://www.ine.es) ). (www/05_ine.png){width=750px}
+
+- A continuación se abre una ventana con la siguiente url: `https://servicios.ine.es/wstempus/js/es/DATOS_TABLA/25891?tip=AM&tv=387:17588&tv=3:83`
+- Para poder generar la petición desde Python en primer lugar, se cargan las librerías y se declara la variable con la url.
+
+<br>
+
+```{python, warning=FALSE, message=FALSE}
+from urllib.request import urlretrieve
+from urllib.request import urlopen
+import json
+import pandas as pd
+import numpy as np
+
+urlTempus3 = "https://servicios.ine.es/wstempus/js/es/DATOS_TABLA/25891?tip=AM&tv=387:17588&tv=3:83"
+```
+
+<br>
+
+- Se descarga el contenido de la URL y lo pasamos a formato json.
+
+<br>
+
+```{python}
+result = json.load(urlopen(urlTempus3))
+```
+
+<br>
+
+- Se transforma de json a pandas.
+- Se ordena por el campo fecha.
+- Se genera el índice de fecha (con frecuencia mensual).
+- Se eliminan los valores faltantes.
+- Se selecciona la serie a partir de enero de 2018 en adelante.
+
+<br>
+
+```{python}
+df=pd.DataFrame(result[0]["Data"]).sort_values(by=["Fecha"])
+#df.index = pd.to_datetime(np.array(df["Fecha"], dtype=np.datetime64)).to_period('D')
+df.index = pd.to_datetime(np.array(df["Fecha"], dtype=np.datetime64)).to_period('M')
+df = df[df['Valor'].notna()]
+df = df['2018-01':]
+```
+
+<br>
+
+- Se genera el plot para visualizar la serie.
+
+<br>
+
+```{python plot1, fig.cap="Índice de Actividades cinematográficas (fuente: elaboración propia con datos de INE) (plot1-1.png)"}
+df.Valor.plot.line(title='Indice de Actividades cinematograficas')
+```
+
+<br>
+
+##### API - PCAXIS
+
+<br>
+
+Los datos que se van a descargar a continuación son los datos vistos en la sección de Demografía y población.
+
+<br>
+
+- Recuperamos la url obtenida anteriormente.
+- Se descargan los datos con urllib.
+
+<br>
+
+```{python}
+urlPCAxis = "https://servicios.ine.es/wstempus/js/es/DATOS_TABLA//t20/e245/p04/provi/l0/0ccaa003.px?tip=AMtv=sexo:ambossexos"
+
+result = json.load(urlopen(urlPCAxis))
+```
+
+<br>
+
+Después de analizar el contenido json, se ha transformado a pandas filtrando que los datos correspondan con "Ambos sexos" y del total Nacional.
+
+<br>
+
+```{python}
+df = pd.DataFrame([x["Nombre"].split(",")+ [x["Data"][0]["Valor"]] for x in result if "Ambos sexos" in x["Nombre"] and "Total Nacional" in x["Nombre"]])
+df.shape
+```
+
+<br>
+
+Posteriormente, se etiquetan los datos, se selecciona la edad y se realiza un plot para visualizar los datos.
+
+<br>
+
+```{python plot2, fig.cap="Población 1 Enero 2020 por tramo de edad (fuente: elaboración propia con datos de INE) (plot2-1.png)"}
+df.columns = ["Genero","Region","Edad","Valor"]
+df.index = df["Edad"]
+df[df.index!=" Total"].Valor.plot.bar(title="Poblacion 1 Enero 2020 por tramo de Edad")
+```
 
 <br>
 
@@ -189,7 +330,119 @@ Otro apartado relevante, son los [ficheros de microdatos](https://ec.europa.eu/e
 
 <br>
 
-Para practicar con la API de EUROSTAT, [abre 1.3. Datos Oficiales en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/datos_digitales/modulo3_tema1_dd_02_oficiales.ipynb).
+Finalmente, EUROSTAT también ofrece una [API REST](https://ec.europa.eu/eurostat/web/json-and-unicode-web-services/about-this-service). Esta API se puede llamar bajo la siguiente estructura:
+
+<br>
+
+![](www/REST_REQUEST_2_1.png){width=750px}
+
+\<imagen1\>Imagen: La petición REST (Fuente: [EUROSTAT](https://ec.europa.eu/eurostat) ). (www/REST_REQUEST_2_1.png){width=750px}
+
+<br>
+
+Dónde la llamada:
+
+<br>
+
+- *{host_url}/rest/data/{version}/{format}/{lang}/{datasetCode}?{filters}*
+
+<br>
+
+Con parámetros:
+
+<br>
+
+- host_url, service, version: Parte fija de la llamada.
+- format: Formato de retorno de los datos (json o unicode).
+- lang: Idioma de los metadatos (en/fr/de).
+- datasetCode: Código único identificados de la consulta de datos.
+- filters: Ambito de la consulta. Cada consulta tiene un límite de 50 sub-indicadores por consulta.
+- precision: Número de decimales.
+- unit: Filtro de la unidad solicitada.
+
+<br>
+
+Veamos un ejemplo de consulta del conjunto de datos "nama_10_gdp" para:
+
+<br>
+
+- Periodo: 2010 y 2011.
+- Geo: European Union (28 países).
+- Precisión: 1 decimal.
+- Indicador de Contabilidad nacional: B1GQ – Gross domestic product at market prices.
+- Unidad : CP_MEUR - Precios correinte, Millon de Euros.
+
+<br>
+
+```{python}
+urlEUROSTAT = "http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/nama_10_gdp?geo=EU28&precision=1&na_item=B1GQ&unit=CP_MEUR&time=2010&time=2011"
+
+result = json.load(urlopen(urlEUROSTAT))
+
+print(result["dimension"])
+```
+
+Como en el caso del INE, resulta difícil configurar una llamada. Para facilitar esta tarea, existe un [generador de consultas](https://ec.europa.eu/eurostat/web/json-and-unicode-web-services/getting-started/query-builder). El dato de entrada requerido es el nombre del dataset, que se puede buscar con el buscador de [Estadísticas por temas](https://ec.europa.eu/eurostat/data/browse-statistics-by-theme).
+
+<br>
+
+##### La librería de Python Eurostat
+
+<br>
+
+Por último, para facilitar la explotación de datos de Eurostat, resulta extremadamente útil la librería eurostat de python.
+
+Con ella se puede obtener fácilmente las temáticas y sus códigos de tablas. 
+
+<br>
+
+```{python}
+import eurostat
+
+toc_df = eurostat.get_toc_df()
+
+toc_df.head()
+```
+
+<br>
+
+Para nuestra actividad, se filtran los temas que contengan la palabra "cinema".
+
+<br>
+
+```{python}
+toc_df[(toc_df.type=="dataset")&(toc_df.title.str.contains("cinema"))][['code']]
+```
+
+<br>
+
+Busca en Google el código: *hlth_ds010*. El resultado es la página de Eurostat: [Frequency of going to cinema, live performances, cultural sites or attending live sport events by level of activity limitation, sex and age] (http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=hlth_ds010&lang=en)
+
+Una vez analizados los datos, filtramos la estadística del % de población por país que cumple:
+
+<br>
+
+- Personas de edad entre 16 y 29 años.
+- Van al cine (AC521), doce o más veces.
+- Países: Bélgica, Alemania, España, Francia, Italia, Reino Unido o Portugal.
+
+<br>
+
+```{python plot3, fig.cap="% van al cine más de 12 veces al año (fuente: elaboración propia con datos de EUROSTAT) (plot3-1.png)"}
+df = eurostat.get_data_df("hlth_ds010", flags=False)
+
+paises = ['BE', 'DE','ES', 'FR','IT','UK', 'PT']
+
+cinema = df[(df.age=="Y16-29") & (df.frequenc=="GT12") & (df.sex=="T") & (df.lev_limit=="NONE") & (df.acl00=="AC521")][paises]
+cinema.index=["%Pob"]
+
+cinema.plot.bar(title='% van al cine más de 12 veces al año')
+
+```
+
+<br>
+
+El resultado, no obstante el año del estudio es 2006, nos muestra que España era un país perfecto para la industria del Cine, ya que tenía la mayor proporción de población de este colectivo. 
 
 <br>
 
@@ -217,31 +470,52 @@ La estructura es muy similar al resto de oficinas estadísticas oficiales:
 
 <br>
 
-Para practicar con la Librería world_bank_data, [abre 1.3. Datos Oficiales en Colab](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/datos_digitales/modulo3_tema1_dd_02_oficiales.ipynb).
+Existen varias alternativas para explotar WBD des de Python. A continuación se muestra el uso de world_bank_data.
+
+Para obtener el listado de temas.
 
 <br>
 
-## 1.4. Google Analytics
+```{python}
+import pandas as pd
+import world_bank_data as wb
+
+wb.get_topics()["value"]
+```
 
 <br>
 
-Para acceder al módulo de Google Analytics puedes clicar el siguiente enlace de Colab: [Abre 1.4. Google Analytics](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/datos_digitales/modulo3_tema1_dd_03_ganalytics.ipynb).
+Si nos centramos en el tema 14-"Science & Technology", vemos los sub-temas disponibles.
 
 <br>
 
-## 1.5. Social Analytics
+```{python}
+wb.get_indicators(topic=14)["name"]
+```
 
 <br>
 
-Para acceder al módulo de Social Analytics (Twitter, Facebook, Hootsuite) puedes clicar el siguiente enlace de Colab: [Abre 1.4. Social Analytics](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/datos_digitales/modulo3_tema1_dd_04_sanalytics.ipynb).
+A continuación, para seleccionar un tema de interés, se selecciona los datos del % de gasto en I+D sobre el PIB (id = GB.XPD.RSDV.GD.ZS) en España.
 
 <br>
 
-## 1.6. Web scraping
+```{python}
+ImasD = wb.get_series('GB.XPD.RSDV.GD.ZS', country="ES")
+ImasD.index = [x[2] for x in ImasD.index.values]
+ImasD[ImasD.notna()]
+```
 
 <br>
 
-Para acceder al módulo de Web Scraping puedes clicar el siguiente enlace de Colab: [Abre 1.4. Web Scraping](https://colab.research.google.com/github/griu/mbdds_fc20/blob/master/datos_digitales/modulo3_tema1_dd_05_webscraping.ipynb).
+La serie va de 1996 hasta 2018. Gráficamente.
 
 <br>
+
+```{python plot4, message=FALSE, warning=FALSE, fig.cap="% de gasto en I+D sobre el PIB en España (fuente: elaboración propia con datos de WORLD BANK DATA) (plot4-1.png)"}
+ImasD.plot.line();
+```
+
+<br>
+
+Se observa como posterior a la crisis de 2010, las inversiones en I+D bajan hasta que se empieza a recuperar en 2016 hasta el último año observado, 2018.
 
