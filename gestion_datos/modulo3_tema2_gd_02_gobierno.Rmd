@@ -1,0 +1,160 @@
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path="www/")
+library(knitr)
+library(pander)
+library(kableExtra)
+suppressPackageStartupMessages(library(tidyverse))
+panderOptions('table.split.table', Inf)
+panderOptions('decimal.mark', ",")
+panderOptions('big.mark', ".")
+panderOptions('missing', "")
+options(knitr.kable.NA = '')
+```
+
+## 2.2. Gobierno del dato, ética y leyes
+
+<br>
+
+### 2.2.1. Gobierno del dato
+
+<br>
+
+En la introducción del módulo 3, se ha introducido la idea de considerar **El dato**, como un activo muy valioso que poseen las organizaciones. Como tal activo, es necesario que la organización lo gestione de la forma más eficiente posible.
+
+El gobierno del dato consiste en el conjunto de criterios comunes de trabajo con datos, que deben seguir todos los miembros de una organización. 
+
+En términos generales estos criterios deben cubrir 3 aspectos:
+
+<br>
+
+- Gestión de la captura de los datos y su calidad
+- Análisis de los datos
+- Seguridad de los datos
+
+<br>
+
+
+A continuación se desarrolla estos 3 aspectos en relación a las Personas y a la Tecnología.
+
+<br>
+
+#### Gestión de la captura de los datos y su calidad
+
+<br>
+
+Para definir flujos de explotación de datos, es necesario conocer las características que los definen, o también llamados metadatos.
+
+Cada fuente de datos debe definir qué metadatos son necesarios. A parte de los habituales que se describen en la propia herramienta de datos, como la descripción de cada campo, campos clave, tipo de columnas...  Existen otros que nos ayudan a comprender mejor el contenido como son:
+
+<br>
+
+- **Definición de su contenido**: Por ejemplo, tiquetes de compra, datos de clientes en cada mes.
+- **Universo**: Por ejemplo, transacciones realizadas por clientes propios, o bien, transacciones registradas en los puntos de venta propios.
+- **Temporalidad**: A partir de qué fecha están disponibles los datos y con qué frecuencia se obtienen.
+- **Geografía**: Ámbito local, nacional, internacional...
+
+<br>
+
+Este tipo de documentación se realiza a través de la propia base de datos, si bien, en grandes organizaciones también se apoyan en herramientas como  [OEMM](https://www.oracle.com/middleware/technologies/enterprise-metadata-management.html) de la compañía Oracle.  
+
+Además de datos crudos, las organizaciones establecen procesos de transformación orientados a obtener datos de mayor calidad y facilitar su análisis. Estos procesos habitualmente implican agregación a niveles superiores (cálculo de promedios, ratios).
+
+Un elemento clave para la explotación de estos datos, será pues la documentación precisa de estas transformaciones realizadas, o bien código fuente donde se realizan las transformaciones. En este sentido las herramientas que puedan facilitar esta compartición de código y de documentación son fundamentales para una buena gestión.  
+
+Estas transformaciones además se acompañan de un conjunto de indicadores que permitan seguir la calidad del datos en el tiempo: número de registros, valores faltantes, valores únicos...
+
+Una solución técnica, es la gestión del código del gestor de datos mediante git, no obstante un ejemplo de software que facilita la preparación de datos y documentación de todo el proceso es la herramienta [Trifacta](https://www.trifacta.com/) o [Paxata](https://www.paxata.com/).
+
+Adicionalmente, es necesario identificar el responsable dentro de la organización que ha definido este tratamiento y un mecanismo de consulta que permita profundizar y a la vez no saturar los responsables expertos.
+
+Finalmente, destacar que esta gestión es dinámica y por lo tanto es necesario que se puedan registrar de forma simple, los cambios, por ejemplo, cambios a nivel de fuentes origen, discontinuidades temporales en los datos disponibles, cambios en los catálogos de productos transformaciones o incluso cambios de responsables.
+
+<br>
+
+#### Análisis de datos
+
+<br>
+
+El análisis de datos se desarrolla a través de la generación, a partir de las fuentes de datos origen de informes y modelos analíticos que permitan la toma de decisiones.
+
+El principal elemento a gestionar en esta etapa, precisamente consiste en asegurar un buen nivel de servicio en el acceso a los datos origen, catálogos de datos de fuentes origen, datos derivados y responsables expertos.
+
+Este proceso de análisis va a generar código y modelos desarrollados en herramientas analíticas avanzadas como SQL, R y Python. Un elemento a gestionar será pues, la accesibilidad de este código, por ejemplo a través de herramientas GIT.
+
+Otro elemento a gestionar será la capacidad de productivizar este código mediante herramientas que permitan fijar las dependencias de librerías para ejecución, por ejemplo mediante Environments de Python o [Anaconda](https://www.anaconda.com/). 
+
+Otro elemento de productivización es el uso de herramientas de calendarización de las ejecuciones, Generación de registro de ejecución, monitorización del estado de los procesos, así como visualización de los diagramas de flujos de datos. Un ejemplo de herramienta open source, que cubre esta etapa sería [Airflow](https://airflow.apache.org/).
+
+Además, para dar apoyo a los Data scientist y que puedan compartir todo el conocimiento generado resulta interesante el uso de herramienta Wiki de documentación como por ejemplo [Confluence](https://confluence.atlassian.com/). 
+
+<br>
+
+#### Seguridad de los datos
+
+<br>
+
+La organización debe definir unas políticas de control de acceso a los datos basadas en el cumplimiento de la normativas de privacidad legales y lo criterios éticos definidos por la empresa. Estas normativas vienen definidas no sólo por el dato en sí, sino también por el uso que se le quiera dar al dato.
+
+Otra responsabilidad es la de detectar vulnerabilidades en el uso posterior de los datos y aplicar o recomendar políticas de seguridad a la organización.
+
+<br>
+
+### 2.2.2. Ética
+
+<br>
+
+La justicia (o Fairness) está siendo uno de los temas de moda dentro del área de Data Science. El motivo es el uso creciente de los algoritmos de machine learning y los sesgo presentes en los datos utilizados para entrenar estos algoritmos.
+
+Veamos algún ejemplo:
+
+<br>
+
+- Xing, red social orientada a profesionales, similar a Linked-in, según puso sobre la mesa el análisis de [Lahoti y otros 2018](https://arxiv.org/pdf/1806.01059.pdf), producía mejores rankings a hombres que a mujeres mejor cualificadas.
+- En 2016, [Larson y otros, ProPublica](https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing) publicó que el algoritmo COMPAS, utilizado por los tribunales de Estados Unidos utilizan  para predecir la reincidencia, producía un proporción de Falsos positivos para personas negras, que para personas blancas.
+
+<br>
+
+Las causas del sesgo pueden ser:
+
+<br>
+
+- **Comportamientos no observados**: pongamos un ejemplo, las entidades financieras habitualmente, no conceden préstamos a clientes en situación de paro por razones obvias. Esto produce que los pocos clientes, en esta situación, que acceden al crédito, son habitualmente clientes con buenas garantías de pago y por lo tanto buenos pagadores. Un modelo entrenado con estos datos diría que, sí hay que dar crédito a este colectivo.
+- **Baja presencia de grupo minoritarios**: el algoritmo va a capturar de foram muy leve el comportamiento de estos parámetros.
+- **Proxies**: Aunque no se utilicen ciertas variables discriminatorias (como género, color u origen...) siempre puede haber otras que actúan como proxies, por ejemplo el código postal de residencia o las aficiones u opiniones expresadas.
+
+<br>
+
+Entre muchos otros criterios, dos formas de definir justicia son:
+
+<br>
+
+- **Inconsciencia**: Consisten en no utilizar los atributos sensibles.
+- **Paridad demográfica**: Las predicciones deberían ser similares entre los distintos grupos.
+- **Balance entre justicia y precisión**: Cuando se imponen el resto de normas, hay que encontrar un balance.
+
+<br>
+
+La forma de conseguir estos algoritmos justos es un campo en investigación, no obstante, uno de los elementos centrales es la posibilidad de poder explicar qué impacto tiene cada driver del modelo sobre la predicción. Esta explicabilidad permite evaluar, a priori, si el uso del modelo va a ser justo o no.
+
+<br>
+
+### 2.2.3. Leyes
+
+<br>
+
+En España la ley que regula la protección de datos es la Ley Orgánica 3/2018 de [Protección de Datos y garantía de derechos digitales](https://es.wikipedia.org/wiki/Ley_Org%C3%A1nica_de_Protecci%C3%B3n_de_Datos_Personales_y_garant%C3%ADa_de_los_derechos_digitales) (LOPD-GDD) que adapta la legislación española al [Reglamento General de Protección de datos](https://es.wikipedia.org/wiki/Reglamento_General_de_Protecci%C3%B3n_de_Datos) (RGPD) de la Unión Europea. 
+
+Esta ley por lo tanto afecta a todos los estados miembros de la UE, así como  las compañías extranjeras que traten datos de residentes de la UE.
+
+Esta ley establece que los datos se pueden tratar si hay una base legal para hacerlo.
+
+Los datos sólo se pueden tratar si existe al menos una base legal para hacerlo. Las bases legales para tratar datos son:
+
+<br>
+
+- El interesado ha dado su consentimiento con uno o más propósitos específicos.
+- El tratamiento es necesario para realizar un contrato, obligación legal, proteger los intereses vitales, interés público e interés legítimo  del responsable.
+
+<br>
+

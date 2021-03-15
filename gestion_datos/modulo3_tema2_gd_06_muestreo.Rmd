@@ -1,0 +1,241 @@
+---
+title: 'Muestreo probabilístico, aleatorio, estratificado y sistemático'
+author: "Ferran Carrascosa Mallafrè"
+output:
+  word_document:
+    reference_docx: www/template2.docx
+    toc: yes
+    toc_depth: 3
+  html_document:
+    toc: yes
+    toc_depth: '6'
+    df_print: paged
+subtitle: 'Tema: Gestión de datos'
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path="www/")
+library(knitr)
+library(pander)
+library(kableExtra)
+suppressPackageStartupMessages(library(tidyverse))
+panderOptions('table.split.table', Inf)
+panderOptions('decimal.mark', ",")
+panderOptions('big.mark', ".")
+panderOptions('missing', "")
+options(knitr.kable.NA = '')
+```
+
+## 2.6. Muestreo probabilístico, aleatorio, estratificado y sistemático
+
+<br>
+
+En el módulo 2, se ha introducido los conceptos básicos de población (conjunto de elementos cuyas propiedades se van a estudiar), muestra (subconjunto de la población). 
+
+Comentar que hay dos motivaciones principales para utilizar muestras para medir características de la población entera, estas son: el menor coste y rapidez de obtención de los datos.
+
+Como forma de clasificar el muestreo de datos, en el módulo 2 se introdujo 2 clases: 
+
+<br>
+
+- Probabilística: los elementos intervienen con igual probabilidad.
+- No probabilística: los elementos tienen distinta probabilidad de intervenir.
+
+<br>
+
+Vemos en este apartado, 3 tipologías de muestreo probabilístico: el muestreo aleatorio simple, el muestreo sistemático y el muestreo estratificado.
+
+<br>
+
+### 2.6.1. Muestreo Aleatorio Simple
+
+<br>
+
+En el muestreo aleatorio simple (MAS) de un determinando **tamaño de la muestra** (número de elementos), todos subconjuntos de la población tienen la misma probabilidad de ser seleccionados.
+
+<br>
+
+- **Sin reposición**: Cada elemento extraído se descarta para la siguiente extracción. Por ejemplo, en el control de calidad de producción de una fábrica de piezas, se extrae una muestra al azar entre todas las de piezas producidas un cierto día, y se analiza cuales son defectuosas y cuáles no. Este procedimiento suele aplicarse mediante la asignación de un identificador a cada individuo y seleccionado al azar un subconjunto extracción de forma aleatoria.
+
+En R, la función sample(), permite obtener un muestreo aleatorio. Con el parámetro replace=FALSE, el muestreo se realiza sin reposición.
+
+<br>
+
+```{r}
+poblacion <-1:10
+set.seed(890)
+muestraSin <- sample(poblacion, size = 10, replace = FALSE)
+muestraSin
+```
+
+<br>
+
+El ejemplo, muestra una aplicación habitual del muestreo aleatorio sin reposición que consiste en aleatorizar la ordenación de la población. De esta el investigador puede seleccionar los n primeros (por ejemplo n=5) y obtener así la muestra aleatoria deseada.
+
+<br>
+
+> \<sabías que\>Los algoritmos de generación de números aleatorios, trabajan mediante [funciones recursivas](https://es.wikipedia.org/wiki/Funci%C3%B3n_recursiva). La función set.seed() permite fijar la secuencia de valores seleccionados mediante la función sample() de forma que sea reproducible. Es decir, que al ejecutar dos veces el anterior ejemplo, los valores seleccionados serán idénticos.\</sabías que\>
+
+<br>
+
+- **Con reposición**: Una vez se ha observado un elemento, este vuelve a ser elegible con la misma probabilidad que el resto de individuos. Esta técnica, aplicada de forma iterativa (como en el [Boostsrapping](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) permite estimar estadísticos (por ejemplo, medias, cuantiles...) y sus intervalos de confianza. Actualmente, el muestreo con reposición es la base de las técnicas modernas de Machine Learning que se desarrollarán en el módulo 6: Bagging, Boosting, Random Forest...
+
+<br>
+
+Con el parámetro replace=TRUE, la función sample() realiza un muestreo aleatorio simple con reposición.
+
+<br>
+
+```{r}
+poblacion <-1:10
+muestraCon <- sample(poblacion, size = 5, replace = TRUE)
+muestraCon
+```
+
+<br>
+
+Observa como en este caso, ha sido seleccionado dos veces el valor 1 debido al efecto del reemplazo realizado.
+
+Cuando se trabaja con muestras pequeñas, el muestreo aleatorio simple puede estar afectado por el **error muestral** que consiste en la diferencia entre la medición obtenida por la muestra y la medición del total de la población. Esta afectación puede venir producida por la aleatoriedad de la selección. Por ejemplo, la muestra aleatoria simple de 10 hombre y mujeres de un determinado país, debería producir 5 hombres y 5 mujeres, aunque cualquier extracción es muy probable que termine sobrerepresentando una de las 2 poblaciones. El muestreo sistemático y el estratificado procuran resolver este problema utilizando información de la población para producir una muestra más representativa.
+
+Vemos numéricamente, el ejemplo comentado, de selección de una muestra aleatoria simple (sin reposición) de 10 personas entre un total de 20 mil millones de personas repartidas entre al 50% entre el género masculino ('m') i el género femenino ('f').
+
+<br>
+
+```{r}
+poblacion <- c(rep("m",10^7),rep("f",10^7))
+muestraPeq <- sample(poblacion, size = 10, replace = FALSE)
+table(muestraPeq)
+```
+
+<br>
+
+A través de la tabla de frecuencias vemos como han sido seleccionados 4 hombre y 6 mujeres, indicando un error muestral del 10% en la proporción realmente observada de la muestra respecto a la proporción real de la población.
+
+<br>
+
+### 2.6.2. Muestreo Aleatorio Sistemático
+
+<br>
+
+El muestreo aleatorio sistemático consiste en ordenar la población a partir de un esquema de ordenación determinado y luego seleccionar las observaciones de la muestra en intervalos regulares de la lista ordenada.
+
+Inicialmente se selecciona un punto de inicio al azar y luego seleccionar cada elemento cada k elementos, donde k = (Tamaño de la población) / (Tamaño de la muestra).
+
+Un ejemplo, de este método de muestreo, es realizar una encuesta a las clientes de una determinada tienda, seleccionado, a largo del día, una persona que entre en la tienda cada 15 minutos. De esta forma se cubre toda la tipología de visitantes.
+
+El riesgo de este tipo de muestreo está en los casos en que se dan periodicidades en la población ya que al elegir a los miembros de la muestra con una periodicidad constante (k) podemos introducir una homogeneidad que no se da en la población. Imaginemos que estamos seleccionando una muestra sobre listas de 10 personas en los que las 5 primeras son de género femenino y los 5 últimas de género masculino mujeres, si empleamos un muestreo aleatorio sistemático con k=10 siempre seleccionaríamos o sólo hombres o sólo mujeres, no podría haber una representación de los dos géneros.
+
+<br>
+
+### 2.6.2. Muestreo Aleatorio Estratificado
+
+<br>
+
+Cuando la población está formada por un número determinado de categorías distintas, también llamadas **estratos de población**, cada estrato se puede muestrear de forma aleatoria como una sub-población independiente. El método de muestreo aplicado, dentro de cada estrato, puede ser tanto el muestreo aleatorio simple, como el muestreo aleatorio sistemático. 
+
+Ejemplos de variables de estratificación utilizados de forma frecuente son: género, Edad, Tamaño del hábitat, región, clase social, tipo de persona (física o jurídica). Si hablamos de estudios en el tiempo también es habitual establecer estratos a partir de variables como día de observación, mes, año...
+
+Este método de selección ofrece varias ventajas:
+
+<br>
+
+1. Permite a los investigadores definir un tamaño muestral para estratos específicos, que permita realizar una inferencia que de otra forma (con un esquema aleatorio) habría quedado poco representado.
+
+2. Permite prefijar unas cuotas para cada estrato. De esta forma se reduce el riesgo que, debido a problemas de aleatoriedad o de dificultad de seleccionar determinados colectivos, habría quedado mal representados en relación a la proporción real de cada estrato dentro de la población.
+
+3. Permite definir estrategias de muestreo específicas a las características de cada estrato, facilitando de esta forma la reducción de tiempo y costes de obtención de la muestra. 
+
+<br>
+
+La distribución de la muestra en función de los diferentes estratos se denomina afijación y puede ser de diferentes tipos:
+
+<br>
+
+- **Afijación Simple**: Todos los estratos tienen el mismo número de elementos en la muestra.
+- **Afijación Proporcional**: Cada estrato tiene un número de elementos en la muestra proporcional a su tamaño dentro de la población.
+- **Afijación Óptima**: Se tiene en cuenta la previsible dispersión de los resultados, de modo que se considera la proporción y la desviación típica. Tiene poca aplicación ya que no se suele conocer la desviación. 
+
+<br>
+
+Dos estrategias utilizadas en esta modalidad son: 
+
+<br>
+
+- **Post-estratificación**: Cuando se realiza una estratificación a posteriori del proceso de muestreo, esta se llama post-estratificación. Esta estrategia se suele implementar después de un muestreo aleatorio (simple o sistemático), donde no había sido posible utilizar la variable de estratificación adecuada donde permite corregir los sesgos observados.
+- **Sobre-muestreo**: Cuando se requiere comparar las características de estratos poco habituales, por ejemplo, población en municipios de menos de 500 habitantes,  con otros estratos más comunes (resto de tamaños de hábitat), se suele sobre-representar estos estratos minoritarios. El modelo analítico implementando se suele ajustar, por ejemplo mediante pesos, de forma se corrija este sesgo de sobre-representación.
+
+<br>
+
+A modo de actividad guiada, vemos las diferencias en el error muestral entre el muestreo aleatorio simple (MAS) y el Muestreo aleatorio estratificado (MAE) en el caso de seleccionar un muestra del 50% de países en 2007, estratificada por continente.
+
+En primer lugar seleccionamos la muestra de países en 2007 y definimos la proporción de la muestra sobre le total de la población.
+
+<br>
+
+```{r, warning = FALSE, message = FALSE}
+library(caret)
+library(datos)
+suppressPackageStartupMessages(library(tidyverse))
+
+paises07 <- paises %>% filter(anio == 2007)
+
+prop <- 0.5
+```
+
+<br>
+
+A continuación, se selecciona la muestra aleatoria simple.
+
+<br>
+
+```{r, warning = FALSE, message = FALSE}
+set.seed(234)
+trainMASIndex <- sample(nrow(paises07), size = trunc(prop*nrow(paises07)), replace = FALSE)
+```
+
+<br>
+
+Vemos la proporción de países por continente seleccionados mediante MAS.
+
+<br>
+
+```{r, warning = FALSE, message = FALSE}
+summ_pop <- paises07%>% 
+  count(continente) %>% 
+  mutate(p=round(100*n/sum(n),2))
+summ_MAS <- paises07[trainMASIndex, ] %>% 
+  count(continente) %>% 
+  mutate(p=round(100*n/sum(n),2)
+         )
+
+inner_join(summ_pop, summ_MAS, by="continente", suffix=c("_pop","_mas")) %>% 
+  mutate(err_mas=abs(p_mas - p_pop))
+```
+
+<br>
+
+Vemos que el error muestral (err_mas) en el caso del muestreo aleatorio simple, al analizar la proporción seleccionada de países por continente, varia de 0,70% (Asia) a 11.27% (África).
+
+Realizamos ahora la selección mediante muestreo aleatorio estratificado.
+
+La función createDataPartition() de la librería car, permite realizar un muestreo aleatorio estratificado por una variable de tipo factor y. El método es la afijación proporcional a partir del parámetro p que indica la proporción de cada estrato sobre la población original.
+
+<br>
+
+```{r, warning = FALSE, message = FALSE}
+trainMAEIndex <- createDataPartition(paises07$continente, p = prop, list = FALSE)
+
+summ_MAE <- paises07[trainMAEIndex, ] %>% 
+  count(continente) %>% 
+  mutate(p=round(100*n/sum(n),2)
+         )
+
+inner_join(summ_pop, summ_MAE, by="continente", suffix=c("_pop","_mae")) %>% 
+  mutate(err_mae=abs(p_mae - p_pop))
+```
+
+<br>
+
+Observa en este caso el error muestral (err_mae) del muestreo aleatorio estratificado, obviamente es muy inferior (menor a 0,51%), si bien no cero debido a errores de redondeo.
+

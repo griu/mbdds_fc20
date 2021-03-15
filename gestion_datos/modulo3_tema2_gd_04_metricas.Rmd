@@ -1,0 +1,833 @@
+---
+title: 'Data discovery: creación de nuevas métricas (KPI, insights), discretización de variables'
+author: "Ferran Carrascosa Mallafrè"
+output:
+  word_document:
+    reference_docx: www/template2.docx
+    toc: yes
+    toc_depth: 3
+  html_document:
+    toc: yes
+    toc_depth: '6'
+    df_print: paged
+subtitle: 'Tema: Gestión de datos'
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path="www/")
+library(knitr)
+library(pander)
+library(kableExtra)
+suppressPackageStartupMessages(library(tidyverse))
+panderOptions('table.split.table', Inf)
+panderOptions('decimal.mark', ",")
+panderOptions('big.mark', ".")
+panderOptions('missing', "")
+options(knitr.kable.NA = '')
+```
+
+## 2.4. Data discovery: creación de nuevas métricas (KPI, insights), discretización de variables
+
+<br>
+
+Este tema, se sitúa dentro de la etapa llamada Métricas del ciclo de gestión de datos presentado en la introducción:
+
+<br>
+
+1. Preparación de datos
+2. Métricas
+3. Calidad de datos
+4. Muestreo
+
+<br>
+
+Una vez analizado las técnicas de Preparación de datos, es el momento de medir el nivel de calidad de los datos mediante Métricas. Estas Métricas o KPI (Key Performance Indicators), permitirán descubrir nuevas relaciones (o insights).
+
+Por último, se profundizará en el proceso de discretización de variables continuas, como un proceso que permite obtener nuevas variables con mayor grado de información.
+
+<br>
+
+### 2.4.1 Conceptos previos
+
+<br>
+
+En el módulo 2 sobre fundamentos de Estadística, se han introducido los principales estadísticos necesarios para analizar la información. Este capítulo, por un lado, va a implementar estas métricas principales mediante el lenguaje R. Por otro lado, a través de distintos casos de uso, se comparará como utilizar estas métricas para discernir que variables están aportando más o menos información y qué transformaciones pueden ayudar a incrementar el nivel de información obtenido. 
+
+<br>
+
+En el tema anterior de Preparación de datos, se han utilizado ya muchos de estos estadísticos que recuperamos ahora a modo de resumen. Se deja para el lector la consulta de los ejemplos presentados en el anterior tema.
+
+<br>
+
+#### glimpse()
+
+<br>
+
+Esta función devuelve una descripción global del conjunto de datos. En el caso de los dataframes:
+
+<br>
+
+- Número de Filas y Columnas.
+- nombre y tipo de datos (numeric, character, factor...) de las variables.
+- Presenta los primeros valores observados.
+
+<br>
+
+Como se ha visto en el tema anterior, esta simple descripción del conjunto de datos, aporta un mecanismo de gran valor para explorar los datos y obtener Insights. Estos, permiten a su vez, proponer distintos procesos:
+
+<br>
+
+- Selección de variables y sus valores.
+- Transformación del tipo de variables.
+
+<br>
+
+#### summary()
+
+Permite realizar un análisis univariante mediante estadísticos que miden la distribución de la variable, estadísticos de posición y estadísticos centralización: 
+
+<br>
+
+   - **Variables de tipo factor y lógicas**: Recuento de los valores más frecuentes y recuentos de valores faltantes.
+   - **Variables de tipo numérico**: mínimo, máximo, 1r y 3r cuantil, media y la mediana. Además, aporta el recuento de valores faltantes.
+
+<br>
+
+Tal y como se ha introducido en el tema anterior, un proceso habitual, previo y posterior a cualquier proceso de transformación, consiste en obtener el **summary()** de las variables. Este proceso, permitirá validar que los nuevos datos han corregido los problemas de calidad (recodificación de valores,...) que se buscaba corregir con el tratamiento aplicado.
+
+<br>
+
+#### count() o table()
+
+<br>
+
+Ambas funciones devuelven la frecuencia absoluta de cada valor (o categoría) de la variable. Su cálculo, antes y después de cualquier transformación, es un proceso fundamental para controlar la calidad de los datos en las primeras etapas del análisis.
+
+<br>
+
+### Métricas unidimensionales en R
+
+<br>
+
+A continuación, con el objetivo de consolidar en R, las métricas unidimensionales definidas por los principales estadísticos introducidos en el módulo 2 (fundamentos de estadística), se realiza un breve resumen sobre su cálculo mediante funciones tidyverse.
+
+Para motivar este tema, se recuperan inicialmente los datos de países de Gapminder.
+
+<br>
+
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+library(datos)
+
+paises07 <- paises %>% filter(anio == 2007)
+```
+
+<br>
+
+Recordemos que estos datos, contienen información del pib per cápita, población, continente y esperanza de vida de 147 países. Por simplicidad en los análisis, seleccionamos la muestra correspondiente a 2007.
+
+<br>
+
+#### Frecuencias relativas
+
+<br>
+
+El cálculo de frecuencias relativas de una variable categórica, se puede resolver en R mediante las funciones count() y mutate() del paquete *dplyr*.
+
+Un primer paso consiste en obtener la frecuencia absoluta de la tabla y posteriormente, a través de la función mutate(), se calcula la frecuencia relativa dentro de cada continente. La función sum() permite recuperar el total de países.
+
+<br>
+
+> \<importante\>Para facilitar la lectura de tablas con frecuencias relativas, resulta de gran ayuda utilizar la función round() para  presentar un número de decimales que no resulte excesivo.\</importante\>
+
+<br>
+
+```{r, eval=FALSE}
+paises07 %>%
+  count(continente) %>%
+  mutate(freq = round(n / sum(n),3)) %>% 
+  arrange(-freq)
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+tab <- paises07 %>%
+  count(continente) %>%
+  mutate(freq = round(n / sum(n),3)) %>% 
+  arrange(-freq)
+kable(tab, "html", booktabs=TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  save_kable("temp/paises201.png")
+```
+
+![Fuente: http://www.gapminder.org/data/](temp/paises201.png){width=150px}
+
+<br>
+
+La tabla muestra que, en el año 2007, los datos de Gapminder contienen un 36,6% de países en el continente africano, 23,2% en Asia, 21,1% en Europa, 17,6 en América y 1,4% en Oceanía.
+
+<br>
+
+#### Histogramas
+
+<br>
+
+A modo de recordatorio, en ggplot2 para obtener el histograma se utiliza el geom_histogram().
+
+<br>
+
+```{r, warning=FALSE, message=FALSE}
+p1 <- ggplot(paises07, aes(x=pib_per_capita)) +
+  geom_histogram()
+p1
+```
+
+<br>
+
+> \<importante\>ggplot por defecto siempre calcula 30 grupos equiprobables. Este número, en general, no resulta adecuado y hay que personalizar a posteriori el número de intervalos o bins. Para obtener un número de grupos acorde a la Regla de Sturges (revisa esta regla en el módulo 2) puedes utilizar la función   nclass.Sturges().\</importante\>
+
+<br>
+
+En ggplot esto es muy simple, como se puede ver en el siguiente.
+
+```{r, warning=FALSE, message=FALSE}
+p1 <- ggplot(paises07, aes(x=pib_per_capita)) +
+  geom_histogram(bins=nclass.Sturges(paises07$pib_per_capita))
+p1
+```
+
+<br>
+
+Observamos, ahora, que hay una gran concentración de países con valores bajos de pib per cápita (parte izquierda del histograma) y por contra, una larga cola de pocos países con valores de pib per cápita muy elevados (parte derecha).
+
+<br>
+
+En este tipo de variables, con distribuciones estrictamente positivas, con un  comportamiento como el descrito anteriormente (alta concentración a la izquierda y una cola larga a la derecha), es muy habitual aplicar la transformación logarítmica (logaritmo neperiano o en base 10). 
+
+Veamos un ejemplo, dónde se compara la variable original y la variable transformada mediante el logaritmo neperiano.
+
+<br>
+
+```{r}
+suppressPackageStartupMessages(library(cowplot))
+
+paises07 <- paises07 %>% 
+  mutate(log_pib_per_capita= log(pib_per_capita))
+
+p1 <- paises07 %>% 
+  ggplot(aes(x=pib_per_capita))+
+  geom_histogram(bins=nclass.Sturges(paises07$pib_per_capita))
+p2 <- paises07 %>% 
+  ggplot(aes(x=log(pib_per_capita)))+
+  geom_histogram(bins=nclass.Sturges(log(paises07$pib_per_capita)))
+
+plot_grid(p1, p2, nrow = 2)
+```
+
+<br>
+
+Observa como la transformación logarítmica (gráfico inferior) ha modificado de forma substancial el histograma respecto a la variable original (gráfico superior).
+
+<br>
+
+#### Centralización, Dispersión, Posición, Concentración y forma
+
+<br>
+
+A continuación, se compara las métricas sobre la variable pib per cápita en su valor original (en adelante en nivel) y su transformada (en adelante escala log). 
+
+Para recuperar los estadísticos: media, desviación típica, coeficiente de variación, asimetría o skewness, apuntamiento o kurtosis, mínimo, primer cuantil, mediana, tercer cuantil y máximo, presentados en el módulo 2, cargamos primero el paquete *moments*.
+
+```{r}
+library(moments) 
+```
+
+```{r, eval=FALSE}
+rbind(data.frame(Variable="pib_per_capita",
+                 x=paises07$pib_per_capita),
+      data.frame(Variable="log_pib_per_capita",
+                 x=log(paises07$pib_per_capita))) %>% 
+  group_by(Variable)%>%
+  summarise(media=mean(x),
+           sd=sd(x),
+           CV=sd(x)/mean(x),
+           asimetria=skewness(x),
+           apuntamiento=kurtosis(x),
+           minimo=min(x),
+           Q25=quantile(x,0.25),
+           mediana=median(x),
+           Q75=quantile(x,0.75),
+           maximo=max(x)) %>% 
+  pivot_longer(cols = -1, names_to = "Metrica", values_to = "Valor") %>% arrange(desc(Variable)) %>% 
+  pivot_wider(names_from = Variable, values_from = Valor)
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+tab <- rbind(data.frame(Variable="pib_per_capita",
+                 x=paises07$pib_per_capita),
+      data.frame(Variable="log_pib_per_capita",
+                 x=log(paises07$pib_per_capita))) %>% 
+  group_by(Variable)%>%
+  summarise(media=mean(x),
+           sd=sd(x),
+           CV=sd(x)/mean(x),
+           asimetria=skewness(x),
+           apuntamiento=kurtosis(x),
+           minimo=min(x),
+           Q25=quantile(x,0.25),
+           mediana=median(x),
+           Q75=quantile(x,0.75),
+           maximo=max(x)) %>% 
+  pivot_longer(cols = -1, names_to = "Metrica", values_to = "Valor") %>% arrange(desc(Variable)) %>% 
+  pivot_wider(names_from = Variable, values_from = Valor)
+kable(tab, "html", booktabs=TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  save_kable("temp/paises202.png")
+```
+
+![Fuente: http://www.gapminder.org/data/](temp/paises202.png){width=350px}
+
+<br>
+
+Observa como el código presentado, utiliza la función pivot_wider() y pivot_longer() para estructurar y ordenar la tabla resumen de estadísticos presentada. De esta forma la lectura de la información resulta más cómoda.
+
+<br>
+
+Obviamente, el cambio de escala modifica sustancialmente el valor de los estadísticos analizados, no obstante, a continuación, se comparan algunas propiedades que nos indican el cambio en la calidad de los datos:
+
+- La **media aritmética** por país es de 11.680$ per cápita (8,62 en escala log). 
+- La **desviación típica** es de 12.860$. (1,36 en escala log).
+- **Coeficiente de variación** del 110% sobre la variable en nivel, muy superior al 80%, poniendo de manifiesto, según se indica en el módulo 2, que la media aritmética (sobre la variable en nivel) es una medida poco representativa de la muestra y que se trata de un conjunto de **datos heterogéneo** (ver capítulo de medidas de dispersión del módulo 2).
+- Por contra este mismo coeficiente de variación, vale 16% sobre la variable en escala log, valor muy por debajo del 80%, hecho que nos sugiere que la media es representativa de la muestra y que los datos son homogéneos.
+- Destacar la **asimetría positiva** (asimetría>0) y **leptocúrtica** (apuntamiento>0) sobre la variable en nivel.
+- A su vez, sobre la escala log, la distribución es **asimétrica negativa** y leptocúrtica, aunque, en ambos casos, con valores absolutos muy inferiores de los observados sobre la escala en nivel.
+- Analizamos los estadísticos de posición en el siguiente gráfico de boxplot.
+
+<br>
+
+#### Boxplot
+
+<br>
+
+En ggplot2 para obtener el boxplot.
+
+<br>
+
+```{r, warning=FALSE, message=FALSE}
+p1 <- ggplot(paises07, aes(x=pib_per_capita)) +
+  geom_boxplot()
+
+p2 <- ggplot(paises07, aes(x=log(pib_per_capita))) +
+  geom_boxplot()
+
+plot_grid(p1, p2, nrow = 2)
+```
+
+<br>
+
+Los boxplot muestran:
+
+<br>
+
+- **Sobre la variable en nivel**: Muestra una caja fuertemente asimétrica. También se visualizan algunos países con valores de pib per cápita extremos (por encima del bigote derecho).
+- **Sobre la variable log**: Muestra una caja con un alto grado de simetría y sin valores extremos.
+
+<br>
+
+### Técnicas de discretización no dirigidas
+
+<br>
+
+Para discretizar las variables continuas, a continuación, se recuerdan 2 métodos ya presentados previamente y de forma adicional, se presenta un método de disretizacion o particionado, basado en la media y desviación típica de la variable.
+
+Las nuevas variables, se definen mediante 8 tramos a partir de la variable pib per cápita:
+
+<br>
+
+- **pib_pc_t_eqd**: Tramos equidistantes construidos a partir del valor mínimo de la variable en nivel.
+- **log_pib_pc_t_eqd**: Tramos equidistantes construidos a partir del valor mínimo de la variable en escala log.
+- **pib_pc_t_eqp**: Tramos equiprobables (no dependen de la transformación de la variable).
+- **log_pib_pc_t_norm**: Tramos equidistantes centrados en M (media del log) y de ancho S (desviación típica del log). Los tramos extremos finalizan en -Inf y +Inf respectivamente.
+
+<br>
+
+A continuación, se calculan las nuevas variables. 
+
+En primer lugar, se utiliza la función cut(), con el parámetro include.lowest = TRUE que permite incluir el valor mínimo observado de la variable, dentro del primer intervalo.
+
+La función seq(), que habitualmente acompaña a cut(), permite automatizar los punto de corte de forma equidistante a lo largo del rango de la variable.
+
+En el caso de la transformación equiprobable, se utiliza la función quantile(), combinada con seq(), para obtener los 8 cuantiles deseados  y, estas a su vez, con cut(), para particionar la variable.
+
+Por último, se particiona la variable log, mediante distintos puntos de corte definidos manualmente a partir de la media y desviación típica del logaritmo del pib per cápita.
+
+<br>
+
+```{r}
+M <- mean(paises07$log_pib_per_capita)
+S <- sd(paises07$log_pib_per_capita)
+
+paises07 <- paises07 %>% 
+  mutate(pib_pc_t_eqd = cut(pib_per_capita,
+      seq(min(pib_per_capita), max(pib_per_capita), 
+        ( max(pib_per_capita) - min(pib_per_capita)) / 8.)
+      , include.lowest = TRUE)
+    , log_pib_pc_t_eqd = cut(log_pib_per_capita,
+      seq(min(log_pib_per_capita), max(log_pib_per_capita), 
+        ( max(log_pib_per_capita) - min(log_pib_per_capita)) / 8.)
+      , include.lowest = TRUE)
+    , pib_pc_t_eqp = cut(pib_per_capita
+      , unique(quantile(pib_per_capita, seq(0,1,1/8.)))
+      ,include.lowest = TRUE)
+    , log_pib_pc_t_norm = cut(log_pib_per_capita
+      , c(-Inf, M-3*S, M-2*S, M-1*S, M, M+1*S, M+2*S, M+3*S, Inf))
+  )
+```
+
+<br>
+
+Validamos gráficamente estas nuevas variables.
+
+<br>
+
+```{r}
+p1 <- paises07 %>% ggplot(aes(x=pib_pc_t_eqd)) +geom_bar()+
+    theme(axis.text.x=element_blank())
+p2 <- paises07 %>% ggplot(aes(x=log_pib_pc_t_eqd)) +geom_bar()+
+    theme(axis.text.x=element_blank())
+p3 <- paises07 %>% ggplot(aes(x=pib_pc_t_eqp)) +geom_bar()+
+    theme(axis.text.x=element_blank())
+p4 <- paises07 %>% ggplot(aes(x=log_pib_pc_t_norm)) +geom_bar()+
+    theme(axis.text.x=element_blank())
+
+plot_grid(p1, p2, p3, p4, nrow = 2)
+```
+
+<br>
+
+Los dos gráficos superiores corresponden al análisis ya realizado de la variable en nivel y escala log.
+
+El tramado equiprobable (pib_pc_t_eqp), muestra las frecuencias (cuidado: no el histograma) de los 8 tramos con prácticamente el mismo número de países. Observa com en este caso el gráfico no aporta ninguna información, ya que la gráfica es prácticamente plana.
+
+La variable discretizada a partir de la media y desviación típica (log_pib_pc_t_norm), muestra una distribución bastante simétrica, con un único país en el primer tramo. Por simplicidad, se unen los dos primeros tramos quedando la variable definida de la siguiente forma.
+
+<br>
+
+```{r}
+paises07<- paises07 %>% mutate(
+  log_pib_pc_t_norm = cut(log_pib_per_capita
+      , c(-Inf, M-1*S, M, M+1*S, Inf)))
+```
+
+<br>
+
+```{r}
+paises07 %>% ggplot(aes(x=log_pib_pc_t_norm)) +geom_bar()+
+  labs(title="Discr. basada en media y desviación típica log")
+```
+
+<br>
+
+### Métricas bidimensionales en R
+
+<br>
+
+#### Distribuciones condicionadas
+
+<br>
+
+Tal y como se ha introducido en el módulo 2, una métrica común en el análisis de la relación entre dos variables, es la distribución condicionada. 
+
+En este caso, se requiere analizar la distribución por continente de los distintos métodos de discretización.
+
+A continuación, se presenta la tabla de la distribución por continente, condicionada a los distintos intervalor del pib per cápita definidos por la variable discretizada mediante tramos equiprobables.
+
+En este caso, la solución adoptada, consiste en calcular las frecuencias absolutas, mediante la función count(). A continuación, se fija la variable discretizada como variable de agrupación que combinada con la función mutate(), calcula la frecuencia relativa de cada continente condicionado al tramo del pib per cápita al que pertenece cada país.
+
+Finalmente, a través de la función pivot_wider(), se reestructura la tabla de forma que los continentes se convierten en la columnas de la tabla. El parámetro values_fill = 0 permite rellenar con 0 las combinaciones de tramos del pib per cápita por continente no observadas en la muestra.
+
+
+<br>
+
+```{r eval=FALSE}
+paises07 %>%
+  count(pib_pc_t_eqp,continente) %>%
+  group_by(pib_pc_t_eqp) %>%
+  mutate(freq = round(n / sum(n),3)) %>% 
+  select(-n) %>% 
+  pivot_wider(names_from = continente, values_from = freq, values_fill =0)
+```
+
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+tab <- paises07 %>%
+  count(pib_pc_t_eqp,continente) %>%
+  group_by(pib_pc_t_eqp) %>%
+  mutate(freq = round(n / sum(n),3)) %>% 
+  select(-n) %>% 
+  pivot_wider(names_from = continente, values_from = freq, values_fill =0)
+kable(tab, "html", booktabs=TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  save_kable("temp/paises203.png")
+```
+
+![Tramos equiprobables, Fuente: http://www.gapminder.org/data/](temp/paises203.png){width=500px}
+
+<br>
+
+La tabla, muestra, por ejemplo que, los países con un pib per cápita inferior (tramo de 278 a 963 $ per cápita) se concentran en gran medida (94,4%) en el continente africano, por el contra, un 66,7% de los países con mayor nivel de pib por cápita, se concentran en Europa. Asia, es el único continente que tiene países en todos los tramos del pib per cápita.
+
+<br>
+
+##### Barras apiladas
+
+<br>
+
+Veamos ahora los mismos datos mediante gráficos de barras apiladas para cada variable discretizada.
+
+<br>
+
+```{r, fig.width=8, fig.asp=4/5 }
+p1 <- paises07 %>%
+  count(pib_pc_t_eqd,continente) %>%
+  group_by(pib_pc_t_eqd) %>%
+  mutate(freq = round(n / sum(n),3)) %>% 
+  ggplot(aes(x=pib_pc_t_eqd, y=freq, fill=continente))+
+    geom_bar(position="fill", stat="identity")+
+  theme(legend.text=element_text(size=8)
+        , axis.text.x=element_blank())
+p2 <- paises07 %>%
+  count(log_pib_pc_t_eqd,continente) %>%
+  group_by(log_pib_pc_t_eqd) %>%
+  mutate(freq = round(n / sum(n),3)) %>% 
+  ggplot(aes(x=log_pib_pc_t_eqd, y=freq, fill=continente))+
+    geom_bar(position="fill", stat="identity")+
+  theme(legend.text=element_text(size=8)
+        , axis.text.x=element_blank())
+p3 <- paises07 %>%
+  count(pib_pc_t_eqp,continente) %>%
+  group_by(pib_pc_t_eqp) %>%
+  mutate(freq = round(n / sum(n),3)) %>% 
+  ggplot(aes(x=pib_pc_t_eqp, y=freq, fill=continente))+
+    geom_bar(position="fill", stat="identity")+
+  theme(legend.text=element_text(size=8)
+        , axis.text.x=element_blank())
+p4 <- paises07 %>%
+  count(log_pib_pc_t_norm,continente) %>%
+  group_by(log_pib_pc_t_norm) %>%
+  mutate(freq = round(n / sum(n),3)) %>% 
+  ggplot(aes(x=log_pib_pc_t_norm, y=freq, fill=continente))+
+    geom_bar(position="fill", stat="identity")+
+  theme(legend.text=element_text(size=8)
+        , axis.text.x=element_blank())
+
+plot_grid(p1, p2, p3, p4, nrow = 2)
+```
+
+<br>
+
+Los distintos métodos de particionado, muestran un grado de asociación entre pib y continente. 
+
+<br>
+
+- pib_pc_t_eqd: África, el país con mayor número de países queda claramente poco representado. Por el contra, la presencia de Europa queda muy sobrerrepresentada en el conjunto de tramos informados. Esto es debido a que hay un número excesivo de tramos con valores altos del pib per cápita.
+- log_pib_pc_t_eqd, y pib_pc_t_eqp: Tienen un alto grado de similitud.
+- log_pib_pc_t_norm: Construye 4 tramos, bien representados y con pib per cápita muy distintos entre sí. Permite visualizar claramente, las principales diferencias entre los continentes en cada tramo del pib.
+
+<br>
+
+#### Grado de asociación: Categórica versus Categórica
+
+<br>
+
+Con el objetivo de discernir qué variable discretizada del pib per cápita, consigue un mayor grado de asociación con el Continente, se recuperan 2 de las métricas introducidas en el módulo 2.
+
+<br>
+
+##### Chi-cuadrado
+
+<br>
+
+Para obtener el estadístico Chi-cuadrado en R.
+
+<br>
+
+```{r eval=FALSE, warning=FALSE, message=FALSE}
+with(paises07 , data.frame(
+  pib_pc_t_eqd=chisq.test(table(pib_pc_t_eqd, continente))$statistic
+  , log_pib_pc_t_eqd=chisq.test(table(log_pib_pc_t_eqd, continente))$statistic
+  , pib_pc_t_eqp=chisq.test(table(pib_pc_t_eqp, continente))$statistic
+  , log_pib_pc_t_norm=chisq.test(table(droplevels(log_pib_pc_t_norm), continente))$statistic
+  ))
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+tab <- with(paises07 , data.frame(
+  pib_pc_t_eqd=chisq.test(table(pib_pc_t_eqd, continente))$statistic
+  , log_pib_pc_t_eqd=chisq.test(table(log_pib_pc_t_eqd, continente))$statistic
+  , pib_pc_t_eqp=chisq.test(table(pib_pc_t_eqp, continente))$statistic
+  , log_pib_pc_t_norm=chisq.test(table(droplevels(log_pib_pc_t_norm), continente))$statistic
+  ))
+kable(tab, "html", booktabs=TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  save_kable("temp/paises204.png")
+```
+
+![Tramos equiprobables, Fuente: http://www.gapminder.org/data/](temp/paises204.png){width=600px}
+
+<br>
+
+La variable con mayor grado de asociación (Chi-cuadrado más elevado), en este caso es pib_pc_t_eqp (discretización equiprobable). No obstante, analizamos el coeficiente de contingencia para tener en cuenta que log_pib_pc_t_norm tiene un menor número de intervalos.
+
+<br>
+
+##### Coeficiente de contingencia corregido
+
+<br>
+
+Para obtener el Coeficiente de contingencia de Karl Pearson usamos la función ContCoef() del paquete DescTools. Para aplicar la corrección por continuidad (ver módulo 2) se utiliza el parámetro correct = TRUE. 
+
+<br>
+
+```{r eval=FALSE, warning=FALSE, message=FALSE}
+library(DescTools)
+
+with(paises07, data.frame(
+  pib_pc_t_eqd=ContCoef(pib_pc_t_eqd, continente, correct=TRUE)
+  , log_pib_pc_t_eqd=ContCoef(log_pib_pc_t_eqd, continente, correct=TRUE)
+  , pib_pc_t_eqp=ContCoef(pib_pc_t_eqp, continente, correct=TRUE)
+  , log_pib_pc_t_norm=ContCoef(droplevels(log_pib_pc_t_norm), continente, correct=TRUE)
+  ))
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+library(DescTools)
+tab <- with(paises07, data.frame(
+  pib_pc_t_eqd=ContCoef(pib_pc_t_eqd, continente, correct=TRUE)
+  , log_pib_pc_t_eqd=ContCoef(log_pib_pc_t_eqd, continente, correct=TRUE)
+  , pib_pc_t_eqp=ContCoef(pib_pc_t_eqp, continente, correct=TRUE)
+  , log_pib_pc_t_norm=ContCoef(droplevels(log_pib_pc_t_norm), continente, correct=TRUE)
+  ))
+rownames(tab) <- "Contingency Coef."
+kable(tab, "html", booktabs=TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  save_kable("temp/paises205.png")
+```
+
+![Tramos equiprobables, Fuente: http://www.gapminder.org/data/](temp/paises205.png){width=400px}
+
+<br>
+
+En este caso, vuelve a ser pib_pc_t_eqp la variable con mayor asociación, no obstante, log_pib_pc_t_norm tiene un nivel de asociación prácticamente idéntico y con sólo 4 tramos más fáciles de interpretar.
+
+<br>
+
+> \<sabías que\>Aunque el conocimiento de la distribución de una variable ayuda a optimizar la discretización, en general, se utilizan los métodos de discretización equiprobables, ya que aseguran una alto grado de representatividad de cada tramo analizado.\</sabías que\>
+
+<br>
+
+#### Correlación
+
+<br>
+
+##### Correlación lineal de Pearson
+
+<br>
+
+A continuación, se compara el grado de asociación lineal entre la esperanza de vida y el pib per cápita (en nivel y en log).
+
+<br>
+
+```{r eval=FALSE}
+paises07 %>% 
+  summarise(pib_per_capita = cor(esperanza_de_vida,pib_per_capita)
+    , log_pib_per_capita = cor(esperanza_de_vida,log_pib_per_capita))
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+tab <- paises07 %>% 
+  summarise(pib_per_capita = cor(esperanza_de_vida,pib_per_capita)
+    , log_pib_per_capita = cor(esperanza_de_vida,log_pib_per_capita))
+kable(tab, "html", booktabs=TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  save_kable("temp/paises206.png")
+```
+
+![Fuente: http://www.gapminder.org/data/](temp/paises206.png){width=250px}
+
+<br>
+
+Observa como la correlación lineal de Pearson es de 0,679 con la variable en nivel y de 0,809 en el caso de la variable log. Esto indica que, si bien hay una relación directa entre la esperanza de vida y el nivel de pib, la asociación lineal con la escala log es mucho mayor.
+
+<br>
+
+> \<importante\>Cuando las variables que se quieren correlacionar, contienen algún valor faltante, puedes utilizar el parámetro use="complete.obs" de la función cor(), para utilizar sólo aquellas filas (u observaciones) con los valores informados en ambas variables.\</importante\>
+
+<br>
+
+##### Correlación de Kendall
+
+<br>
+
+Pongamos ahora, que el contexto consiste en analizar a qué cuartil de la esperanza de vida pertenece un país, sabiendo su nivel de pib per cápita.
+
+Una métrica perfectamente adecuada para analizar, qué transformación del pib per cápita tiene un mayor grado de asociación con los cuartiles de la esperanza de vida, es la correlación de Kendall (introducida en el módulo 2).
+
+A continuación, se calcula la nueva variable de los cuartiles de la esperanza de vida y se correlaciona con las distintas transformaciones del pib analizadas hasta ahora.
+
+<br>
+
+```{r}
+paises07 <- paises07 %>% 
+  mutate(cuart_esp_vida = 
+    as.numeric(cut(esperanza_de_vida
+    ,quantile(esperanza_de_vida, seq(0,1,0.25))
+    , include.lowest = TRUE)))
+
+vars <- c("pib_per_capita","log_pib_per_capita","pib_pc_t_eqd"
+          ,"log_pib_pc_t_eqd","pib_pc_t_eqp","log_pib_pc_t_norm")
+
+corTab <- cor(sapply(paises07[,vars],as.numeric)
+    ,paises07$cuart_esp_vida,method="kendall")
+
+colnames(corTab) <- "cuart_esp_vida"
+```
+
+```{r eval=FALSE}
+round(corTab,5)
+```
+
+```{r echo=FALSE, results='hide', warning=FALSE}
+tab <- corTab
+kable(tab, "html", booktabs=TRUE) %>%
+  kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive")
+                ,font_size = 11,full_width = F) %>%
+  save_kable("temp/paises207.png")
+```
+
+![Fuente: http://www.gapminder.org/data/](temp/paises207.png){width=250px}
+
+<br>
+
+Las 2 primeras variables: nivel y log, tal y como se ha explicado en el módulo 2, presentan el mismo valor de correlación de Kendall, debido a que esta no varía cuando se aplican transformaciones monótonas (como es el caso del log).
+
+Por otro lado, se observa que el resto de discretizaciones, tienen una correlación de Kendall superior a presentada por las variables continuas. 
+
+La transformación basada en la media y desviación típica (log_pib_pc_t_norm) es la transformación que presenta un mayor grado de correlación con los cuartiles de la esperanza de vida.
+
+Veamos a continuación una forma de visualizar esta relación mediante un gráfico de dispersión adaptado a variables ordinales.
+
+<br>
+
+#### Jitter
+
+<br>
+
+Para visualizar una relación entre las 2 variables ordinales, como son: cuart_esp_vida y log_pib_pc_t_norm, se utiliza geom_jitter(). Este geom, se comporta de forma similar a geom_ponts(), pero antes de realizar el dibujo, introduce una perturbación aleatoria en el valor de las variables, evitando de esta forma, los puntos de acumulación típicos de las variables ordinales.
+
+<br>
+
+```{r, fig.width=8, fig.asp=4/5 , warning=FALSE, message=FALSE}
+p1 <- paises07 %>% 
+  ggplot(aes(x=log_pib_pc_t_norm,y=cuart_esp_vida))+
+  geom_point()+
+  labs(title="geom_point()")
+
+p2 <- paises07 %>% 
+  ggplot(aes(x=log_pib_pc_t_norm,y=cuart_esp_vida))+
+  geom_jitter()+
+  labs(title="geom_jitter()")
+
+plot_grid(p1, p2, nroe = 2)
+```
+
+Observa como la perturbación aleatoria introducida por geom_jitter() (gráfico de la derecha) mejora en gran medida la visualización del grado de asociación directa entre ambas variables. En el caso de no realizar jitter (gráfico de la izquierda), la alta concentración de valores en cada combinación de ambas variables queda oculta dentro del gráfico y por lo tanto aporta poca información.
+
+<br>
+
+
+#### Gráfico de dispersión y Recta de regresión
+
+<br>
+
+Para visualizar el gráfico de dispersión se utiliza geom_point().
+
+Para incluir la recta de regresión se utiliza geom_smooth(). 
+
+Adicionalmente, se incluye una [regresión local](https://es.wikipedia.org/wiki/Regresi%C3%B3n_local), llamada  LOESS, que permite visualizar en que media la relación local entre ambas variables sigue, o no, la recta de regresión.
+
+<br>
+
+```{r warning=FALSE, message=FALSE}
+p1 <- paises07 %>% 
+  ggplot(aes(x=pib_per_capita, y=esperanza_de_vida))+
+  geom_point()+
+  geom_smooth(method='lm', se=FALSE, aes(color = "lm"))+
+  geom_smooth(method='loess', se=FALSE, aes(color="loess"))+
+  theme(legend.position="top")
+
+p2 <- paises07 %>% 
+  ggplot(aes(x=log_pib_per_capita, y=esperanza_de_vida))+
+  geom_point()+
+  geom_smooth(method='lm', se=FALSE, aes(color = "lm"))+
+  geom_smooth(method='loess', se=FALSE, aes(color="loess"))+
+  theme(legend.position="top")
+
+plot_grid(p1, p2, ncol = 2)
+
+```
+
+<br>
+
+El gráfico de la izquierda (esperanza de vida versus pib per cápita en nivel), muestra una asociación no lineal entre ambas variables. Esta idea queda reforzada por el hecho que la regresión local (loess) se desvía fuertemente respecto a la recta de regresión.
+
+Por contra, el gráfico de la derecha (esperanza de vida versus pib per cápita en escala log), muestra un grado de asociación lineal bastante elevado. Se observa como la línea definida por la regresión local se comporta de forma similar a la recta de regresión.
+
+<br>
+
+#### Recta de regresión en R
+
+<br>
+
+En R, para cuantificar ajustar un modelo lienal (o recta de regresión) se utliza la función lm().
+
+En el siguiente código, se compara, mediante la función stargazer() del paquete con el mismo nombre, el ajuste de dos modelos de regresión de la esperanza de vida. Uno sobre la variable en nivel y el otro sobre la variable log del pib per cápita.
+
+<br>
+
+```{r, message=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(stargazer))
+model1 <- lm( esperanza_de_vida ~ pib_per_capita , data=paises07)
+model2 <- lm( esperanza_de_vida ~ log(pib_per_capita) , data=paises07)
+
+stargazer(model1,model2,type="text")
+```
+
+<br>
+
+La diferencia en el coeficiente de determinación de ambos modelos es muy elevada: 46,1% de la varianza de la esperanza de vida explicada por el pib per cápita en nivel, versus el 65,4% del caso del pib per cápita en escala log. 
+
+El error típico de los residuos también es inferior en el modelo en escala log (8,9 en el modelo en nivel versus 7,1 en el modelo en escala log).
+
+<br>
+
+> \<sabías que\>El coeficiente de una variable transformada mediante logaritmo neperiano, habitualmente [se interpreta en econometría](https://economipedia.com/definiciones/logaritmos-en-econometria.html) en términos porcentuales. Por ejemplo, en el caso que nuestro modelo fuese causal, el coeficiente log del pib de 7.2, nos estaría indicando que al duplicar el PIB per cápita de un país (aumento del 100%), la esperanza de vida media de la población aumentaría en 7,2 años.\</sabías que\>
+
+<br>
+
+#### Otras transformaciones no lineales
+
+<br>
+
+Las variables estrictamente positivas como el pib per cápita, con distribuciones que muestran una asimetría positiva, es muy habitual aplicar la transformación logarítmica (en general el logaritmo neperiano o en base 10).
+
+Otras transformaciones, no lineales, que se aplican en el caso de variables estrictamente positivas, asimétricas positivas son: 1/x y la raiz cuadrada de x.
+
+En el caso de variables asimétricas positivas que puedan tomar el valor 0, se puede probar el uso de 1/(x+1) o log(x+1).
+
+En el caso de variables con asimetría negativa, se puede probar la transformación de x elevado al cuadrado.

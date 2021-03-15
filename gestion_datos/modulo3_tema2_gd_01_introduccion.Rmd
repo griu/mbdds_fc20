@@ -1,0 +1,116 @@
+---
+title: 'MÓDULO: GESTIÓN DE DATOS Y DATOS DIGITALES'
+author: "Ferran Carrascosa Mallafrè"
+date: "Licenciado en Matemáticas por la Universidad de Barcelona. Data Scientist"
+output:
+  word_document:
+    reference_docx: www/template2.docx
+    toc: yes
+    toc_depth: 3
+  html_document:
+    toc: yes
+    toc_depth: '6'
+    df_print: paged
+subtitle: 'Tema: Gestión de datos'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path="www/")
+library(knitr)
+library(pander)
+library(kableExtra)
+suppressPackageStartupMessages(library(tidyverse))
+panderOptions('table.split.table', Inf)
+panderOptions('decimal.mark', ",")
+panderOptions('big.mark', ".")
+panderOptions('missing', "")
+options(knitr.kable.NA = '')
+```
+
+```{=openxml}
+<w:p>
+  <w:r>
+    <w:br w:type="page"/>
+  </w:r>
+</w:p>
+```
+
+# Objetivos específicos
+
+<br>
+
+- Conocer los principios básicos del gobierno del dato, ética y leyes.
+- Preparar los datos con R, medir la información que aportan y mejorar su calidad.
+- Aplicar técnicas de muestreo para el posterior modelado de los datos.
+
+<br>
+
+# 2. Gestión de datos
+
+<br>
+
+## 2.1. Introducción
+
+<br>
+
+El tratamiento de los datos es una etapa necesaria dentro del Data Science de la que depende, en gran medida, el éxito o el fracaso de las posteriores fases de análisis y modelización.
+
+El abanico de tratamientos posibles es muy extenso y aplicar un método u otro depende en gran medida del conocimiento experto, tanto técnico como legal del campo o área del análisis. Es, por lo tanto, una etapa donde la intervención humana tanto del Data scientist, como de los usuarios expertos en el campo de estudio es muy importante.
+
+Los puntos que tratan en este tema son: 
+
+<br>
+
+- **Gobierno del dato, ética y leyes**: Criterios para el gobierno del dato comunes para todos los miembros de una organización. También se aportan elementos que faciliten saber que se está cumpliendo con criterios éticos de equidad y justicia en el tratamiento de los datos. Por último, se comentan las principales leyes que regulan la protección de datos en el uso de éstos, en el ámbito de los datos de personas físicas.
+- **Preparación de los datos**: Tratamientos para Estructurar, transformar y codificar.
+- **Métricas**: Creación de nuevas métricas (KPI e Insights) para detectar donde hay más o menos información. Se distinguirá entre:
+   - Métricas para medir la información sobre una variable objetivo 
+   - Métricas basadas en la propia distribución de las variables
+- **Calidad de los datos**: Técnicas avanzadas para detectar valores extremos, así como, analizar e imputar los valores faltantes.
+- **Muestreo**: Distintos métodos (aleatorios, estratificados y sistemáticos) con el objetivo de evaluar si las mejoras obtenidas en las métricas, se pueden generalizar al conjunto de la población, o bien, son sólo un caso particular de la muestra de datos utilizada.
+
+<br>
+
+## 1.2. Actividades
+
+<br>
+
+### 1.2.1. Actividad guiada
+
+<br>
+
+La actividad guiada versará sobre la preparación del conjunto de datos ya conocidos de la saga Star Wars, donde se aplicaran las distintas técnicas de preparación de datos.
+
+<br>
+
+## 1.2.2. Actividad grupal
+
+<br>
+
+La actividad grupal consiste en seleccionar un conujunto de datos donde y se apliquen las técnicas de prepración de los datos mostradas en el temario.
+
+<br>
+
+
+# Ideas clave
+
+<br>
+
+- Para gestionar los datos de forma eficiente, la organización debe adoptar un conjutno de reglas comunes que respeten el marco legal actual.
+- Para poder analizar los datos es necesario que previamente se realice la Selección de los datos, Estructuración, Transformación y Codificación.
+- Las métricas permiten medir la ganancia en la calidad de los datos, en cada ciclo de tratamiento de datos.
+- El tratamiento de valores extremos y valores faltantes requiere de técnicas analíticas avanzadas.
+- Las técnicas de muestreo permiten analizar en qué grado se puede generalizar (o no) los resultados estadísticos obtenidos.
+
+
+<br>
+
+```{r,child=c("modulo3_tema2_gd_02_gobierno.Rmd","modulo3_tema2_gd_03_preparacion.Rmd","modulo3_tema2_gd_04_metricas.Rmd","modulo3_tema2_gd_05_calidad.Rmd","modulo3_tema2_gd_06_muestreo.Rmd")}
+```
+
+<br>
+
+# Anexo: Readme 
+
+```{r, child='README.Rmd'}
+```

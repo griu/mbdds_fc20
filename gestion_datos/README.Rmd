@@ -1,0 +1,149 @@
+---
+title: 'README'
+author: "Ferran Carrascosa Mallafrè"
+output:
+  word_document:
+    reference_docx: www/template2.docx
+    toc: yes
+    toc_depth: 3
+  html_document:
+    toc: yes
+    toc_depth: '6'
+    df_print: paged
+subtitle: 'Tema: Gestión de datos'
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path="www/")
+library(knitr)
+library(pander)
+library(kableExtra)
+suppressPackageStartupMessages(library(tidyverse))
+panderOptions('table.split.table', Inf)
+panderOptions('decimal.mark', ",")
+panderOptions('big.mark', ".")
+panderOptions('missing', "")
+options(knitr.kable.NA = '')
+library(reticulate)
+use_condaenv("mbdds_rpy20")
+```
+
+# ANEXO: README DE R
+
+## Instalar paquetes
+
+Ver el anexo de del tema Programación en R.
+
+Adicionalmente hay que instalar los siguientes paquetes.
+
+```
+install.packages("moments")
+install.packages("DescTools")
+install.packages("stargazer")
+install.packages("caret")
+install.packages("VIM")
+install.packages("imputeR")
+install.packages("mice")
+```
+
+## Descargar datos
+
+<br>
+
+Se importan las librerías de python.
+
+<br>
+
+```{python}
+import requests
+import pandas as pd
+import numpy as np
+```
+
+<br>
+
+Se genera el script de Python para la descarga.
+
+<br>
+
+```
+def get_entity(entity = None, url_base = 'http://swapi.dev/api/'):
+# https://swapi.dev/documentation#root
+    
+    page_num = 1
+    results_acum = []
+    entity_list = ["films","people","planets","species","starships","vehicles"]
+    
+    if(entity not in entity_list):
+        page_num = None
+        print('Call a valid entity: ' + ','.join(entity_list))
+    
+    while(page_num is not None):
+        url = "".join([url_base, entity, '/?page=', str(page_num)])
+        rjson = requests.get(url).json()
+        results_acum = results_acum + rjson['results']
+        if(rjson['next'] is not None):
+            page_num = page_num + 1
+        else:
+            page_num = None
+            
+    if (len(results_acum) > 0):
+        results_df = pd.DataFrame(results_acum)
+    else:
+        results_df = entity_list
+    
+    return(results_df)
+
+```
+
+<br>
+
+Se obtiene la lista de entidades. 
+
+<br>
+
+```
+res = get_entity()
+res
+```
+
+<br>
+
+Ejecutamos los scripts para la descarga de los datos crudos de la API, sin ningún tipo de transformación.
+
+<br>
+
+```
+films_pd = get_entity("films")
+people_pd = get_entity("people")
+planets_pd = get_entity("planets")
+species_pd = get_entity("species")
+starships_pd = get_entity("starships")
+vehicles_pd = get_entity("vehicles")
+```
+
+<br>
+
+Se transforma de Pandas a Data frame de R y se guardan en un fichero de tipo RData. 
+
+<br>
+
+```
+films_df<- py$films_pd
+people_df <- py$people_pd
+planets_df <- py$planets_pd
+species_df <- py$species_pd
+starships_df <- py$starships_pd
+vehicles_df <- py$vehicles_pd
+
+dim(films_df)
+dim(people_df)
+dim(planets_df)
+dim(species_df)
+dim(starships_df)
+dim(vehicles_df)
+
+save(films_df,people_df,planets_df,species_df,starships_df,vehicles_df,file="www/swapi.RData")
+```
+
+<br>
