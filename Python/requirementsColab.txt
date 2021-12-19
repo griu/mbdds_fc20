@@ -21,3 +21,5 @@ jupyter==1.0.0
 jupyter-nbextensions-configurator==0.4.1
 jupytext==1.6.0
 nbconvert==5.6.1
+folium==0.2.1
+imgaug==0.2.5
