@@ -8,7 +8,7 @@ backcall==0.2.0
 beautifulsoup4==4.6.3
 bleach==3.2.1
 Brotli==1.0.9
-cachetools==4.1.1
+cachetools==4.2.1
 certifi==2020.6.20
 cffi==1.14.3
 chardet==3.0.4
@@ -30,6 +30,7 @@ eurostat==0.2.1
 facebook-business==9.0.3
 Flask==1.1.2
 Flask-Compress==1.7.0
+folium==0.2.1
 future==0.16.0
 google==3.0.0
 google-auth==1.21.1
@@ -37,7 +38,8 @@ hootsweet==0.7.1
 httplib2==0.19.0
 idna==2.10
 idna-ssl==1.1.0
-importlib-metadata==2.0.0
+imgaug==0.2.5
+importlib-metadata==4.4
 importlib-resources==5.1.0
 iniconfig==1.1.1
 ipykernel==4.10.1
@@ -84,7 +86,7 @@ pandocfilters==1.4.2
 parso==0.7.1
 pexpect==4.8.0
 pickleshare==0.7.5
-Pillow==7.1.0
+Pillow==6.2.2
 plotly==4.4.1
 pluggy==0.13.1
 ply==3.11
