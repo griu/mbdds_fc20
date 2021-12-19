@@ -78,13 +78,13 @@ resumen <- describir(paises_informe, colores_continente, etiquetas_paises)
 
 ## 1.5.1. DESCRIPTIVO BOXPLOT
 
-```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot PIB per càpita (Continente y año) - Escala Log10", fig.align="center",message=FALSE}
+```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot PIB per càpita (año) - Escala Log10", fig.align="center",message=FALSE}
 resumen[["pib_per_capita"]]
 ```
 
 Se observa como los valores de las cajas suben, es decir, el PIB cada vez es mayor. Aunque parece que las cajas, cada vez son mas anchas.
 
-```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot Esperanza de vida (Continente y año)", fig.align="center",message=FALSE}
+```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot Esperanza de vida (año)", fig.align="center",message=FALSE}
 resumen[["esperanza_de_vida"]]
 ```
 

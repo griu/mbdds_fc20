@@ -65,13 +65,13 @@ resumen <- describir(paises_informe, colores_continente, etiquetas_paises)
 
 ## 1.4.1. DESCRIPTIVO BOXPLOT
 
-```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot PIB per càpita (Continente y año) - Escala Log10", fig.align="center",message=FALSE}
+```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot PIB per càpita (año) - Escala Log10", fig.align="center",message=FALSE}
 # CREA UN GRAFICO DE BOX-PLOT PARA "pib_per_capita"
 resumen[["pib_per_capita"]]
 ```
 
 
-```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot Esperanza de vida (Continente y año)", fig.align="center",message=FALSE}
+```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot Esperanza de vida (año)", fig.align="center",message=FALSE}
 # CREA UN GRAFICO DE BOX-PLOT PARA "esperanza_de_vida"
 resumen[["esperanza_de_vida"]]
 ```
