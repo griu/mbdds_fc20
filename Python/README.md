@@ -51,7 +51,7 @@ conda info --envs
 ```
 cd mbdds_fc20/Python
 conda activate mbdds_rpy20
-python -m pip install -r requirementsColab.txt
+python -m pip install -r requirements.txt
 ```
 
 ### PUBLICAR EL KERNEL

@@ -37,7 +37,7 @@ En local puedes utilizar el mismo environment que has preparado en el **README D
 # Activar entorno
 conda activate mbdds_rpy20
 # Actualizar paquetes des de la carepta Python
-python -m pip install -r requirementsColab.txt  
+python -m pip install -r requirements.txt  
 # publicar el kernel
 python -m ipykernel install --user --name mbdds_rpy20 --display-name "mbdds_rpy20"
 # Abrir los notebooks
