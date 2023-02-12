@@ -226,7 +226,7 @@ result = json.load(urlopen(urlTempus3))
 
 <br>
 
-```{python}
+```{python warning=FALSE, message=FALSE}
 df=pd.DataFrame(result[0]["Data"]).sort_values(by=["Fecha"])
 #df.index = pd.to_datetime(np.array(df["Fecha"], dtype=np.datetime64)).to_period('D')
 df.index = pd.to_datetime(np.array(df["Fecha"], dtype=np.datetime64)).to_period('M')
@@ -271,8 +271,8 @@ Después de analizar el contenido json, se ha transformado a pandas filtrando qu
 
 <br>
 
-```{python}
-df = pd.DataFrame([x["Nombre"].split(",")+ [x["Data"][0]["Valor"]] for x in result if "Ambos sexos" in x["Nombre"] and "Total Nacional" in x["Nombre"]])
+```{python warning=FALSE, message=FALSE}
+df = pd.DataFrame([x["Nombre"].split(",")+ [x["Data"][0]["Valor"]] for x in result if "Ambos sexos" in x["Nombre"] and "TOTAL ESPAÑA" in x["Nombre"]])
 df.shape
 ```
 
@@ -306,7 +306,7 @@ El EUROSTAT trabaja para que exista un alto grado de armonización de los distin
 
 <br>
 
-Los datos de EUROSTAT, de forma temática en [Estadísticas por temas](https://ec.europa.eu/eurostat/data/browse-statistics-by-theme): Estadística regionales, Economía y finanzas...
+Los datos de EUROSTAT, de forma temática en [Estadísticas por temas](https://ec.europa.eu/eurostat/data/statistical-themes): Estadística regionales, Economía y finanzas...
 
 <br>
 
@@ -330,13 +330,13 @@ Otro apartado relevante, son los [ficheros de microdatos](https://ec.europa.eu/e
 
 <br>
 
-Finalmente, EUROSTAT también ofrece una [API REST](https://ec.europa.eu/eurostat/web/json-and-unicode-web-services/about-this-service). Esta API se puede llamar bajo la siguiente estructura:
+Finalmente, EUROSTAT también ofrece una [API REST](https://wikis.ec.europa.eu/display/EUROSTATHELP/API+Statistics+-+data+query). Esta API se puede llamar bajo la siguiente estructura:
 
 <br>
 
-![](www/REST_REQUEST_2_1.png){width=750px}
+![](www/image_10.png){width=750px}
 
-\<imagen1\>Imagen: La petición REST (Fuente: [EUROSTAT](https://ec.europa.eu/eurostat) ). (www/REST_REQUEST_2_1.png){width=750px}
+\<imagen1\>Imagen: La petición REST (Fuente: [EUROSTAT](https://ec.europa.eu/eurostat) ). (www/image_10.png){width=750px}
 
 <br>
 
@@ -344,7 +344,7 @@ Dónde la llamada:
 
 <br>
 
-- *{host_url}/rest/data/{version}/{format}/{lang}/{datasetCode}?{filters}*
+- *{host_url}/{service}/{version}/{response_type}/{datasetCode}?{format}&{lang}&{filters}*
 
 <br>
 
@@ -353,12 +353,12 @@ Con parámetros:
 <br>
 
 - host_url, service, version: Parte fija de la llamada.
-- format: Formato de retorno de los datos (json o unicode).
+- response_type: Actualmente sólo datos estadísticos (data/).
 - lang: Idioma de los metadatos (en/fr/de).
 - datasetCode: Código único identificados de la consulta de datos.
+- format: Formato de retorno de los datos (json o unicode).
+- lang: Idioma, opcional (&lang=EN).
 - filters: Ambito de la consulta. Cada consulta tiene un límite de 50 sub-indicadores por consulta.
-- precision: Número de decimales.
-- unit: Filtro de la unidad solicitada.
 
 <br>
 
@@ -368,21 +368,20 @@ Veamos un ejemplo de consulta del conjunto de datos "nama_10_gdp" para:
 
 - Periodo: 2010 y 2011.
 - Geo: European Union (28 países).
-- Precisión: 1 decimal.
 - Indicador de Contabilidad nacional: B1GQ – Gross domestic product at market prices.
 - Unidad : CP_MEUR - Precios correinte, Millon de Euros.
 
 <br>
 
 ```{python}
-urlEUROSTAT = "http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/nama_10_gdp?geo=EU28&precision=1&na_item=B1GQ&unit=CP_MEUR&time=2010&time=2011"
+urlEUROSTAT = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?format=JSON&freq=A&unit=CP_MEUR&na_item=B1GQ&geo=EU28&time=2010&time=2011"
 
 result = json.load(urlopen(urlEUROSTAT))
 
 print(result["dimension"])
 ```
 
-Como en el caso del INE, resulta difícil configurar una llamada. Para facilitar esta tarea, existe un [generador de consultas](https://ec.europa.eu/eurostat/web/json-and-unicode-web-services/getting-started/query-builder). El dato de entrada requerido es el nombre del dataset, que se puede buscar con el buscador de [Estadísticas por temas](https://ec.europa.eu/eurostat/data/browse-statistics-by-theme).
+Como en el caso del INE, resulta difícil configurar una llamada. Para facilitar esta tarea, existe un [generador de consultas](https://ec.europa.eu/eurostat/web/query-builder/getting-started/query-builder). El dato de entrada requerido es el nombre del dataset, que se puede buscar con el buscador de [Estadísticas por temas](https://ec.europa.eu/eurostat/databrowser/explore/all/all_themes?lang=en).
 
 <br>
 
@@ -416,7 +415,7 @@ toc_df[(toc_df.type=="dataset")&(toc_df.title.str.contains("cinema"))][['code']]
 
 <br>
 
-Busca en Google el código: *hlth_ds010*. El resultado es la página de Eurostat: [Frequency of going to cinema, live performances, cultural sites or attending live sport events by level of activity limitation, sex and age] (http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=hlth_ds010&lang=en)
+Busca en Google el código: *eurostat hlth_ds010*. El resultado es la página de Eurostat: [Frequency of going to cinema, live performances, cultural sites or attending live sport events by level of activity limitation, sex and age] (https://ec.europa.eu/eurostat/databrowser/view/hlth_ds010/default/table?lang=en)
 
 Una vez analizados los datos, filtramos la estadística del % de población por país que cumple:
 
@@ -433,8 +432,8 @@ df = eurostat.get_data_df("hlth_ds010", flags=False)
 
 paises = ['BE', 'DE','ES', 'FR','IT','UK', 'PT']
 
-cinema = df[(df.age=="Y16-29") & (df.frequenc=="GT12") & (df.sex=="T") & (df.lev_limit=="NONE") & (df.acl00=="AC521")][paises]
-cinema.index=["%Pob"]
+cinema = df[(df.age=="Y16-29") & (df.frequenc=="GT12") & (df.sex=="T") & (df.lev_limit=="NONE") & (df.acl00=="AC521") & df["geo\\TIME_PERIOD"].isin(paises)]
+cinema.index.names=["%Pob"]
 
 cinema.plot.bar(title='% van al cine más de 12 veces al año')
 
@@ -512,7 +511,7 @@ La serie va de 1996 hasta 2018. Gráficamente.
 <br>
 
 ```{python plot4, message=FALSE, warning=FALSE, fig.cap="% de gasto en I+D sobre el PIB en España (fuente: elaboración propia con datos de WORLD BANK DATA) (plot4-1.png)"}
-ImasD.plot.line();
+ImasD.plot.line()
 ```
 
 <br>
