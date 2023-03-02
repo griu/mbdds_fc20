@@ -268,8 +268,7 @@ Se pide generar un bot, que almacene en MongoDB distintos conjuntos de datos obt
 
 <br>
 
-```{r,child=c("modulo3_tema1_dd_02_oficiales.Rmd")}
-```
+Ver notebook de python: modulo3_tema1_dd_02_oficiales.ipynb .
 
 <br>
 
