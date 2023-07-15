@@ -2,6 +2,7 @@
 title: "Tema: Programación en R"
 author: "Ferran Carrascosa Mallafrè"
 date: "11/10/2020"
+always_allow_html: true
 output:
   powerpoint_presentation:
      reference_doc: www/temp.pptx
