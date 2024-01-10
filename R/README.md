@@ -38,4 +38,5 @@ install.packages("mosaicData")
 install.packages("datos")
 install.packages("flextable")
 install.packages("gganimate")
+install.packages("plotly")
 ```
