@@ -1,7 +1,6 @@
 cssselect
 eurostat==0.2.1
 facebook-business==9.0.3
-httplib2==0.19.0
 lxml
 plotly
 requests
