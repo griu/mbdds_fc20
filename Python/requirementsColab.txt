@@ -53,7 +53,7 @@ jupytext==1.6.0
 kiwisolver==1.2.0
 lxml
 MarkupSafe==1.1.1
-matplotlib
+matplotlib==3.7.3
 mistune==0.8.4
 more-itertools==8.7.0
 multidict==5.1.0
